@@ -92,7 +92,7 @@ Format H: {"intent": "support", "reply": "The answer is..."}`;
         // Handle the actual booking
         if (intent === 'book_appointment' && parsed.bookingData) {
           const { name, email, date, time } = parsed.bookingData;
-          const dateTime = new Date(`${date}T${time}`);
+          const dateTime = new Date(`${date}T${time}:00+05:30`);
           
           await Appointment.create({
             customerName: name,
