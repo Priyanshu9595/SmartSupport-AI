@@ -1,0 +1,19 @@
+ReferenceError: historyStr is not defined
+    at handleChatbotMessage (file:///C:/Users/priya.LAPTOP-EG20JU6U/OneDrive/Desktop/SmartSupport%20AI/backend/src/controllers/chatbotController.js:81:49)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+
+Error: 400 {"error":{"message":"The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.","type":"invalid_request_error","code":"model_decommissioned"}}
+    at APIError.generate (file:///C:/Users/priya.LAPTOP-EG20JU6U/OneDrive/Desktop/SmartSupport%20AI/backend/node_modules/groq-sdk/core/error.mjs:36:20)
+    at Groq.makeStatusError (file:///C:/Users/priya.LAPTOP-EG20JU6U/OneDrive/Desktop/SmartSupport%20AI/backend/node_modules/groq-sdk/client.mjs:135:32)
+    at Groq.makeRequest (file:///C:/Users/priya.LAPTOP-EG20JU6U/OneDrive/Desktop/SmartSupport%20AI/backend/node_modules/groq-sdk/client.mjs:277:30)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async handleChatbotMessage (file:///C:/Users/priya.LAPTOP-EG20JU6U/OneDrive/Desktop/SmartSupport%20AI/backend/src/controllers/chatbotController.js:79:32)
+
+ValidationError: Appointment validation failed: status: `Scheduled` is not a valid enum value for path `status`.
+    at model.validate (C:\Users\priya.LAPTOP-EG20JU6U\OneDrive\Desktop\SmartSupport AI\backend\node_modules\mongoose\lib\document.js:2864:36)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async model.$__save (C:\Users\priya.LAPTOP-EG20JU6U\OneDrive\Desktop\SmartSupport AI\backend\node_modules\mongoose\lib\model.js:399:7)
+    at async maybeTracedSave (C:\Users\priya.LAPTOP-EG20JU6U\OneDrive\Desktop\SmartSupport AI\backend\node_modules\mongoose\lib\model.js:675:7)
+    at async model.create (C:\Users\priya.LAPTOP-EG20JU6U\OneDrive\Desktop\SmartSupport AI\backend\node_modules\mongoose\lib\model.js:2763:5)
+    at async handleChatbotMessage (file:///C:/Users/priya.LAPTOP-EG20JU6U/OneDrive/Desktop/SmartSupport%20AI/backend/src/controllers/chatbotController.js:97:11)
+

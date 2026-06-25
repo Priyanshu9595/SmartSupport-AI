@@ -1,0 +1,77 @@
+import Appointment from '../models/Appointment.js';
+import { sendEmail } from '../utils/email.js';
+
+export const createAppointment = async (req, res) => {
+  try {
+    const meetingLink = `https://meet.google.com/${Math.random().toString(36).substring(2, 5)}-${Math.random().toString(36).substring(2, 6)}-${Math.random().toString(36).substring(2, 5)}`;
+    
+    const appointment = await Appointment.create({
+      ...req.body,
+      meetingLink,
+      status: req.body.status || 'Pending'
+    });
+
+    // Send instant confirmation email
+    const emailSubject = 'Booking Confirmation - SmartSupport AI';
+    const emailBody = `Hi ${appointment.customerName},\n\nWe have received your booking request for a ${appointment.serviceType || 'Service'}.\n\nDate & Time: ${new Date(appointment.dateTime).toLocaleString()}\nMeeting Link: ${appointment.meetingLink}\n\nOur team will review this and confirm shortly. You will receive a reminder 24 hours before the meeting.\n\nBest,\nSupportFlow AI Team`;
+    
+    sendEmail(appointment.email, emailSubject, emailBody).catch(e => console.error('Failed to send booking email:', e));
+
+    res.status(201).json(appointment);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+export const getAppointments = async (req, res) => {
+  try {
+    const appointments = await Appointment.find().sort('date time');
+    res.json(appointments);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const updateAppointment = async (req, res) => {
+  try {
+    const updateData = {};
+    if (req.body.status) updateData.status = req.body.status;
+    if (req.body.dateTime) updateData.dateTime = req.body.dateTime;
+
+    const appointment = await Appointment.findByIdAndUpdate(
+      req.params.id, 
+      updateData, 
+      { new: true }
+    );
+    if (!appointment) return res.status(404).json({ message: 'Appointment not found' });
+    res.json(appointment);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+export const sendManualReminder = async (req, res) => {
+  try {
+    const appointment = await Appointment.findById(req.params.id);
+    if (!appointment) return res.status(404).json({ message: 'Appointment not found' });
+    
+    const emailSubject = 'Reminder: Your Appointment with SmartSupport AI';
+    const emailBody = `Hi ${appointment.customerName},\n\nThis is a manual reminder for your upcoming appointment.\n\nDate & Time: ${new Date(appointment.dateTime).toLocaleString()}\nMeeting Link: ${appointment.meetingLink}\n\nBest,\nSupportFlow AI Team`;
+    
+    await sendEmail(appointment.email, emailSubject, emailBody);
+    
+    res.json({ message: 'Reminder sent successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const deleteAppointment = async (req, res) => {
+  try {
+    const appointment = await Appointment.findByIdAndDelete(req.params.id);
+    if (!appointment) return res.status(404).json({ message: 'Appointment not found' });
+    res.json({ message: 'Appointment removed' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
