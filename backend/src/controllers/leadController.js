@@ -1,8 +1,17 @@
 import Lead from '../models/Lead.js';
+import { sendEmail } from '../utils/email.js';
 
 export const createLead = async (req, res) => {
   try {
     const lead = await Lead.create(req.body);
+    
+    // Send confirmation email
+    if (req.body.email) {
+      const emailSubject = 'Thank you for your inquiry - SupportFlow AI';
+      const emailBody = `Hi ${req.body.name || 'there'},\n\nThank you for reaching out to us. We have received your inquiry and our team will get back to you shortly.\n\nBest,\nSupportFlow AI Team`;
+      sendEmail(req.body.email, emailSubject, emailBody).catch(e => console.error('Failed to send inquiry email:', e));
+    }
+
     res.status(201).json(lead);
   } catch (error) {
     res.status(400).json({ message: error.message });
