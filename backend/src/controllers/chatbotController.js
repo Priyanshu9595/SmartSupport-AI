@@ -5,6 +5,7 @@ import Groq from 'groq-sdk';
 import Appointment from '../models/Appointment.js';
 import Lead from '../models/Lead.js';
 import Ticket from '../models/Ticket.js';
+import { sendEmail } from '../utils/email.js';
 
 export const handleChatbotMessage = async (req, res) => {
   try {
@@ -89,18 +90,24 @@ Format H: {"intent": "support", "reply": "The answer is..."}`;
         reply = parsed.reply;
         if (parsed.intent) intent = parsed.intent;
 
-        // Handle the actual booking
         if (intent === 'book_appointment' && parsed.bookingData) {
           const { name, email, date, time } = parsed.bookingData;
           const dateTime = new Date(`${date}T${time}:00+05:30`);
           
+          const meetingLink = `https://meet.google.com/mock-${Math.random().toString(36).substr(2, 6)}`;
           await Appointment.create({
             customerName: name,
             email: email,
             dateTime: dateTime,
-            meetingLink: `https://meet.google.com/mock-${Math.random().toString(36).substr(2, 6)}`,
+            meetingLink: meetingLink,
             status: 'Pending'
           });
+
+          // Send instant confirmation email
+          const emailSubject = 'Booking Confirmation - SmartSupport AI';
+          const emailBody = `Hi ${name},\n\nWe have received your booking request via our Virtual Assistant.\n\nDate & Time: ${dateTime.toLocaleString()}\nMeeting Link: ${meetingLink}\n\nOur team will review this and confirm shortly. You will receive a reminder 24 hours before the meeting.\n\nBest,\nSupportFlow AI Team`;
+          
+          sendEmail(email, emailSubject, emailBody).catch(e => console.error('Failed to send booking email from chatbot:', e));
         }
 
         // Handle the actual lead capture
