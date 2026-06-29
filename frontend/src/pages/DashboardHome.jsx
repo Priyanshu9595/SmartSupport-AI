@@ -95,7 +95,7 @@ const DashboardHome = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <StatCard title="Total Tickets" value={stats.totalTickets} icon={Ticket} colorClass="text-slate-100" bgClass="bg-slate-900" />
+        <StatCard title="Total Tickets" value={stats.totalTickets} icon={Ticket} colorClass="text-slate-400" bgClass="bg-slate-900" />
         <StatCard title="Open Tickets" value={stats.openTickets} icon={Activity} colorClass="text-blue-400" bgClass="bg-slate-900" />
         <StatCard title="Resolved Tickets" value={stats.resolvedTickets} icon={CheckCircle2} colorClass="text-emerald-400" bgClass="bg-slate-900" />
         <StatCard title="Total Leads" value={stats.newLeads} icon={Users} colorClass="text-amber-400" bgClass="bg-slate-900" />
