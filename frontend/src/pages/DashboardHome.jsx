@@ -15,6 +15,8 @@ const DashboardHome = () => {
   });
 
   const [chartData, setChartData] = useState([]);
+  const [timeRange, setTimeRange] = useState('Last 7 Days');
+  const [rawTickets, setRawTickets] = useState([]);
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -29,27 +31,7 @@ const DashboardHome = () => {
         const tickets = ticketsRes.data;
         const appts = apptRes.data;
         
-        // Generate chart data for the last 7 days
-        const last7Days = Array.from({length: 7}, (_, i) => {
-          const d = new Date();
-          d.setDate(d.getDate() - (6 - i));
-          return d;
-        });
-
-        const dynamicChartData = last7Days.map(date => {
-          const dateString = date.toISOString().split('T')[0];
-          const count = tickets.filter(t => {
-            if (!t.createdAt) return false;
-            return new Date(t.createdAt).toISOString().split('T')[0] === dateString;
-          }).length;
-          
-          return {
-            name: date.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata', weekday: 'short' }),
-            tickets: count
-          };
-        });
-
-        setChartData(dynamicChartData);
+        setRawTickets(tickets);
 
         setStats({
           totalTickets: tickets.length,
@@ -67,6 +49,42 @@ const DashboardHome = () => {
     fetchStats();
   }, []);
 
+  useEffect(() => {
+    if (!rawTickets.length) return;
+
+    let dateArray = [];
+    if (timeRange === 'Last 7 Days') {
+      dateArray = Array.from({length: 7}, (_, i) => {
+        const d = new Date();
+        d.setDate(d.getDate() - (6 - i));
+        return d;
+      });
+    } else if (timeRange === 'This Month') {
+      dateArray = Array.from({length: 30}, (_, i) => {
+        const d = new Date();
+        d.setDate(d.getDate() - (29 - i));
+        return d;
+      });
+    }
+
+    const dynamicChartData = dateArray.map(date => {
+      const dateString = date.toISOString().split('T')[0];
+      const count = rawTickets.filter(t => {
+        if (!t.createdAt) return false;
+        return new Date(t.createdAt).toISOString().split('T')[0] === dateString;
+      }).length;
+      
+      return {
+        name: timeRange === 'Last 7 Days' 
+          ? date.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata', weekday: 'short' })
+          : date.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata', day: 'numeric', month: 'short' }),
+        tickets: count
+      };
+    });
+
+    setChartData(dynamicChartData);
+  }, [timeRange, rawTickets]);
+
   const StatCard = ({ title, value, icon: Icon, colorClass, bgClass }) => (
     <div className={`p-6 rounded-2xl shadow-sm border border-slate-800 ${bgClass} transition-all duration-300 hover:shadow-md hover:-translate-y-1`}>
       <div className="flex items-center justify-between">
@@ -83,7 +101,7 @@ const DashboardHome = () => {
 
   return (
     <div className="h-full flex flex-col max-w-7xl mx-auto w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div className="mb-8 flex items-center justify-between">
+      <div className="mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <h2 className="text-3xl font-extrabold text-white tracking-tight">Dashboard Overview</h2>
           <p className="text-slate-400 mt-2">Welcome back! Here's what's happening with your platform today.</p>
@@ -108,9 +126,13 @@ const DashboardHome = () => {
         <div className="lg:col-span-2 bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-800 min-h-[300px] flex flex-col">
            <div className="mb-6 flex justify-between items-center">
              <h3 className="text-lg font-bold text-slate-100">Weekly Ticket Volume</h3>
-             <select className="bg-slate-950 border border-slate-800 text-slate-300 text-xs font-semibold rounded-lg px-3 py-1.5 outline-none focus:ring-2 focus:ring-blue-500">
-                <option>Last 7 Days</option>
-                <option>This Month</option>
+             <select 
+               value={timeRange} 
+               onChange={(e) => setTimeRange(e.target.value)}
+               className="bg-slate-950 border border-slate-800 text-slate-300 text-xs font-semibold rounded-lg px-3 py-1.5 outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+             >
+                <option value="Last 7 Days">Last 7 Days</option>
+                <option value="This Month">This Month</option>
              </select>
            </div>
            <div className="flex-1 w-full h-[250px]">
@@ -122,12 +144,13 @@ const DashboardHome = () => {
                      <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
                    </linearGradient>
                  </defs>
-                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#334155" />
                  <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12}} dy={10} />
                  <YAxis axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12}} />
                  <Tooltip 
-                   contentStyle={{ borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
-                   cursor={{ stroke: '#cbd5e1', strokeWidth: 1, strokeDasharray: '4 4' }}
+                   contentStyle={{ backgroundColor: '#0f172a', borderColor: '#1e293b', color: '#f8fafc', borderRadius: '12px', padding: '12px' }}
+                   itemStyle={{ color: '#3b82f6', fontWeight: 'bold' }}
+                   cursor={{ stroke: '#475569', strokeWidth: 1, strokeDasharray: '4 4' }}
                  />
                  <Area type="monotone" dataKey="tickets" stroke="#3b82f6" strokeWidth={3} fillOpacity={1} fill="url(#colorTickets)" />
                </AreaChart>
