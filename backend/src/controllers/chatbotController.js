@@ -57,9 +57,11 @@ You are chatting with a user. The chat history is provided in the messages above
    - Read chat history. If missing, reply politely asking for ONLY the missing info. Return intent: "ticket_in_progress".
    - If you have ALL 4 details, you MUST IMMEDIATELY return intent: "create_ticket". Include "ticketData".
 4. If the user wants to CHECK TICKET STATUS, ask for their Ticket ID. Return intent: "check_ticket_status". If they provide the ID, include it in the JSON as "ticketId".
-5. If the user asks a free text question:
-   - Level 2: Search the KNOWLEDGE BASE context above. If you find the exact answer, return intent: "support" and the answer.
-   - Level 3: If the exact answer is NOT in the KB, DO NOT guess or hallucinate. You MUST politely say you don't have the exact answer and ask them to provide their Name, Email, Category, and Issue to create a support ticket. Return intent: "ticket_in_progress".
+5. If the user asks a general conversational question (e.g., greetings like "Hi", asking your name, asking how you can help, etc.):
+   - Answer politely and briefly in a helpful tone. You are SupportFlow AI, a virtual assistant. You can help them book appointments, answer FAQs, or create support tickets. Return intent: "support" and your answer.
+6. If the user asks a specific product or support question:
+   - First, search the KNOWLEDGE BASE context above. If you find a relevant answer, return intent: "support" and the answer.
+   - If the specific answer is NOT in the KB, DO NOT guess or hallucinate. Politely say you don't have the exact answer and ask them to provide their Name, Email, Category, and Issue to create a support ticket. Return intent: "ticket_in_progress".
 
 CRITICAL: You must ALWAYS return ONLY a valid JSON object matching one of these formats:
 Format A: {"intent": "booking_in_progress", "reply": "What time would you like to book?"}
@@ -105,7 +107,7 @@ Format H: {"intent": "support", "reply": "The answer is..."}`;
 
           // Send instant confirmation email
           const emailSubject = 'Booking Confirmation - SmartSupport AI';
-          const emailBody = `Hi ${name},\n\nWe have received your booking request via our Virtual Assistant.\n\nDate & Time: ${dateTime.toLocaleString()}\nMeeting Link: ${meetingLink}\n\nOur team will review this and confirm shortly. You will receive a reminder 24 hours before the meeting.\n\nBest,\nSupportFlow AI Team`;
+          const emailBody = `Hi ${name},\n\nWe have received your booking request via our Virtual Assistant.\n\nDate & Time: ${dateTime.toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}\nMeeting Link: ${meetingLink}\n\nOur team will review this and confirm shortly. You will receive a reminder 24 hours before the meeting.\n\nBest,\nSupportFlow AI Team`;
           
           sendEmail(email, emailSubject, emailBody).catch(e => console.error('Failed to send booking email from chatbot:', e));
         }
@@ -153,7 +155,6 @@ Format H: {"intent": "support", "reply": "The answer is..."}`;
 
       } catch (aiError) {
         console.error("Groq API Error (Falling back to Offline AI):", aiError.message);
-        import('fs').then(fs => fs.appendFileSync('groq_error.log', aiError.stack + '\n\n'));
         // Fallback KB Search
         const kbArticles = await KnowledgeBase.find({ status: 'published' });
         let matchedArticle = null;

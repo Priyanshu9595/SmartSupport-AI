@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
 import ChatbotWidget from '../components/ChatbotWidget';
 import api from '../utils/api';
 import { Send, Mail, Phone, MapPin } from 'lucide-react';
@@ -11,21 +12,38 @@ const Contact = () => {
     message: ''
   });
   const [status, setStatus] = useState('');
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      setFormData(prev => ({ ...prev, name: user.name, email: user.email }));
+    }
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('submitting');
     try {
-      // By default, submitting an inquiry creates a Support Ticket
-      await api.post('/tickets', {
-        customerName: formData.name,
-        customerEmail: formData.email,
-        subject: `General Inquiry from ${formData.name}`,
-        description: `Phone: ${formData.phone}\n\nMessage:\n${formData.message}`,
-        source: 'website'
+      const response = await fetch(import.meta.env.VITE_FORMSPREE_URL || 'https://formspree.io/f/YOUR_FORM_ID', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message
+        })
       });
-      setStatus('success');
-      setFormData({ name: '', email: '', phone: '', message: '' });
+
+      if (response.ok) {
+        setStatus('success');
+        setFormData({ name: '', email: '', phone: '', message: '' });
+      } else {
+        throw new Error('Form submission failed');
+      }
     } catch (error) {
       console.error('Failed to submit inquiry:', error);
       setStatus('error');
@@ -114,9 +132,10 @@ const Contact = () => {
                     <input 
                       type="email" 
                       required 
+                      readOnly={!!user}
                       value={formData.email}
                       onChange={(e) => setFormData({...formData, email: e.target.value})}
-                      className="w-full bg-white/50 border border-white/60 backdrop-blur-sm rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all shadow-inner"
+                      className={`w-full bg-white/50 border border-white/60 backdrop-blur-sm rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all shadow-inner ${user ? 'cursor-not-allowed opacity-70 text-slate-500' : ''}`}
                       placeholder="john@example.com"
                     />
                   </div>

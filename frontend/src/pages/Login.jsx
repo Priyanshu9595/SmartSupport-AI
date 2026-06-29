@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
@@ -8,6 +8,8 @@ const Login = () => {
   const [error, setError] = useState('');
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const isAdminLogin = searchParams.get('type') === 'admin';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,7 +17,7 @@ const Login = () => {
     try {
       const user = await login(email, password);
       if (user.role === 'Customer') {
-        navigate('/my-profile');
+        navigate('/');
       } else {
         navigate('/dashboard');
       }
@@ -72,11 +74,13 @@ const Login = () => {
             </div>
           </form>
           
-          <div className="mt-6 text-center">
-            <p className="text-sm text-slate-600">
-              Don't have an account? <Link to="/register" className="font-medium text-blue-600 hover:text-blue-500">Register here</Link>
-            </p>
-          </div>
+          {!isAdminLogin && (
+            <div className="mt-6 text-center">
+              <p className="text-sm text-slate-600">
+                Don't have an account? <Link to="/register" className="font-medium text-blue-600 hover:text-blue-500">Register here</Link>
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>

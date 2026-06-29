@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import api from '../utils/api';
 import { Calendar, Clock, Video } from 'lucide-react';
 
@@ -16,6 +17,13 @@ const BookAppointment = () => {
   const [successData, setSuccessData] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      setFormData(prev => ({ ...prev, name: user.name, email: user.email }));
+    }
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -62,7 +70,7 @@ const BookAppointment = () => {
           <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 text-left mb-6 space-y-3">
             <div className="flex items-center text-sm text-slate-700">
               <Clock size={16} className="text-blue-600 mr-3" />
-              <span className="font-semibold">{new Date(successData.dateTime).toLocaleString()}</span>
+              <span className="font-semibold">{new Date(successData.dateTime).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}</span>
             </div>
             <div className="flex items-center text-sm text-slate-700">
               <Video size={16} className="text-blue-600 mr-3" />
@@ -98,7 +106,7 @@ const BookAppointment = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-1.5">Email Address</label>
-                <input type="email" required value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full px-4 py-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="jane@company.com" />
+                <input type="email" required readOnly={!!user} value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className={`w-full px-4 py-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all ${user ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''}`} placeholder="jane@company.com" />
               </div>
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-1.5">Phone Number</label>

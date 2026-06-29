@@ -10,6 +10,10 @@ const generateToken = (id) => {
 export const registerUser = async (req, res) => {
   const { name, email, password, role } = req.body;
 
+  if (role === 'Admin') {
+    return res.status(403).json({ message: 'Registration as Admin is restricted.' });
+  }
+
   try {
     const userExists = await User.findOne({ email });
 

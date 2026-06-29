@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import api from '../utils/api';
 
 const CustomerTicketForm = () => {
@@ -14,6 +15,13 @@ const CustomerTicketForm = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      setFormData(prev => ({ ...prev, customerName: user.name, customerEmail: user.email }));
+    }
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,7 +73,7 @@ const CustomerTicketForm = () => {
             </div>
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
-              <input type="email" required value={formData.customerEmail} onChange={(e) => setFormData({...formData, customerEmail: e.target.value})} className="w-full px-4 py-2 bg-white/50 border border-white/60 backdrop-blur-sm rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all shadow-inner" placeholder="john@example.com" />
+              <input type="email" required readOnly={!!user} value={formData.customerEmail} onChange={(e) => setFormData({...formData, customerEmail: e.target.value})} className={`w-full px-4 py-2 bg-white/50 border border-white/60 backdrop-blur-sm rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all shadow-inner ${user ? 'cursor-not-allowed opacity-70 text-slate-500' : ''}`} placeholder="john@example.com" />
             </div>
           </div>
           

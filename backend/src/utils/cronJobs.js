@@ -46,7 +46,7 @@ export const initCronJobs = () => {
             from: process.env.EMAIL_USER,
             to: apt.email,
             subject: 'Reminder: Your Appointment is Tomorrow',
-            text: `Hi ${apt.customerName},\n\nThis is a reminder for your upcoming appointment on ${new Date(apt.dateTime).toLocaleString()}.\n\nMeeting Link: ${apt.meetingLink}\n\nBest,\nSupportFlow AI Team`
+            text: `Hi ${apt.customerName},\n\nThis is a reminder for your upcoming appointment on ${new Date(apt.dateTime).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}.\n\nMeeting Link: ${apt.meetingLink}\n\nBest,\nSupportFlow AI Team`
           });
           console.log(`[CRON] Sent T-24h Email Reminder to ${apt.email}`);
         } catch (err) {

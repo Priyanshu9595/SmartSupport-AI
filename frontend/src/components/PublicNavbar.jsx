@@ -55,11 +55,11 @@ const PublicNavbar = () => {
                 {/* Dropdown Menu */}
                 {dropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-slate-100 py-1 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2">
-                    <Link to="/login" className="block px-4 py-3 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium transition-colors">
+                    <Link to="/login?type=client" className="block px-4 py-3 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium transition-colors">
                       Login as a Client
                     </Link>
                     <div className="border-t border-slate-100"></div>
-                    <Link to="/login" className="block px-4 py-3 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium transition-colors">
+                    <Link to="/login?type=admin" className="block px-4 py-3 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium transition-colors">
                       Login as an Admin
                     </Link>
                   </div>
@@ -89,8 +89,8 @@ const PublicNavbar = () => {
           
           {!user && (
             <div className="pt-4 pb-2 border-t border-slate-100 mt-2">
-              <Link to="/login" className="block px-3 py-2 rounded-md text-base font-bold text-blue-600 hover:bg-blue-50">Login as Client</Link>
-              <Link to="/login" className="block px-3 py-2 rounded-md text-base font-bold text-blue-600 hover:bg-blue-50">Login as Admin</Link>
+              <Link to="/login?type=client" className="block px-3 py-2 rounded-md text-base font-bold text-blue-600 hover:bg-blue-50">Login as Client</Link>
+              <Link to="/login?type=admin" className="block px-3 py-2 rounded-md text-base font-bold text-blue-600 hover:bg-blue-50">Login as Admin</Link>
             </div>
           )}
         </div>
