@@ -74,7 +74,7 @@ const DashboardHome = () => {
           <p className="text-slate-400 text-sm font-semibold mb-1">{title}</p>
           <h3 className={`text-3xl font-extrabold ${colorClass}`}>{value}</h3>
         </div>
-        <div className={`p-3 rounded-xl ${colorClass.replace('text-', 'bg-').replace('600', '100')} ${colorClass}`}>
+        <div className={`p-3 rounded-xl ${colorClass.replace('text-', 'bg-').replace('400', '900/30')} ${colorClass}`}>
           <Icon size={24} />
         </div>
       </div>
@@ -95,13 +95,13 @@ const DashboardHome = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <StatCard title="Total Tickets" value={stats.totalTickets} icon={Ticket} colorClass="text-slate-300" bgClass="bg-slate-900" />
-        <StatCard title="Open Tickets" value={stats.openTickets} icon={Activity} colorClass="text-blue-600" bgClass="bg-blue-50/50" />
-        <StatCard title="Resolved Tickets" value={stats.resolvedTickets} icon={CheckCircle2} colorClass="text-emerald-600" bgClass="bg-emerald-50/50" />
-        <StatCard title="Total Leads" value={stats.newLeads} icon={Users} colorClass="text-amber-600" bgClass="bg-amber-50/50" />
-        <StatCard title="Total Appointments" value={stats.appointments} icon={Calendar} colorClass="text-purple-600" bgClass="bg-purple-50/50" />
-        <StatCard title="Pending Appointments" value={stats.pendingAppointments} icon={Clock} colorClass="text-indigo-600" bgClass="bg-indigo-50/50" />
-        <StatCard title="Knowledge Base" value={stats.faqCount} icon={BookOpen} colorClass="text-teal-600" bgClass="bg-teal-50/50" />
+        <StatCard title="Total Tickets" value={stats.totalTickets} icon={Ticket} colorClass="text-slate-100" bgClass="bg-slate-900" />
+        <StatCard title="Open Tickets" value={stats.openTickets} icon={Activity} colorClass="text-blue-400" bgClass="bg-slate-900" />
+        <StatCard title="Resolved Tickets" value={stats.resolvedTickets} icon={CheckCircle2} colorClass="text-emerald-400" bgClass="bg-slate-900" />
+        <StatCard title="Total Leads" value={stats.newLeads} icon={Users} colorClass="text-amber-400" bgClass="bg-slate-900" />
+        <StatCard title="Total Appointments" value={stats.appointments} icon={Calendar} colorClass="text-purple-400" bgClass="bg-slate-900" />
+        <StatCard title="Pending Appointments" value={stats.pendingAppointments} icon={Clock} colorClass="text-indigo-400" bgClass="bg-slate-900" />
+        <StatCard title="Knowledge Base" value={stats.faqCount} icon={BookOpen} colorClass="text-teal-400" bgClass="bg-slate-900" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
