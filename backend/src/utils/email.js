@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
 export const sendEmail = async (to, subject, text) => {
   try {
     const info = await transporter.sendMail({
-      from: `"SupportFlow AI" <${process.env.EMAIL_USER}>`,
+      from: `"SupportFlow AI" <${process.env.SENDER_EMAIL || 'priyanshuraj9595@gmail.com'}>`,
       to,
       subject,
       text,

@@ -26,48 +26,48 @@ app.use(express.urlencoded({ extended: true }));
 import User from './src/models/User.js';
 
 // Database Connection
-connectDB();
-
-// Ensure Default Admin Exists
-const seedAdmin = async () => {
-  try {
-    const adminExists = await User.findOne({ email: 'admin@admin.co.in' });
-    if (!adminExists) {
-      await User.create({
-        name: 'System Admin',
-        email: 'admin@admin.co.in',
-        password: 'admin123',
-        role: 'Admin'
-      });
-      console.log('Default Admin user (admin@admin.co.in) created successfully.');
+connectDB().then(() => {
+  // Ensure Default Admin Exists
+  const seedAdmin = async () => {
+    try {
+      const adminExists = await User.findOne({ email: 'admin@admin.co.in' });
+      if (!adminExists) {
+        await User.create({
+          name: 'System Admin',
+          email: 'admin@admin.co.in',
+          password: 'admin123',
+          role: 'Admin'
+        });
+        console.log('Default Admin user (admin@admin.co.in) created successfully.');
+      }
+    } catch (error) {
+      console.error('Error seeding admin:', error);
     }
-  } catch (error) {
-    console.error('Error seeding admin:', error);
-  }
-};
-seedAdmin();
-// Test Route
-app.get('/api/health', (req, res) => {
-  res.status(200).json({ status: 'OK', message: 'SupportFlow AI Backend is running' });
-});
+  };
+  seedAdmin();
 
-// Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/tickets', ticketRoutes);
-app.use('/api/kb', kbRoutes);
-app.use('/api/faq-suggestions', faqRoutes);
-app.use('/api/leads', leadRoutes);
-app.use('/api/appointments', appointmentRoutes);
-app.use('/api/settings', settingsRoutes);
-app.use('/api/chatbot', chatbotRoutes);
-app.use('/api/notifications', notificationRoutes);
+  // Test Route
+  app.get('/api/health', (req, res) => {
+    res.status(200).json({ status: 'OK', message: 'SupportFlow AI Backend is running' });
+  });
 
-// Start Background Jobs
-initCronJobs();
+  // Routes
+  app.use('/api/auth', authRoutes);
+  app.use('/api/tickets', ticketRoutes);
+  app.use('/api/kb', kbRoutes);
+  app.use('/api/faq-suggestions', faqRoutes);
+  app.use('/api/leads', leadRoutes);
+  app.use('/api/appointments', appointmentRoutes);
+  app.use('/api/settings', settingsRoutes);
+  app.use('/api/chatbot', chatbotRoutes);
+  app.use('/api/notifications', notificationRoutes);
 
-// Start Server
-const PORT = process.env.PORT || 5000;
+  // Start Background Jobs
+  initCronJobs();
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  // Start Server
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 });

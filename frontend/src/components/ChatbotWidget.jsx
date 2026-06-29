@@ -4,9 +4,10 @@ import api from '../utils/api';
 
 const ChatbotWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([{ role: 'model', text: 'Hi! How can I help you today?', intent: 'support' }]);
+  const [messages, setMessages] = useState([{ role: 'model', text: "Hi there! 👋 I'm Sarah from SupportFlow. How can I help you today?", intent: 'support' }]);
   const [input, setInput] = useState('');
   const [sessionId, setSessionId] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
 
 
@@ -40,12 +41,15 @@ const ChatbotWidget = () => {
     const userMessage = input.trim();
     setInput('');
     setMessages(prev => [...prev, { role: 'user', text: userMessage }]);
+    setIsTyping(true);
 
     try {
       const { data } = await api.post('/chatbot/message', { sessionId, message: userMessage });
       setMessages(prev => [...prev, { role: 'model', text: data.reply, intent: data.intent }]);
     } catch (error) {
       setMessages(prev => [...prev, { role: 'model', text: 'Sorry, I encountered an error. Please try again.', intent: 'support' }]);
+    } finally {
+      setIsTyping(false);
     }
   };
 
@@ -57,9 +61,15 @@ const ChatbotWidget = () => {
         <div className="bg-white w-80 sm:w-96 rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col h-[550px] mb-4 transition-all duration-300">
           {/* Header */}
           <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4 flex justify-between items-center shadow-md z-10">
-            <div>
-              <h3 className="font-bold text-lg tracking-tight">Support AI</h3>
-              <p className="text-blue-100 text-xs">Typically replies instantly</p>
+            <div className="flex items-center space-x-3">
+              <div className="relative">
+                <img src="https://i.pravatar.cc/150?img=47" alt="Sarah" className="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm" />
+                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-400 border-2 border-indigo-600 rounded-full"></span>
+              </div>
+              <div>
+                <h3 className="font-bold text-lg tracking-tight leading-tight">Sarah</h3>
+                <p className="text-blue-100 text-xs flex items-center"><span className="w-1.5 h-1.5 bg-green-400 rounded-full mr-1.5 animate-pulse"></span> Online - Replies instantly</p>
+              </div>
             </div>
             <button onClick={toggleChat} className="text-blue-100 hover:text-white transition bg-white/10 p-1.5 rounded-full hover:bg-white/20">
               <X size={18} />
@@ -67,29 +77,31 @@ const ChatbotWidget = () => {
           </div>
 
           {/* Messages */}
-          <div className="flex-1 p-4 overflow-y-auto bg-slate-50 flex flex-col space-y-4">
+          <div className="flex-1 p-4 overflow-y-auto bg-slate-50 flex flex-col space-y-5">
             {messages.map((msg, i) => (
-              <div key={i} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
-                <div className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm shadow-sm ${msg.role === 'user' ? 'bg-blue-600 text-white rounded-br-sm' : 'bg-white border border-slate-200 text-slate-800 rounded-bl-sm'}`}>
-                  {msg.text}
+              <div key={i} className="flex flex-col w-full">
+                <div className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                  {msg.role === 'model' && (
+                    <img src="https://i.pravatar.cc/150?img=47" alt="Sarah" className="w-7 h-7 rounded-full mr-2 self-end mb-1 shadow-sm object-cover" />
+                  )}
+                  <div className={`max-w-[75%] rounded-2xl px-4 py-2.5 text-[14px] leading-relaxed shadow-sm ${msg.role === 'user' ? 'bg-blue-600 text-white rounded-br-sm' : 'bg-white border border-slate-200 text-slate-800 rounded-bl-sm'}`}>
+                    {msg.text}
+                  </div>
                 </div>
 
-
-
                 {/* Show initial options if it's the very first message */}
-                {i === 0 && messages.length === 1 && (
-                  <div className="flex flex-wrap gap-2 mt-3 pl-2">
+                {i === 0 && messages.length === 1 && !isTyping && (
+                  <div className="flex flex-wrap gap-2 mt-3 pl-9 self-start">
                     {initialOptions.map((opt, idx) => (
                       <button
                         key={idx}
                         onClick={() => {
                           setInput(opt);
-                          // We need to use a slight delay so setInput registers before submitting, or just call sendMessage directly
                           setTimeout(() => {
                             document.querySelector('.chatbot-submit-btn')?.click();
                           }, 10);
                         }}
-                        className="bg-white border border-blue-200 text-blue-700 hover:bg-blue-50 px-3 py-1.5 rounded-full text-xs font-medium transition-colors shadow-sm"
+                        className="bg-white border border-blue-200 text-blue-700 hover:bg-blue-50 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors shadow-sm cursor-pointer"
                       >
                         {opt}
                       </button>
@@ -98,6 +110,18 @@ const ChatbotWidget = () => {
                 )}
               </div>
             ))}
+            
+            {/* Typing Indicator */}
+            {isTyping && (
+              <div className="flex justify-start items-center">
+                <img src="https://i.pravatar.cc/150?img=47" alt="Sarah" className="w-7 h-7 rounded-full mr-2 shadow-sm object-cover" />
+                <div className="bg-white border border-slate-200 rounded-2xl rounded-bl-sm px-4 py-3 shadow-sm flex space-x-1.5 items-center h-9">
+                  <div className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                  <div className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                  <div className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                </div>
+              </div>
+            )}
             <div ref={messagesEndRef} />
           </div>
 
@@ -117,13 +141,16 @@ const ChatbotWidget = () => {
         </div>
       )}
 
-      {/* Floating Button */}
-      <button
-        onClick={toggleChat}
-        className={`chatbot-trigger-btn bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-xl transition-transform hover:scale-110 flex items-center justify-center ${isOpen ? 'scale-0' : 'scale-100'}`}
-      >
-        <MessageCircle size={28} />
-      </button>
+      {/* Floating Button with Pulse Effect */}
+      <div className={`relative ${isOpen ? 'scale-0' : 'scale-100'} transition-transform duration-300`}>
+        <div className="absolute inset-0 bg-blue-500 rounded-full animate-ping opacity-75"></div>
+        <button
+          onClick={toggleChat}
+          className="chatbot-trigger-btn relative bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-2xl transition-transform hover:scale-110 flex items-center justify-center z-10"
+        >
+          <MessageCircle size={28} />
+        </button>
+      </div>
     </div>
   );
 };

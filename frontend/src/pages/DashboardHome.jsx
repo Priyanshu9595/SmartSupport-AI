@@ -44,7 +44,7 @@ const DashboardHome = () => {
           }).length;
           
           return {
-            name: date.toLocaleDateString(undefined, { weekday: 'short' }),
+            name: date.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata', weekday: 'short' }),
             tickets: count
           };
         });
@@ -68,10 +68,10 @@ const DashboardHome = () => {
   }, []);
 
   const StatCard = ({ title, value, icon: Icon, colorClass, bgClass }) => (
-    <div className={`p-6 rounded-2xl shadow-sm border border-slate-100 ${bgClass} transition-all duration-300 hover:shadow-md hover:-translate-y-1`}>
+    <div className={`p-6 rounded-2xl shadow-sm border border-slate-800 ${bgClass} transition-all duration-300 hover:shadow-md hover:-translate-y-1`}>
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-slate-500 text-sm font-semibold mb-1">{title}</p>
+          <p className="text-slate-400 text-sm font-semibold mb-1">{title}</p>
           <h3 className={`text-3xl font-extrabold ${colorClass}`}>{value}</h3>
         </div>
         <div className={`p-3 rounded-xl ${colorClass.replace('text-', 'bg-').replace('600', '100')} ${colorClass}`}>
@@ -85,17 +85,17 @@ const DashboardHome = () => {
     <div className="h-full flex flex-col max-w-7xl mx-auto w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="mb-8 flex items-center justify-between">
         <div>
-          <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Dashboard Overview</h2>
-          <p className="text-slate-500 mt-2">Welcome back! Here's what's happening with your platform today.</p>
+          <h2 className="text-3xl font-extrabold text-white tracking-tight">Dashboard Overview</h2>
+          <p className="text-slate-400 mt-2">Welcome back! Here's what's happening with your platform today.</p>
         </div>
-        <div className="hidden md:flex items-center space-x-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-lg font-semibold text-sm border border-blue-100">
+        <div className="hidden md:flex items-center space-x-2 bg-blue-900/40 text-blue-400 px-4 py-2 rounded-lg font-semibold text-sm border border-blue-100">
           <TrendingUp size={16} />
           <span>Systems Optimal</span>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <StatCard title="Total Tickets" value={stats.totalTickets} icon={Ticket} colorClass="text-slate-600" bgClass="bg-white" />
+        <StatCard title="Total Tickets" value={stats.totalTickets} icon={Ticket} colorClass="text-slate-300" bgClass="bg-slate-900" />
         <StatCard title="Open Tickets" value={stats.openTickets} icon={Activity} colorClass="text-blue-600" bgClass="bg-blue-50/50" />
         <StatCard title="Resolved Tickets" value={stats.resolvedTickets} icon={CheckCircle2} colorClass="text-emerald-600" bgClass="bg-emerald-50/50" />
         <StatCard title="Total Leads" value={stats.newLeads} icon={Users} colorClass="text-amber-600" bgClass="bg-amber-50/50" />
@@ -105,10 +105,10 @@ const DashboardHome = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-slate-100 min-h-[300px] flex flex-col">
+        <div className="lg:col-span-2 bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-800 min-h-[300px] flex flex-col">
            <div className="mb-6 flex justify-between items-center">
-             <h3 className="text-lg font-bold text-slate-800">Weekly Ticket Volume</h3>
-             <select className="bg-slate-50 border border-slate-200 text-slate-600 text-xs font-semibold rounded-lg px-3 py-1.5 outline-none focus:ring-2 focus:ring-blue-500">
+             <h3 className="text-lg font-bold text-slate-100">Weekly Ticket Volume</h3>
+             <select className="bg-slate-950 border border-slate-800 text-slate-300 text-xs font-semibold rounded-lg px-3 py-1.5 outline-none focus:ring-2 focus:ring-blue-500">
                 <option>Last 7 Days</option>
                 <option>This Month</option>
              </select>
@@ -140,7 +140,7 @@ const DashboardHome = () => {
           </div>
           <h3 className="text-2xl font-bold mb-2">Great Job!</h3>
           <p className="text-white/90 mb-6">You've resolved {stats.resolvedTickets} tickets so far. Keep up the excellent support!</p>
-          <button className="bg-white text-indigo-600 hover:bg-slate-50 font-bold py-2 px-5 rounded-xl transition w-max shadow-sm">
+          <button className="bg-slate-900 text-indigo-600 hover:bg-slate-950 font-bold py-2 px-5 rounded-xl transition w-max shadow-sm">
             View Reports
           </button>
         </div>

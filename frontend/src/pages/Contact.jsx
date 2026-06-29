@@ -56,10 +56,10 @@ const Contact = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight sm:text-5xl mb-4">
+            <h1 className="text-4xl font-extrabold text-white tracking-tight sm:text-5xl mb-4">
               Get in <span className="text-blue-600">Touch</span>
             </h1>
-            <p className="text-xl text-slate-600">
+            <p className="text-xl text-slate-300">
               Have questions about our platform? Send us a message and our support team will get back to you shortly.
             </p>
           </div>
@@ -68,31 +68,31 @@ const Contact = () => {
             
             {/* Contact Information */}
             <div className="lg:w-1/3 space-y-8">
-              <div className="bg-white/60 backdrop-blur-xl p-8 rounded-3xl border border-white/50 shadow-lg">
-                <h3 className="text-xl font-bold text-slate-800 mb-6">Contact Information</h3>
+              <div className="bg-slate-900/60 backdrop-blur-xl p-8 rounded-3xl border border-white/50 shadow-lg">
+                <h3 className="text-xl font-bold text-slate-100 mb-6">Contact Information</h3>
                 
                 <div className="space-y-6">
                   <div className="flex items-start">
                     <Mail className="text-blue-600 mt-1 mr-4" size={24} />
                     <div>
-                      <p className="font-bold text-slate-700">Email</p>
-                      <p className="text-slate-600">support@supportflow.ai</p>
+                      <p className="font-bold text-slate-200">Email</p>
+                      <p className="text-slate-300">support@supportflow.ai</p>
                     </div>
                   </div>
                   
                   <div className="flex items-start">
                     <Phone className="text-blue-600 mt-1 mr-4" size={24} />
                     <div>
-                      <p className="font-bold text-slate-700">Phone</p>
-                      <p className="text-slate-600">+1 (555) 123-4567</p>
+                      <p className="font-bold text-slate-200">Phone</p>
+                      <p className="text-slate-300">+1 (555) 123-4567</p>
                     </div>
                   </div>
                   
                   <div className="flex items-start">
                     <MapPin className="text-blue-600 mt-1 mr-4" size={24} />
                     <div>
-                      <p className="font-bold text-slate-700">Office</p>
-                      <p className="text-slate-600">123 AI Boulevard<br/>Tech District, CA 94043</p>
+                      <p className="font-bold text-slate-200">Office</p>
+                      <p className="text-slate-300">123 AI Boulevard<br/>Tech District, CA 94043</p>
                     </div>
                   </div>
                 </div>
@@ -100,8 +100,8 @@ const Contact = () => {
             </div>
 
             {/* Contact Form */}
-            <div className="lg:w-2/3 bg-white/60 backdrop-blur-xl p-6 md:p-10 rounded-3xl border border-white/50 shadow-xl">
-              <h3 className="text-2xl font-bold text-slate-800 mb-6">Send an Inquiry</h3>
+            <div className="lg:w-2/3 bg-slate-900/60 backdrop-blur-xl p-6 md:p-10 rounded-3xl border border-white/50 shadow-xl">
+              <h3 className="text-2xl font-bold text-slate-100 mb-6">Send an Inquiry</h3>
               
               {status === 'success' && (
                 <div className="mb-6 bg-green-50 text-green-800 p-4 rounded-xl border border-green-200 flex items-center">
@@ -117,49 +117,49 @@ const Contact = () => {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2">Name</label>
+                    <label className="block text-sm font-bold text-slate-200 mb-2">Name</label>
                     <input 
                       type="text" 
                       required 
                       value={formData.name}
                       onChange={(e) => setFormData({...formData, name: e.target.value})}
-                      className="w-full bg-white/50 border border-white/60 backdrop-blur-sm rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all shadow-inner"
+                      className="w-full bg-slate-900/50 border border-white/60 backdrop-blur-sm rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all shadow-inner"
                       placeholder="John Doe"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2">Email Address</label>
+                    <label className="block text-sm font-bold text-slate-200 mb-2">Email Address</label>
                     <input 
                       type="email" 
                       required 
                       readOnly={!!user}
                       value={formData.email}
                       onChange={(e) => setFormData({...formData, email: e.target.value})}
-                      className={`w-full bg-white/50 border border-white/60 backdrop-blur-sm rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all shadow-inner ${user ? 'cursor-not-allowed opacity-70 text-slate-500' : ''}`}
+                      className={`w-full bg-slate-900/50 border border-white/60 backdrop-blur-sm rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all shadow-inner ${user ? 'cursor-not-allowed opacity-70 text-slate-500' : ''}`}
                       placeholder="john@example.com"
                     />
                   </div>
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">Phone Number</label>
+                  <label className="block text-sm font-bold text-slate-200 mb-2">Phone Number</label>
                   <input 
                     type="text" 
                     value={formData.phone}
                     onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    className="w-full bg-white/50 border border-white/60 backdrop-blur-sm rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all shadow-inner"
+                    className="w-full bg-slate-900/50 border border-white/60 backdrop-blur-sm rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all shadow-inner"
                     placeholder="+1 (555) 000-0000"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">Message</label>
+                  <label className="block text-sm font-bold text-slate-200 mb-2">Message</label>
                   <textarea 
                     required 
                     rows="5"
                     value={formData.message}
                     onChange={(e) => setFormData({...formData, message: e.target.value})}
-                    className="w-full bg-white/50 border border-white/60 backdrop-blur-sm rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all shadow-inner resize-none"
+                    className="w-full bg-slate-900/50 border border-white/60 backdrop-blur-sm rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all shadow-inner resize-none"
                     placeholder="How can we help you today?"
                   ></textarea>
                 </div>

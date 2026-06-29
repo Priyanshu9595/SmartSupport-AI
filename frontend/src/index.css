@@ -12,8 +12,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f8fafc;
-  color: #0f172a;
+  background-color: #020617; /* slate-950 */
+  color: #f8fafc; /* slate-50 */
+}
+
+@layer base {
+  input, textarea, select {
+    @apply bg-slate-800 text-white border-slate-700 placeholder-slate-400;
+  }
 }
 
 @layer utilities {
@@ -26,19 +32,37 @@ body {
   .animation-delay-4000 {
     animation-delay: 4s;
   }
+  
+  /* Custom Animations for UI Overhaul */
+  .fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+  .slide-in-up {
+    animation: slideInUp 0.8s ease-out forwards;
+  }
+  .slide-in-down {
+    animation: slideInDown 0.4s ease-out forwards;
+  }
 }
 
 @keyframes blob {
-  0% {
-    transform: translate(0px, 0px) scale(1);
-  }
-  33% {
-    transform: translate(30px, -50px) scale(1.1);
-  }
-  66% {
-    transform: translate(-20px, 20px) scale(0.9);
-  }
-  100% {
-    transform: translate(0px, 0px) scale(1);
-  }
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
 }

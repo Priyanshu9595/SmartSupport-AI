@@ -12,14 +12,22 @@ export const getFaqSuggestions = async (req, res) => {
 
 export const approveFaqSuggestion = async (req, res) => {
   try {
-    const suggestion = await FaqSuggestion.findByIdAndUpdate(req.params.id, { status: 'approved' }, { new: true });
+    const customAnswer = req.body.suggestedAnswer;
+    const suggestion = await FaqSuggestion.findByIdAndUpdate(
+      req.params.id, 
+      { 
+        status: 'approved',
+        ...(customAnswer && { suggestedAnswer: customAnswer })
+      }, 
+      { new: true }
+    );
     if (!suggestion) return res.status(404).json({ message: 'Suggestion not found' });
     
     // Add to KB
     await KnowledgeBase.create({
       title: suggestion.suggestedQuestion,
       question: suggestion.suggestedQuestion,
-      answer: suggestion.suggestedAnswer,
+      answer: customAnswer || suggestion.suggestedAnswer,
       status: 'published',
       createdBy: req.user._id
     });
