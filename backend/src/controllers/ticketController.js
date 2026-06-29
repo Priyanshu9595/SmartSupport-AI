@@ -183,12 +183,16 @@ export const addTicketMessage = async (req, res) => {
       isInternalNote: isInternalNote || false
     });
 
+    let ticket = await Ticket.findById(req.params.id);
+
     // Send Email notification to customer if it's a public reply from an Agent/Admin
     if (!isInternalNote && (senderType === 'Agent' || senderType === 'Admin')) {
-      const ticket = await Ticket.findById(req.params.id);
+      // Auto-resolve the ticket when admin replies publicly
+      ticket = await Ticket.findByIdAndUpdate(req.params.id, { status: 'Resolved' }, { new: true });
+      
       if (ticket && ticket.customerEmail) {
         const emailSubject = `Update on your Support Ticket: ${ticket.subject} (${ticket.ticketId})`;
-        const emailBody = `Hi ${ticket.customerName},\n\nA support agent (${senderName}) has replied to your ticket:\n\n"${message}"\n\nThanks,\nSupportFlow Team`;
+        const emailBody = `Hi ${ticket.customerName},\n\nA support agent (${senderName}) has replied to your ticket and marked it as resolved:\n\n"${message}"\n\nThanks,\nSupportFlow Team`;
         sendEmail(ticket.customerEmail, emailSubject, emailBody).catch(e => console.error('Failed to send email:', e));
       }
     }

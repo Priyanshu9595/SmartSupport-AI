@@ -56,6 +56,12 @@ const Tickets = () => {
       });
       setMessages([...messages, data]);
       setReplyText('');
+
+      if (!isInternal) {
+        const updatedTickets = tickets.map(t => t._id === selectedTicket._id ? { ...t, status: 'Resolved' } : t);
+        setTickets(updatedTickets);
+        setSelectedTicket({ ...selectedTicket, status: 'Resolved' });
+      }
     } catch (error) {
       console.error('Error sending reply:', error);
     }
