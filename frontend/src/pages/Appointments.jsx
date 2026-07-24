@@ -38,7 +38,8 @@ const Appointments = () => {
       alert('Manual reminder sent successfully!');
     } catch (error) {
       console.error('Error sending reminder:', error);
-      alert('Failed to send reminder.');
+      const errorMsg = error.response?.data?.message || error.message;
+      alert(`Failed to send reminder: ${errorMsg}. (Check your Render environment variables if in production!)`);
     }
   };
 
