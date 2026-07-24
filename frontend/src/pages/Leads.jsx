@@ -69,7 +69,7 @@ const Leads = () => {
       case 'Contacted': return <span className="px-3 py-1.5 bg-amber-50 text-amber-700 text-xs font-bold rounded-lg border border-amber-100 flex items-center w-max"><MessageSquare size={12} className="mr-1.5"/> Contacted</span>;
       case 'Interested': return <span className="px-3 py-1.5 bg-purple-50 text-purple-700 text-xs font-bold rounded-lg border border-purple-100 flex items-center w-max"><FileText size={12} className="mr-1.5"/> Interested</span>;
       case 'Converted': return <span className="px-3 py-1.5 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-lg border border-emerald-100 flex items-center w-max"><CheckCircle size={12} className="mr-1.5"/> Converted</span>;
-      case 'Not Interested': return <span className="px-3 py-1.5 bg-slate-800 text-slate-200 text-xs font-bold rounded-lg border border-slate-800 flex items-center w-max"><XCircle size={12} className="mr-1.5"/> Not Interested</span>;
+      case 'Not Interested': return <span className="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold rounded-lg border border-slate-200 dark:border-slate-800 flex items-center w-max"><XCircle size={12} className="mr-1.5"/> Not Interested</span>;
       default: return <span className="px-3 py-1.5 bg-gray-50 text-gray-700 text-xs font-bold rounded-lg border border-gray-200">{status}</span>;
     }
   };
@@ -84,15 +84,15 @@ const Leads = () => {
     <div className="h-full flex flex-col max-w-7xl mx-auto w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="mb-8 flex flex-col md:flex-row md:justify-between md:items-end gap-4">
         <div>
-          <h2 className="text-3xl font-extrabold text-white tracking-tight">Lead Management</h2>
-          <p className="text-slate-400 mt-2">Track and convert potential customers captured by the AI.</p>
+          <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Lead Management</h2>
+          <p className="text-slate-500 dark:text-slate-400 mt-2">Track and convert potential customers captured by the AI.</p>
         </div>
         <div className="flex gap-4">
-          <button onClick={handleExportCSV} className="bg-slate-900 text-slate-200 px-5 py-3 rounded-xl font-bold flex items-center border border-slate-800 shadow-sm hover:bg-slate-950 transition group">
+          <button onClick={handleExportCSV} className="bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 px-5 py-3 rounded-xl font-bold flex items-center border border-slate-200 dark:border-slate-800 shadow-sm hover:bg-slate-50 dark:bg-slate-950 transition group">
             <Download size={18} className="mr-2 group-hover:-translate-y-0.5 transition-transform text-emerald-600" />
             Export CSV
           </button>
-          <div className="bg-slate-900 text-slate-200 px-5 py-3 rounded-xl font-bold flex items-center border border-slate-800 shadow-sm">
+          <div className="bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 px-5 py-3 rounded-xl font-bold flex items-center border border-slate-200 dark:border-slate-800 shadow-sm">
             <Users size={20} className="mr-3 text-indigo-600" />
             {leads.length} Total Leads
           </div>
@@ -101,19 +101,19 @@ const Leads = () => {
 
       <div className="flex flex-col md:flex-row gap-4 mb-6">
         <div className="relative flex-1">
-          <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <input 
             type="text" 
             placeholder="Search leads by name, email, or phone..." 
-            className="w-full pl-11 pr-4 py-3 bg-slate-900 border border-slate-800 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none shadow-sm transition"
+            className="w-full pl-11 pr-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none shadow-sm transition"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
         <div className="relative">
-          <Filter size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Filter size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <select 
-            className="pl-9 pr-8 py-3 bg-slate-900 border border-slate-800 rounded-xl outline-none shadow-sm font-semibold text-slate-200 appearance-none focus:ring-2 focus:ring-blue-500"
+            className="pl-9 pr-8 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl outline-none shadow-sm font-semibold text-slate-700 dark:text-slate-200 appearance-none focus:ring-2 focus:ring-blue-500"
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
           >
@@ -127,20 +127,20 @@ const Leads = () => {
         </div>
       </div>
 
-      <div className="flex-1 overflow-hidden bg-slate-900 rounded-2xl border border-slate-800 shadow-sm flex flex-col">
+      <div className="flex-1 overflow-hidden bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col">
         <div className="overflow-x-auto flex-1">
           <table className="min-w-full divide-y divide-slate-100">
             <thead className="bg-slate-950/80 sticky top-0 z-10 backdrop-blur-sm">
               <tr>
-                <th className="px-6 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-wider">Contact Info</th>
-                <th className="px-6 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-wider">Interest</th>
-                <th className="px-6 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-wider">Status</th>
-                <th className="px-6 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-wider">Date</th>
-                <th className="px-6 py-4 text-left text-xs font-bold text-slate-400 uppercase tracking-wider">Notes</th>
-                <th className="px-6 py-4 text-right text-xs font-bold text-slate-400 uppercase tracking-wider">Actions</th>
+                <th className="px-6 py-4 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Contact Info</th>
+                <th className="px-6 py-4 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Interest</th>
+                <th className="px-6 py-4 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Status</th>
+                <th className="px-6 py-4 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Date</th>
+                <th className="px-6 py-4 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Notes</th>
+                <th className="px-6 py-4 text-right text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
-            <tbody className="bg-slate-900 divide-y divide-slate-50">
+            <tbody className="bg-white dark:bg-slate-900 divide-y divide-slate-50">
               {leads
                 .filter(l => statusFilter === 'All' || l.status === statusFilter)
                 .filter(l => 
@@ -150,9 +150,9 @@ const Leads = () => {
                 ).length === 0 ? (
                 <tr>
                   <td colSpan="6" className="px-6 py-16 text-center">
-                    <div className="flex flex-col items-center text-slate-400">
+                    <div className="flex flex-col items-center text-slate-500 dark:text-slate-400">
                       <Users size={48} className="mb-4 opacity-20" />
-                      <p className="text-lg font-semibold text-slate-300">No leads found.</p>
+                      <p className="text-lg font-semibold text-slate-600 dark:text-slate-300">No leads found.</p>
                       <p className="text-sm">Try adjusting your search or filters.</p>
                     </div>
                   </td>
@@ -172,27 +172,27 @@ const Leads = () => {
                           {lead.name.charAt(0).toUpperCase()}
                         </div>
                         <div className="ml-4">
-                          <div className="text-sm font-bold text-white">{lead.name}</div>
-                          <div className="text-sm font-medium text-slate-400 flex items-center mt-1 hover:text-blue-600 cursor-pointer"><Mail size={12} className="mr-1.5"/> {lead.email}</div>
-                          {lead.phone && <div className="text-sm font-medium text-slate-400 flex items-center mt-1"><Phone size={12} className="mr-1.5"/> {lead.phone}</div>}
+                          <div className="text-sm font-bold text-slate-900 dark:text-white">{lead.name}</div>
+                          <div className="text-sm font-medium text-slate-500 dark:text-slate-400 flex items-center mt-1 hover:text-blue-600 cursor-pointer"><Mail size={12} className="mr-1.5"/> {lead.email}</div>
+                          {lead.phone && <div className="text-sm font-medium text-slate-500 dark:text-slate-400 flex items-center mt-1"><Phone size={12} className="mr-1.5"/> {lead.phone}</div>}
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center text-sm font-bold text-slate-200 bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800 w-max">
-                        <FileText size={14} className="text-slate-400 mr-2" />
+                      <div className="flex items-center text-sm font-bold text-slate-700 dark:text-slate-200 bg-slate-50 dark:bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 w-max">
+                        <FileText size={14} className="text-slate-500 dark:text-slate-400 mr-2" />
                         {lead.interestedService || 'General Inquiry'}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       {getStatusBadge(lead.status)}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-400">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-500 dark:text-slate-400">
                       {new Date(lead.createdAt).toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' })}
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm text-slate-300 max-w-xs truncate" title={lead.notes}>
-                        {lead.notes || <span className="text-slate-400 italic">No notes</span>}
+                      <div className="text-sm text-slate-600 dark:text-slate-300 max-w-xs truncate" title={lead.notes}>
+                        {lead.notes || <span className="text-slate-500 dark:text-slate-400 italic">No notes</span>}
                       </div>
                       <button 
                         onClick={() => handleAddNote(lead._id, lead.notes)}
@@ -205,7 +205,7 @@ const Leads = () => {
                       <select 
                         value={lead.status}
                         onChange={(e) => updateStatus(lead._id, e.target.value)}
-                        className="bg-slate-900 border-2 border-slate-800 text-slate-100 text-xs rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 block px-3 py-1.5 font-bold cursor-pointer outline-none transition-all hover:border-slate-700 ml-auto"
+                        className="bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-100 text-xs rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 block px-3 py-1.5 font-bold cursor-pointer outline-none transition-all hover:border-slate-300 dark:border-slate-700 ml-auto"
                       >
                         <option value="New">Mark New</option>
                         <option value="Contacted">Mark Contacted</option>

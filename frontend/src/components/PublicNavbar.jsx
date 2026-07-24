@@ -11,7 +11,7 @@ const PublicNavbar = () => {
   const location = useLocation();
 
   const isActive = (path) => location.pathname === path;
-  
+
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Services', path: '/services' },
@@ -25,7 +25,7 @@ const PublicNavbar = () => {
     <header className="bg-slate-950/80 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)] border-b border-slate-800 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
-          
+
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center cursor-pointer" onClick={() => navigate('/')}>
             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mr-2">
@@ -37,14 +37,13 @@ const PublicNavbar = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-1 lg:space-x-2">
             {navLinks.map((link) => (
-              <Link 
-                key={link.name} 
-                to={link.path} 
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                  isActive(link.path) 
-                    ? 'bg-blue-900/40 text-blue-400 shadow-sm' 
+              <Link
+                key={link.name}
+                to={link.path}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${isActive(link.path)
+                    ? 'bg-blue-900/40 text-blue-400 shadow-sm'
                     : 'text-slate-300 hover:text-blue-600 hover:bg-slate-800'
-                }`}
+                  }`}
               >
                 {link.name}
               </Link>
@@ -64,8 +63,8 @@ const PublicNavbar = () => {
                 {user.role === 'Admin' || user.role === 'Support Agent' ? (
                   <Link to="/dashboard" className="text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition-colors">Dashboard</Link>
                 ) : null}
-                <button 
-                  onClick={() => { logout(); navigate('/'); }} 
+                <button
+                  onClick={() => { logout(); navigate('/'); }}
                   className="p-2 text-slate-400 hover:text-red-400 hover:bg-red-900/30 rounded-full transition-all"
                   title="Logout"
                 >
@@ -74,14 +73,14 @@ const PublicNavbar = () => {
               </div>
             ) : (
               <div className="relative">
-                <button 
+                <button
                   onClick={() => setDropdownOpen(!dropdownOpen)}
                   onBlur={() => setTimeout(() => setDropdownOpen(false), 200)}
                   className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-medium transition-colors flex items-center shadow-sm"
                 >
                   Start <ChevronDown size={16} className="ml-1" />
                 </button>
-                
+
                 {/* Dropdown Menu */}
                 {dropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-slate-900 rounded-xl shadow-lg border border-slate-800 py-1 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2">
@@ -111,20 +110,19 @@ const PublicNavbar = () => {
       {mobileMenuOpen && (
         <div className="md:hidden bg-slate-900 border-b border-slate-800 px-4 pt-2 pb-6 space-y-1 shadow-2xl absolute w-full left-0 animate-in slide-in-from-top-2">
           {navLinks.map((link) => (
-            <Link 
+            <Link
               key={link.name}
-              to={link.path} 
+              to={link.path}
               onClick={() => setMobileMenuOpen(false)}
-              className={`block px-4 py-3 rounded-xl text-base font-medium transition-colors ${
-                isActive(link.path)
+              className={`block px-4 py-3 rounded-xl text-base font-medium transition-colors ${isActive(link.path)
                   ? 'bg-blue-900/40 text-blue-400'
                   : 'text-slate-200 hover:text-blue-600 hover:bg-slate-800'
-              }`}
+                }`}
             >
               {link.name}
             </Link>
           ))}
-          
+
           {!user && (
             <div className="pt-4 pb-2 border-t border-slate-800 mt-2">
               <Link to="/login?type=client" className="block px-3 py-2 rounded-md text-base font-bold text-blue-600 hover:bg-blue-900/40">Login as Client</Link>

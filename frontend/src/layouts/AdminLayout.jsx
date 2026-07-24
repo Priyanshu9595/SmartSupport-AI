@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { 
-  LayoutDashboard, 
-  Ticket, 
-  BookOpen, 
-  Users, 
-  Calendar, 
-  Settings, 
+import {
+  LayoutDashboard,
+  Ticket,
+  BookOpen,
+  Users,
+  Calendar,
+  Settings,
   LogOut,
   MessageSquare,
   Menu,
@@ -43,14 +43,14 @@ const AdminLayout = () => {
 
       {/* Sidebar Overlay */}
       {isSidebarOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-20"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar */}
-      <aside 
+      <aside
         className={`fixed inset-y-0 left-0 w-64 bg-slate-900/90 backdrop-blur-xl border-r border-slate-800/50 flex flex-col z-30 shadow-2xl transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
         <div className="h-16 flex items-center justify-between px-6 border-b border-slate-800/50">
@@ -59,7 +59,7 @@ const AdminLayout = () => {
             <X size={20} />
           </button>
         </div>
-        
+
         <div className="flex-1 overflow-y-auto py-6">
           <nav className="space-y-2 px-4">
             {navItems.map((item) => {
@@ -70,11 +70,10 @@ const AdminLayout = () => {
                   key={item.name}
                   to={item.path}
                   onClick={() => setIsSidebarOpen(false)}
-                  className={`flex items-center px-4 py-3 text-sm font-bold rounded-xl transition-all ${
-                    isActive 
-                      ? 'bg-blue-600 text-white shadow-md shadow-blue-900/20' 
+                  className={`flex items-center px-4 py-3 text-sm font-bold rounded-xl transition-all ${isActive
+                      ? 'bg-blue-600 text-white shadow-md shadow-blue-900/20'
                       : 'text-slate-300 hover:bg-slate-900 hover:shadow-sm hover:text-white'
-                  }`}
+                    }`}
                 >
                   <Icon className={`mr-3 flex-shrink-0 h-5 w-5 ${isActive ? 'text-white' : 'text-slate-400'}`} />
                   {item.name}
@@ -94,7 +93,7 @@ const AdminLayout = () => {
               <p className="text-xs font-semibold text-slate-400 truncate">{user?.role}</p>
             </div>
           </div>
-          <button 
+          <button
             onClick={handleLogout}
             className="flex items-center justify-center w-full px-4 py-2 text-sm font-bold text-rose-400 bg-rose-900/30 rounded-xl hover:bg-rose-900/50 transition-colors"
           >
@@ -107,7 +106,7 @@ const AdminLayout = () => {
       {/* Main Content */}
       <main className="flex-1 flex flex-col overflow-hidden z-10 w-full">
         <header className="h-16 bg-slate-900/60 backdrop-blur-md border-b border-slate-800/50 flex items-center px-4 md:px-8 shadow-sm">
-          <button 
+          <button
             onClick={() => setIsSidebarOpen(true)}
             className="p-2 mr-4 bg-slate-900 border border-slate-800 rounded-lg text-slate-300 hover:bg-slate-950 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           >

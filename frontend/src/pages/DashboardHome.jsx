@@ -86,10 +86,10 @@ const DashboardHome = () => {
   }, [timeRange, rawTickets]);
 
   const StatCard = ({ title, value, icon: Icon, colorClass, bgClass }) => (
-    <div className={`p-6 rounded-2xl shadow-sm border border-slate-800 ${bgClass} transition-all duration-300 hover:shadow-md hover:-translate-y-1`}>
+    <div className={`p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 ${bgClass} transition-all duration-300 hover:shadow-md hover:-translate-y-1`}>
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-slate-400 text-sm font-semibold mb-1">{title}</p>
+          <p className="text-slate-500 dark:text-slate-400 text-sm font-semibold mb-1">{title}</p>
           <h3 className={`text-3xl font-extrabold ${colorClass}`}>{value}</h3>
         </div>
         <div className={`p-3 rounded-xl ${colorClass.replace('text-', 'bg-').replace('400', '900/30')} ${colorClass}`}>
@@ -103,8 +103,8 @@ const DashboardHome = () => {
     <div className="h-full flex flex-col max-w-7xl mx-auto w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-3xl font-extrabold text-white tracking-tight">Dashboard Overview</h2>
-          <p className="text-slate-400 mt-2">Welcome back! Here's what's happening with your platform today.</p>
+          <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Dashboard Overview</h2>
+          <p className="text-slate-500 dark:text-slate-400 mt-2">Welcome back! Here's what's happening with your platform today.</p>
         </div>
         <div className="hidden md:flex items-center space-x-2 bg-blue-900/40 text-blue-400 px-4 py-2 rounded-lg font-semibold text-sm border border-blue-100">
           <TrendingUp size={16} />
@@ -113,23 +113,23 @@ const DashboardHome = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <StatCard title="Total Tickets" value={stats.totalTickets} icon={Ticket} colorClass="text-slate-400" bgClass="bg-slate-900" />
-        <StatCard title="Open Tickets" value={stats.openTickets} icon={Activity} colorClass="text-blue-400" bgClass="bg-slate-900" />
-        <StatCard title="Resolved Tickets" value={stats.resolvedTickets} icon={CheckCircle2} colorClass="text-emerald-400" bgClass="bg-slate-900" />
-        <StatCard title="Total Leads" value={stats.newLeads} icon={Users} colorClass="text-amber-400" bgClass="bg-slate-900" />
-        <StatCard title="Total Appointments" value={stats.appointments} icon={Calendar} colorClass="text-purple-400" bgClass="bg-slate-900" />
-        <StatCard title="Pending Appointments" value={stats.pendingAppointments} icon={Clock} colorClass="text-indigo-400" bgClass="bg-slate-900" />
-        <StatCard title="Knowledge Base" value={stats.faqCount} icon={BookOpen} colorClass="text-teal-400" bgClass="bg-slate-900" />
+        <StatCard title="Total Tickets" value={stats.totalTickets} icon={Ticket} colorClass="text-slate-500 dark:text-slate-400" bgClass="bg-white dark:bg-slate-900" />
+        <StatCard title="Open Tickets" value={stats.openTickets} icon={Activity} colorClass="text-blue-400" bgClass="bg-white dark:bg-slate-900" />
+        <StatCard title="Resolved Tickets" value={stats.resolvedTickets} icon={CheckCircle2} colorClass="text-emerald-400" bgClass="bg-white dark:bg-slate-900" />
+        <StatCard title="Total Leads" value={stats.newLeads} icon={Users} colorClass="text-amber-400" bgClass="bg-white dark:bg-slate-900" />
+        <StatCard title="Total Appointments" value={stats.appointments} icon={Calendar} colorClass="text-purple-400" bgClass="bg-white dark:bg-slate-900" />
+        <StatCard title="Pending Appointments" value={stats.pendingAppointments} icon={Clock} colorClass="text-indigo-400" bgClass="bg-white dark:bg-slate-900" />
+        <StatCard title="Knowledge Base" value={stats.faqCount} icon={BookOpen} colorClass="text-teal-400" bgClass="bg-white dark:bg-slate-900" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-800 min-h-[300px] flex flex-col">
+        <div className="lg:col-span-2 bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 min-h-[300px] flex flex-col">
            <div className="mb-6 flex justify-between items-center">
-             <h3 className="text-lg font-bold text-slate-100">Weekly Ticket Volume</h3>
+             <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100">Weekly Ticket Volume</h3>
              <select 
                value={timeRange} 
                onChange={(e) => setTimeRange(e.target.value)}
-               className="bg-slate-950 border border-slate-800 text-slate-300 text-xs font-semibold rounded-lg px-3 py-1.5 outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+               className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 text-xs font-semibold rounded-lg px-3 py-1.5 outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
              >
                 <option value="Last 7 Days">Last 7 Days</option>
                 <option value="This Month">This Month</option>
@@ -157,13 +157,13 @@ const DashboardHome = () => {
              </ResponsiveContainer>
            </div>
         </div>
-        <div className="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-8 rounded-2xl shadow-lg text-white relative overflow-hidden flex flex-col justify-center">
+        <div className="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-8 rounded-2xl shadow-lg text-slate-900 dark:text-white relative overflow-hidden flex flex-col justify-center">
           <div className="absolute -right-6 -top-6 opacity-20">
             <CheckCircle2 size={120} />
           </div>
           <h3 className="text-2xl font-bold mb-2">Great Job!</h3>
-          <p className="text-white/90 mb-6">You've resolved {stats.resolvedTickets} tickets so far. Keep up the excellent support!</p>
-          <button className="bg-slate-900 text-indigo-600 hover:bg-slate-950 font-bold py-2 px-5 rounded-xl transition w-max shadow-sm">
+          <p className="text-slate-900 dark:text-white/90 mb-6">You've resolved {stats.resolvedTickets} tickets so far. Keep up the excellent support!</p>
+          <button className="bg-white dark:bg-slate-900 text-indigo-600 hover:bg-slate-50 dark:bg-slate-950 font-bold py-2 px-5 rounded-xl transition w-max shadow-sm">
             View Reports
           </button>
         </div>

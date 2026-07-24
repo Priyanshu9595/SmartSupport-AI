@@ -60,10 +60,10 @@ const ChatbotWidget = () => {
       {isOpen && (
         <div className="bg-white w-80 sm:w-96 rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col h-[550px] mb-4 transition-all duration-300">
           {/* Header */}
-          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4 flex justify-between items-center shadow-md z-10">
+          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-slate-900 dark:text-white p-4 flex justify-between items-center shadow-md z-10">
             <div className="flex items-center space-x-3">
               <div className="relative">
-                <img src="https://i.pravatar.cc/150?img=47" alt="Sarah" className="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm" />
+                <img src="https://i.pravatar.cc/150?img=47" alt="Sarah" className="w-10 h-10 rounded-full border-2 border-slate-900 dark:border-white object-cover shadow-sm" />
                 <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-400 border-2 border-indigo-600 rounded-full"></span>
               </div>
               <div>
@@ -71,7 +71,7 @@ const ChatbotWidget = () => {
                 <p className="text-blue-100 text-xs flex items-center"><span className="w-1.5 h-1.5 bg-green-400 rounded-full mr-1.5 animate-pulse"></span> Online - Replies instantly</p>
               </div>
             </div>
-            <button onClick={toggleChat} className="text-blue-100 hover:text-white transition bg-white/10 p-1.5 rounded-full hover:bg-white/20">
+            <button onClick={toggleChat} className="text-blue-100 hover:text-slate-900 dark:text-white transition bg-white/10 p-1.5 rounded-full hover:bg-white/20">
               <X size={18} />
             </button>
           </div>
@@ -84,7 +84,7 @@ const ChatbotWidget = () => {
                   {msg.role === 'model' && (
                     <img src="https://i.pravatar.cc/150?img=47" alt="Sarah" className="w-7 h-7 rounded-full mr-2 self-end mb-1 shadow-sm object-cover" />
                   )}
-                  <div className={`max-w-[75%] rounded-2xl px-4 py-2.5 text-[14px] leading-relaxed shadow-sm ${msg.role === 'user' ? 'bg-blue-600 text-white rounded-br-sm' : 'bg-white border border-slate-200 text-slate-800 rounded-bl-sm'}`}>
+                  <div className={`max-w-[75%] rounded-2xl px-4 py-2.5 text-[14px] leading-relaxed shadow-sm ${msg.role === 'user' ? 'bg-blue-600 text-slate-900 dark:text-white rounded-br-sm' : 'bg-white border border-slate-200 text-slate-800 rounded-bl-sm'}`}>
                     {msg.text}
                   </div>
                 </div>
@@ -134,7 +134,7 @@ const ChatbotWidget = () => {
               placeholder="Type your message..."
               className="flex-1 bg-slate-100 border-transparent focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent rounded-full px-4 py-2.5 text-sm text-slate-800 transition-all outline-none"
             />
-            <button type="submit" className="chatbot-submit-btn ml-2 bg-blue-600 text-white p-2.5 rounded-full hover:bg-blue-700 disabled:opacity-50 transition-colors shadow-sm">
+            <button type="submit" className="chatbot-submit-btn ml-2 bg-blue-600 text-slate-900 dark:text-white p-2.5 rounded-full hover:bg-blue-700 disabled:opacity-50 transition-colors shadow-sm">
               <Send size={18} />
             </button>
           </form>
@@ -146,7 +146,7 @@ const ChatbotWidget = () => {
         <div className="absolute inset-0 bg-blue-500 rounded-full animate-ping opacity-75"></div>
         <button
           onClick={toggleChat}
-          className="chatbot-trigger-btn relative bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-2xl transition-transform hover:scale-110 flex items-center justify-center z-10"
+          className="chatbot-trigger-btn relative bg-blue-600 hover:bg-blue-700 text-slate-900 dark:text-white p-4 rounded-full shadow-2xl transition-transform hover:scale-110 flex items-center justify-center z-10"
         >
           <MessageCircle size={28} />
         </button>
