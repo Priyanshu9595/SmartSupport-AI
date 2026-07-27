@@ -265,11 +265,6 @@ const LandingPage = () => {
           </div>
         </section>
       </main>
-
-      {/* Floating Chatbot Widget Wrapper */}
-      <div className="chatbot-wrapper relative z-50">
-        <ChatbotWidget />
-      </div>
     </div>
   );
 };
