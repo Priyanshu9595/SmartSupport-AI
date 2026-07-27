@@ -1,5 +1,4 @@
 import React from 'react';
-import ChatbotWidget from '../components/ChatbotWidget';
 import { MessageSquare, HelpCircle, Calendar, Users, Zap, CheckCircle } from 'lucide-react';
 
 const Features = () => {
@@ -121,8 +120,6 @@ const Features = () => {
           </div>
         </div>
       </main>
-
-      <ChatbotWidget />
     </div>
   );
 };

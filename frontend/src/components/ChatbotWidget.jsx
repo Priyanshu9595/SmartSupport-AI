@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { MessageCircle, X, Send } from 'lucide-react';
 import api from '../utils/api';
 
-const ChatbotWidget = () => {
+const ChatbotWidget = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([{ role: 'model', text: "Hi there! 👋 I'm Sarah from SupportFlow. How can I help you today?", intent: 'support' }]);
   const [input, setInput] = useState('');
@@ -44,7 +44,12 @@ const ChatbotWidget = () => {
     setIsTyping(true);
 
     try {
-      const { data } = await api.post('/chatbot/message', { sessionId, message: userMessage });
+      const { data } = await api.post('/chatbot/message', { 
+        sessionId, 
+        message: userMessage,
+        userName: user?.name,
+        userEmail: user?.email
+      });
       setMessages(prev => [...prev, { role: 'model', text: data.reply, intent: data.intent }]);
     } catch (error) {
       setMessages(prev => [...prev, { role: 'model', text: 'Sorry, I encountered an error. Please try again.', intent: 'support' }]);

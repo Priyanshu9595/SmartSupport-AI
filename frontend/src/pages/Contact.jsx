@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import ChatbotWidget from '../components/ChatbotWidget';
 import api from '../utils/api';
 import { Send, Mail, Phone, MapPin } from 'lucide-react';
 
@@ -182,8 +181,6 @@ const Contact = () => {
           </div>
         </div>
       </main>
-
-      <ChatbotWidget />
     </div>
   );
 };

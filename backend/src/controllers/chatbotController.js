@@ -10,7 +10,7 @@ import { createGoogleMeetEvent } from '../utils/googleMeet.js';
 
 export const handleChatbotMessage = async (req, res) => {
   try {
-    const { sessionId, message } = req.body;
+    const { sessionId, message, userName, userEmail } = req.body;
     const msgLower = message.toLowerCase();
 
     // Fetch conversation history first
@@ -65,20 +65,28 @@ export const handleChatbotMessage = async (req, res) => {
 
 ${kbContext}
 
+USER INFO: 
+Name: ${userName || "Unknown"}
+Email: ${userEmail || "Unknown"}
+If the user's Name and Email are provided above, DO NOT ask for them. Use them automatically.
+
 INSTRUCTIONS:
 You are chatting with a user. The chat history is provided in the messages above.
 1. If the user wants an "Appointment" or book a call, you must collect EXACTLY 4 details: Name, Email, Date (YYYY-MM-DD), Time (HH:MM).
+   - Use the USER INFO provided above. DO NOT ASK for Name and Email if they are already provided!
    - CRITICAL: Read the ENTIRE chat history. Do NOT ask for a detail if the user has already provided it!
    - If ANY of the 4 details are still missing, reply by asking for ONLY the missing info. Return intent: "booking_in_progress".
    - If you have collected ALL 4 details, IMMEDIATELY return intent: "book_appointment". Include "bookingData".
 2. If the user asks about "Pricing", demo, or sales, they are a LEAD. Collect 4 details: Name, Email, Phone, Interest.
+   - Use the USER INFO provided above. DO NOT ASK for Name and Email if they are already provided!
    - Read the chat history. If missing, reply asking for ONLY the missing info. Return intent: "lead_in_progress".
    - If you have ALL 4 details, IMMEDIATELY return intent: "capture_lead". Include "leadData".
 3. If the user wants to CREATE A SUPPORT TICKET, collect exactly 4 details: Name, Email, Category, Message.
+   - Use the USER INFO provided above. DO NOT ASK for Name and Email if they are already provided!
    - Read chat history. If missing, reply politely asking for ONLY the missing info. Return intent: "ticket_in_progress".
    - If you have ALL 4 details, you MUST IMMEDIATELY return intent: "create_ticket". Include "ticketData".
 4. If the user wants to CHECK TICKET STATUS, ask for their Ticket ID. Return intent: "check_ticket_status". If they provide the ID, include it in the JSON as "ticketId".
-5. If the user wants to CHECK APPOINTMENT details or status, ask for their Email address. Return intent: "check_appointment". If they provide the email, include it in the JSON as "email".
+5. If the user wants to CHECK APPOINTMENT details or status, ask for their Email address. Return intent: "check_appointment". If they provide the email, include it in the JSON as "email". If USER INFO already has the Email, you can use it directly without asking.
 6. If the user asks a general conversational question (e.g., greetings like "Hi", asking your name, asking how you can help, etc.):
    - Answer politely and briefly in a helpful tone. You are SupportFlow AI, a virtual assistant. You can help them book appointments, answer FAQs, or create support tickets. Return intent: "support" and your answer.
 7. If the user asks a question:

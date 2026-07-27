@@ -21,12 +21,14 @@ import Appointments from './pages/Appointments';
 import ChatbotAdmin from './pages/ChatbotAdmin';
 import Settings from './pages/Settings';
 import GlobalBackground from './components/GlobalBackground';
+import GlobalChatbot from './components/GlobalChatbot';
 
 function App() {
   return (
     <AuthProvider>
       <GlobalBackground />
       <Router>
+        <GlobalChatbot />
         <div className="relative z-0 min-h-screen">
           <Routes>
             {/* Public Routes */}

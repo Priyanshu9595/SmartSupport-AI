@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ChatbotWidget from '../components/ChatbotWidget';
 import { 
   MessageSquare, HelpCircle, Calendar, Users, Sparkles, Brain, Zap, 
   Rocket, Headphones, CheckCircle, Star, ArrowRight, ChevronDown 

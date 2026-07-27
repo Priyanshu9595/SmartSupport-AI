@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
 import { Search, ChevronDown, ChevronUp } from 'lucide-react';
-import ChatbotWidget from '../components/ChatbotWidget';
 
 const PublicKB = () => {
   const [articles, setArticles] = useState([]);
