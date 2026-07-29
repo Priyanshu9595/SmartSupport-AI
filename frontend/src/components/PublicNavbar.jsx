@@ -41,8 +41,8 @@ const PublicNavbar = () => {
                 key={link.name}
                 to={link.path}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${isActive(link.path)
-                    ? 'bg-blue-900/40 text-blue-400 shadow-sm'
-                    : 'text-slate-300 hover:text-blue-600 hover:bg-slate-800'
+                  ? 'bg-blue-900/40 text-blue-400 shadow-sm'
+                  : 'text-slate-300 hover:text-blue-600 hover:bg-slate-800'
                   }`}
               >
                 {link.name}
@@ -115,8 +115,8 @@ const PublicNavbar = () => {
               to={link.path}
               onClick={() => setMobileMenuOpen(false)}
               className={`block px-4 py-3 rounded-xl text-base font-medium transition-colors ${isActive(link.path)
-                  ? 'bg-blue-900/40 text-blue-400'
-                  : 'text-slate-200 hover:text-blue-600 hover:bg-slate-800'
+                ? 'bg-blue-900/40 text-blue-400'
+                : 'text-slate-200 hover:text-blue-600 hover:bg-slate-800'
                 }`}
             >
               {link.name}

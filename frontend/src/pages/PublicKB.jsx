@@ -1,29 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import api from '../utils/api';
+import React, { useState } from 'react';
+import { faqs } from '../constants/faqs';
 import { Search, ChevronDown, ChevronUp } from 'lucide-react';
 
 const PublicKB = () => {
-  const [articles, setArticles] = useState([]);
   const [search, setSearch] = useState('');
   const [expandedId, setExpandedId] = useState(null);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchArticles();
-  }, []);
-
-  const fetchArticles = async () => {
-    try {
-      const { data } = await api.get('/kb/public');
-      setArticles(data);
-    } catch (error) {
-      console.error('Error fetching KB:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const filteredArticles = articles.filter(a => 
+  const filteredArticles = faqs.filter(a => 
     a.question.toLowerCase().includes(search.toLowerCase()) || 
     a.answer.toLowerCase().includes(search.toLowerCase())
   );
@@ -45,34 +28,29 @@ const PublicKB = () => {
           </div>
         </div>
 
-        {loading ? (
-          <div className="text-center text-slate-500">Loading articles...</div>
-        ) : (
-          <div className="space-y-4">
-            {filteredArticles.length === 0 ? (
-              <div className="text-center text-slate-500 py-8 bg-slate-900/60 backdrop-blur-xl rounded-2xl border border-slate-900 dark:border-white/50 shadow-md">
-                No articles found matching "{search}".
-              </div>
-            ) : (
-              filteredArticles.map(article => (
-                <div key={article._id} className="bg-slate-900/60 backdrop-blur-xl rounded-2xl shadow-md border border-slate-900 dark:border-white/50 overflow-hidden transition-all duration-300 hover:shadow-lg">
-                  <button 
-                    onClick={() => setExpandedId(expandedId === article._id ? null : article._id)}
-                    className="w-full px-6 py-4 flex justify-between items-center focus:outline-none hover:bg-slate-900/40 transition-colors"
-                  >
-                    <span className="font-semibold text-slate-800 dark:text-slate-100 text-left">{article.question}</span>
-                    {expandedId === article._id ? <ChevronUp className="text-slate-500" /> : <ChevronDown className="text-slate-500" />}
-                  </button>
-                  {expandedId === article._id && (
-                    <div className="px-6 pb-4 pt-2 border-t border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 leading-relaxed">
-                      {article.answer}
-                    </div>
-                  )}
+        <div className="space-y-4">
+          {filteredArticles.length === 0 ? (
+            <div className="text-center text-slate-500 py-8 bg-slate-900/60 backdrop-blur-xl rounded-2xl border border-slate-900 dark:border-white/50 shadow-md">
+              No articles found matching "{search}".
+            </div>
+          ) : (
+            filteredArticles.map((article, index) => (
+              <div 
+                key={index} 
+                className="bg-slate-900/60 hover:bg-slate-800/80 backdrop-blur-sm rounded-xl px-6 py-5 border border-slate-800/60 transition-all duration-200 cursor-pointer shadow-sm"
+                onClick={() => setExpandedId(expandedId === index ? null : index)}
+              >
+                <h3 className="text-base md:text-lg font-semibold text-slate-200 flex justify-between items-center">
+                  {article.question}
+                  <ChevronDown className={`transition-transform duration-300 shrink-0 ml-4 ${expandedId === index ? 'rotate-180 text-blue-500' : 'text-slate-500'}`} size={20} />
+                </h3>
+                <div className={`overflow-hidden transition-all duration-300 ${expandedId === index ? 'max-h-96 mt-3 opacity-100' : 'max-h-0 opacity-0'}`}>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed">{article.answer}</p>
                 </div>
-              ))
-            )}
-          </div>
-        )}
+              </div>
+            ))
+          )}
+        </div>
       </main>
     </div>
   );

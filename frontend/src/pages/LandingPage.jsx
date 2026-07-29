@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  MessageSquare, HelpCircle, Calendar, Users, Sparkles, Brain, Zap, 
-  Rocket, Headphones, CheckCircle, Star, ArrowRight, ChevronDown 
+import { faqs } from '../constants/faqs';
+import api from '../utils/api';
+import {
+  MessageSquare, HelpCircle, Calendar, Users, Sparkles, Brain, Zap,
+  Rocket, Headphones, CheckCircle, Star, ArrowRight, ChevronDown
 } from 'lucide-react';
 
 const LandingPage = () => {
+  const [expandedFaq, setExpandedFaq] = useState(null);
+
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col font-sans overflow-x-hidden relative selection:bg-blue-100 selection:text-blue-900">
-      
+
       {/* Decorative Background Blobs */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-blue-400/20 blur-[120px]" />
@@ -17,7 +21,7 @@ const LandingPage = () => {
       </div>
 
       <main className="flex-grow flex flex-col items-center w-full relative z-10">
-        
+
         {/* HERO SECTION */}
         <section className="w-full max-w-6xl mx-auto px-4 pt-24 pb-20 md:pt-32 md:pb-32 flex flex-col items-center text-center">
           <div className="slide-in-up opacity-0 inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-sm font-semibold text-slate-600 dark:text-slate-300 shadow-sm hover:shadow-md transition-shadow cursor-default" style={{ animationDelay: '100ms' }}>
@@ -25,17 +29,17 @@ const LandingPage = () => {
             <span>Meet your new AI Support Agent</span>
             <span className="bg-blue-100 text-blue-400 text-xs px-2 py-0.5 rounded-full ml-2">New</span>
           </div>
-          
+
           <h1 className="slide-in-up opacity-0 text-5xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-8 leading-[1.1] max-w-4xl mx-auto" style={{ animationDelay: '250ms' }}>
             Automate customer support with <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">human-like AI</span>
           </h1>
-          
+
           <p className="slide-in-up opacity-0 text-lg md:text-xl text-slate-500 mb-10 max-w-2xl mx-auto leading-relaxed" style={{ animationDelay: '400ms' }}>
             Instantly resolve FAQs, capture high-quality leads, and schedule appointments 24/7 without growing your headcount.
           </p>
-          
+
           <div className="slide-in-up opacity-0 flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto" style={{ animationDelay: '550ms' }}>
-            <button 
+            <button
               onClick={() => document.querySelector('.chatbot-trigger-btn')?.click()}
               className="group bg-blue-600 text-slate-900 dark:text-white px-8 py-4 rounded-xl text-lg font-semibold shadow-[0_4px_14px_0_rgba(37,99,235,0.39)] hover:shadow-[0_6px_20px_rgba(37,99,235,0.23)] hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center w-full sm:w-auto"
             >
@@ -67,7 +71,7 @@ const LandingPage = () => {
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">Everything you need to support customers</h2>
               <p className="text-lg text-slate-500 max-w-2xl mx-auto">A complete suite of tools designed to automate repetitive tasks and delight your users.</p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
                 { icon: MessageSquare, color: 'text-blue-600', bg: 'bg-blue-900/30', title: 'Smart Chatbot', desc: 'AI-powered virtual assistant providing human-like answers 24/7.' },
@@ -93,10 +97,10 @@ const LandingPage = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">How SupportFlow AI works</h2>
             <p className="text-lg text-slate-500 max-w-2xl mx-auto">From a customer's first question to a complete resolution in seconds.</p>
           </div>
-          
+
           <div className="relative">
             <div className="hidden md:block absolute top-[60px] left-[10%] right-[10%] h-0.5 bg-gradient-to-r from-blue-100 via-indigo-200 to-purple-100 z-0"></div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative z-10">
               {[
                 { step: 1, icon: MessageSquare, title: 'Customer asks a question', desc: 'User interacts with the friendly chat widget on your website.' },
@@ -122,7 +126,7 @@ const LandingPage = () => {
         <section className="w-full bg-transparent text-slate-900 dark:text-white py-24 relative overflow-hidden" id="benefits">
           <div className="absolute top-0 right-0 w-96 h-96 bg-blue-900/30/80 blur-[100px] rounded-full pointer-events-none"></div>
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-900/30/80 blur-[100px] rounded-full pointer-events-none"></div>
-          
+
           <div className="max-w-7xl mx-auto px-4 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               <div>
@@ -176,7 +180,7 @@ const LandingPage = () => {
                         <div className="text-2xl font-extrabold text-white">73.5%</div>
                         <div className="text-[9px] text-blue-200 mt-1 font-semibold">Automated</div>
                       </div>
-                      
+
                       {/* Chart area */}
                       <div className="col-span-3 bg-white dark:bg-slate-900 p-3 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm mt-1 h-32 flex flex-col relative overflow-hidden">
                         <div className="text-[9px] font-bold text-slate-500 uppercase tracking-wider mb-2">Weekly Ticket Volume</div>
@@ -188,20 +192,20 @@ const LandingPage = () => {
                           ))}
                         </div>
                       </div>
-                      
+
                       {/* Recent list */}
                       <div className="col-span-3 bg-white dark:bg-slate-900 p-3 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm mt-1">
-                         <div className="text-[9px] font-bold text-slate-500 uppercase tracking-wider mb-2">Recent AI Actions</div>
-                         <div className="space-y-1.5">
-                            <div className="flex justify-between items-center text-[10px] p-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded">
-                               <span className="font-semibold text-slate-700 dark:text-slate-300 truncate pr-2">Resolved login issue</span>
-                               <span className="bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400 px-1.5 py-0.5 rounded-full font-bold text-[8px] whitespace-nowrap">Automated</span>
-                            </div>
-                            <div className="flex justify-between items-center text-[10px] p-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded">
-                               <span className="font-semibold text-slate-700 dark:text-slate-300 truncate pr-2">Booked Demo: Acme Corp</span>
-                               <span className="bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400 px-1.5 py-0.5 rounded-full font-bold text-[8px] whitespace-nowrap">Scheduled</span>
-                            </div>
-                         </div>
+                        <div className="text-[9px] font-bold text-slate-500 uppercase tracking-wider mb-2">Recent AI Actions</div>
+                        <div className="space-y-1.5">
+                          <div className="flex justify-between items-center text-[10px] p-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded">
+                            <span className="font-semibold text-slate-700 dark:text-slate-300 truncate pr-2">Resolved login issue</span>
+                            <span className="bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400 px-1.5 py-0.5 rounded-full font-bold text-[8px] whitespace-nowrap">Automated</span>
+                          </div>
+                          <div className="flex justify-between items-center text-[10px] p-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded">
+                            <span className="font-semibold text-slate-700 dark:text-slate-300 truncate pr-2">Booked Demo: Acme Corp</span>
+                            <span className="bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400 px-1.5 py-0.5 rounded-full font-bold text-[8px] whitespace-nowrap">Scheduled</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -211,26 +215,27 @@ const LandingPage = () => {
           </div>
         </section>
 
-
-
         {/* FAQ PREVIEW SECTION */}
         <section className="w-full bg-transparent pt-24 pb-12 border-t border-slate-200 dark:border-slate-800 relative z-10">
           <div className="max-w-3xl mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">Frequently asked questions</h2>
             </div>
-            
-            <div className="space-y-4">
-              {[
-                { q: "How long does it take to set up?", a: "Setup takes literally 5 minutes. You just upload your documents to the Knowledge Base, customize your widget colors, and paste a single line of code into your website." },
-                { q: "Can the AI hand off to a human agent?", a: "Yes. If the AI cannot resolve the issue or if the user explicitly asks to speak to a human, it will automatically create a Support Ticket for your team." },
-                { q: "Does it integrate with Google Meet?", a: "Absolutely. The appointment booking feature automatically generates Google Meet links and sends calendar invites to both parties." }
-              ].map((faq, i) => (
-                <div key={i} className="bg-slate-50 dark:bg-slate-950 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 hover:border-blue-200 transition-colors">
-                  <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 mb-2 flex justify-between items-center">
-                    {faq.q}
+
+            <div className="space-y-3">
+              {faqs.map((faq, i) => (
+                <div
+                  key={i}
+                  className="bg-slate-900/60 hover:bg-slate-800/80 backdrop-blur-sm rounded-xl px-6 py-5 border border-slate-800/60 transition-all duration-200 cursor-pointer shadow-sm"
+                  onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}
+                >
+                  <h3 className="text-base md:text-lg font-semibold text-slate-200 flex justify-between items-center">
+                    {faq.question}
+                    <ChevronDown className={`transition-transform duration-300 shrink-0 ml-4 ${expandedFaq === i ? 'rotate-180 text-blue-500' : 'text-slate-500'}`} size={20} />
                   </h3>
-                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed">{faq.a}</p>
+                  <div className={`overflow-hidden transition-all duration-300 ${expandedFaq === i ? 'max-h-96 mt-3 opacity-100' : 'max-h-0 opacity-0'}`}>
+                    <p className="text-slate-400 text-sm md:text-base leading-relaxed">{faq.answer}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -243,14 +248,14 @@ const LandingPage = () => {
         {/* FINAL CTA SECTION */}
         <section className="w-full px-4 py-20 mb-12 relative z-10 border-t border-slate-200 dark:border-slate-800">
           <div className="max-w-6xl mx-auto relative flex flex-col items-center text-center">
-            
+
             {/* Subtle glow behind CTA */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl h-64 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
-            
+
             <div className="relative z-10 max-w-3xl">
               <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">Ready to transform your customer support?</h2>
               <p className="text-slate-500 dark:text-slate-400 text-lg mb-10 leading-relaxed">Join businesses using SupportFlow AI to automate interactions, reduce costs, and delight customers 24/7.</p>
-              
+
               <div className="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
                 <Link to="/register" className="bg-blue-600 text-slate-900 dark:text-white px-8 py-4 rounded-xl text-lg font-bold shadow-[0_4px_14px_0_rgba(37,99,235,0.39)] hover:shadow-[0_6px_20px_rgba(37,99,235,0.23)] hover:-translate-y-0.5 transition-all flex items-center justify-center w-full sm:w-auto">
                   <Rocket className="mr-2" size={20} />

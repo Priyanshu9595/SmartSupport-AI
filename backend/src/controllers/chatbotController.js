@@ -61,6 +61,11 @@ export const handleChatbotMessage = async (req, res) => {
           }
 
           const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+          
+          const currentDate = new Date();
+          const currentDateStr = currentDate.toISOString().split('T')[0];
+          const currentTimeStr = currentDate.toLocaleTimeString('en-US', { timeZone: 'Asia/Kolkata' });
+
           const systemPrompt = `You are a helpful customer support and appointment booking chatbot.
 
 ${kbContext}
@@ -68,8 +73,9 @@ ${kbContext}
 USER INFO: 
 Name: ${userName || "Unknown"}
 Email: ${userEmail || "Unknown"}
-If the user's Name and Email are provided above, DO NOT ask for them. Use them automatically.
-
+Current Date: ${currentDateStr}
+Current Time: ${currentTimeStr}
+If the user's Name and Email are provided above, DO NOT ask for them. Use them automatically. You MUST use the Current Date to understand relative dates like "tomorrow", "today", "next monday", etc. Do NOT ask the user for the date if they provide a relative date! Calculate it yourself.
 INSTRUCTIONS:
 You are chatting with a user. The chat history is provided in the messages above.
 1. If the user wants an "Appointment" or book a call, you must collect EXACTLY 4 details: Name, Email, Date (YYYY-MM-DD), Time (HH:MM).

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../utils/api';
 import { Send, Mail, Phone, MapPin } from 'lucide-react';
@@ -12,6 +13,7 @@ const Contact = () => {
   });
   const [status, setStatus] = useState('');
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
@@ -112,6 +114,14 @@ const Contact = () => {
                   <span className="font-bold">Error:</span> &nbsp;Failed to submit your inquiry. Please try again later.
                 </div>
               )}
+              {!user && (
+                <div className="mb-6 p-4 bg-blue-50/10 border border-blue-500/20 text-blue-400 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between shadow-sm gap-4">
+                  <span>You must be logged in to submit an inquiry.</span>
+                  <button onClick={() => navigate('/login?type=client')} className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 transition-colors whitespace-nowrap">
+                    Login Now
+                  </button>
+                </div>
+              )}
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -120,9 +130,10 @@ const Contact = () => {
                     <input 
                       type="text" 
                       required 
+                      disabled={!user}
                       value={formData.name}
                       onChange={(e) => setFormData({...formData, name: e.target.value})}
-                      className="w-full bg-slate-900/50 border border-slate-900 dark:border-white/60 backdrop-blur-sm rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all shadow-inner"
+                      className={`w-full bg-slate-900/50 border border-slate-900 dark:border-white/60 backdrop-blur-sm rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all shadow-inner ${!user ? 'opacity-50 cursor-not-allowed' : ''}`}
                       placeholder="John Doe"
                     />
                   </div>
@@ -131,10 +142,11 @@ const Contact = () => {
                     <input 
                       type="email" 
                       required 
-                      readOnly={!!user}
+                      readOnly
+                      disabled={!user}
                       value={formData.email}
                       onChange={(e) => setFormData({...formData, email: e.target.value})}
-                      className={`w-full bg-slate-900/50 border border-slate-900 dark:border-white/60 backdrop-blur-sm rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all shadow-inner ${user ? 'cursor-not-allowed opacity-70 text-slate-500' : ''}`}
+                      className={`w-full bg-slate-900/50 border border-slate-900 dark:border-white/60 backdrop-blur-sm rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all shadow-inner cursor-not-allowed opacity-70 text-slate-500`}
                       placeholder="john@example.com"
                     />
                   </div>
@@ -144,9 +156,10 @@ const Contact = () => {
                   <label className="block text-sm font-bold text-slate-700 dark:text-slate-200 mb-2">Phone Number</label>
                   <input 
                     type="text" 
+                    disabled={!user}
                     value={formData.phone}
                     onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    className="w-full bg-slate-900/50 border border-slate-900 dark:border-white/60 backdrop-blur-sm rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all shadow-inner"
+                    className={`w-full bg-slate-900/50 border border-slate-900 dark:border-white/60 backdrop-blur-sm rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all shadow-inner ${!user ? 'opacity-50 cursor-not-allowed' : ''}`}
                     placeholder="+1 (555) 000-0000"
                   />
                 </div>
@@ -155,26 +168,37 @@ const Contact = () => {
                   <label className="block text-sm font-bold text-slate-700 dark:text-slate-200 mb-2">Message</label>
                   <textarea 
                     required 
+                    disabled={!user}
                     rows="5"
                     value={formData.message}
                     onChange={(e) => setFormData({...formData, message: e.target.value})}
-                    className="w-full bg-slate-900/50 border border-slate-900 dark:border-white/60 backdrop-blur-sm rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all shadow-inner resize-none"
+                    className={`w-full bg-slate-900/50 border border-slate-900 dark:border-white/60 backdrop-blur-sm rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all shadow-inner resize-none ${!user ? 'opacity-50 cursor-not-allowed' : ''}`}
                     placeholder="How can we help you today?"
                   ></textarea>
                 </div>
 
-                <button 
-                  type="submit" 
-                  disabled={status === 'submitting'}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-slate-900 dark:text-white font-bold py-4 rounded-xl shadow-md transition-all flex justify-center items-center disabled:opacity-70"
-                >
-                  {status === 'submitting' ? 'Sending...' : (
-                    <>
-                      Send Message
-                      <Send size={18} className="ml-2" />
-                    </>
-                  )}
-                </button>
+                {!user ? (
+                  <button 
+                    type="button" 
+                    onClick={() => navigate('/login?type=client')}
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-slate-900 dark:text-white font-bold py-4 rounded-xl shadow-md transition-all flex justify-center items-center"
+                  >
+                    Login to Submit
+                  </button>
+                ) : (
+                  <button 
+                    type="submit" 
+                    disabled={status === 'submitting'}
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-slate-900 dark:text-white font-bold py-4 rounded-xl shadow-md transition-all flex justify-center items-center disabled:opacity-70"
+                  >
+                    {status === 'submitting' ? 'Sending...' : (
+                      <>
+                        Send Message
+                        <Send size={18} className="ml-2" />
+                      </>
+                    )}
+                  </button>
+                )}
               </form>
             </div>
 
