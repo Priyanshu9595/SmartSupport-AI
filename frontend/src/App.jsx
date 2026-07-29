@@ -39,9 +39,11 @@ function App() {
               <Route path="/help" element={<PublicKB />} />
               <Route path="/submit-ticket" element={<CustomerTicketForm />} />
               <Route path="/book-demo" element={<BookAppointment />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
             </Route>
+
+            {/* Auth Routes (Standalone / Full Screen) */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
 
             {/* Protected Customer Route */}
             <Route element={<ProtectedRoute allowedRoles={['Customer', 'Admin', 'Support Agent']} />}>
