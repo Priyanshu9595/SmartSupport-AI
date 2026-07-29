@@ -61,9 +61,9 @@ const ChatbotWidget = ({ user }) => {
 
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
       {isOpen && (
-        <div className="bg-white w-80 sm:w-96 rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col h-[550px] mb-4 transition-all duration-300">
+        <div className="bg-white w-[calc(100vw-2rem)] sm:w-96 rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col h-[80vh] max-h-[550px] mb-4 transition-all duration-300">
           {/* Header */}
           <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-slate-900 dark:text-white p-4 flex justify-between items-center shadow-md z-10">
             <div className="flex items-center space-x-3">

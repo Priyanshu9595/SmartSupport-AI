@@ -108,8 +108,10 @@ const PublicNavbar = () => {
 
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-slate-900 border-b border-slate-800 px-4 pt-2 pb-6 space-y-1 shadow-2xl absolute w-full left-0 animate-in slide-in-from-top-2">
-          {navLinks.map((link) => (
+        <>
+          <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-40 md:hidden" onClick={() => setMobileMenuOpen(false)}></div>
+          <div className="md:hidden bg-slate-900 border-b border-slate-800 px-4 pt-2 pb-6 space-y-1 shadow-2xl absolute w-full left-0 z-50 animate-in slide-in-from-top-2">
+            {navLinks.map((link) => (
             <Link
               key={link.name}
               to={link.path}
@@ -130,6 +132,7 @@ const PublicNavbar = () => {
             </div>
           )}
         </div>
+        </>
       )}
     </header>
   );

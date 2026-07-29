@@ -25,26 +25,16 @@ const Contact = () => {
     e.preventDefault();
     setStatus('submitting');
     try {
-      const response = await fetch(import.meta.env.VITE_FORMSPREE_URL || 'https://formspree.io/f/YOUR_FORM_ID', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          message: formData.message
-        })
+      await api.post('/leads', {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+        source: 'website'
       });
 
-      if (response.ok) {
-        setStatus('success');
-        setFormData({ name: '', email: '', phone: '', message: '' });
-      } else {
-        throw new Error('Form submission failed');
-      }
+      setStatus('success');
+      setFormData({ name: '', email: '', phone: '', message: '' });
     } catch (error) {
       console.error('Failed to submit inquiry:', error);
       setStatus('error');

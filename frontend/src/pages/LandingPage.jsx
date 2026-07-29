@@ -163,7 +163,7 @@ const LandingPage = () => {
                       </div>
                     </div>
                     {/* Body */}
-                    <div className="p-4 grid grid-cols-3 gap-3">
+                    <div className="p-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
                       {/* Stat Cards */}
                       <div className="bg-white dark:bg-slate-900 p-3 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-center">
                         <div className="text-[9px] font-bold text-slate-500 uppercase tracking-wider mb-1">Total Tickets</div>
@@ -182,7 +182,7 @@ const LandingPage = () => {
                       </div>
 
                       {/* Chart area */}
-                      <div className="col-span-3 bg-white dark:bg-slate-900 p-3 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm mt-1 h-32 flex flex-col relative overflow-hidden">
+                      <div className="col-span-1 sm:col-span-3 bg-white dark:bg-slate-900 p-3 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm mt-1 h-32 flex flex-col relative overflow-hidden">
                         <div className="text-[9px] font-bold text-slate-500 uppercase tracking-wider mb-2">Weekly Ticket Volume</div>
                         <div className="flex-1 flex items-end justify-between gap-1 mt-2 z-10 px-1">
                           {[30, 45, 25, 60, 75, 40, 80].map((h, i) => (
@@ -194,7 +194,7 @@ const LandingPage = () => {
                       </div>
 
                       {/* Recent list */}
-                      <div className="col-span-3 bg-white dark:bg-slate-900 p-3 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm mt-1">
+                      <div className="col-span-1 sm:col-span-3 bg-white dark:bg-slate-900 p-3 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm mt-1">
                         <div className="text-[9px] font-bold text-slate-500 uppercase tracking-wider mb-2">Recent AI Actions</div>
                         <div className="space-y-1.5">
                           <div className="flex justify-between items-center text-[10px] p-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded">

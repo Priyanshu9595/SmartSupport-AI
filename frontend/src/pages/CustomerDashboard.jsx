@@ -98,7 +98,7 @@ const CustomerDashboard = () => {
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 font-sans text-slate-900 dark:text-white">
       <nav className="relative z-50 bg-slate-900/70 backdrop-blur-md border-b border-slate-300 dark:border-slate-700/50 px-4 md:px-8 py-4 flex flex-col md:flex-row justify-between items-center gap-4 shadow-sm">
         <Link to="/" className="text-xl font-bold text-blue-600">SupportFlow AI</Link>
-        <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
+        <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-4 md:gap-6 mt-2 md:mt-0">
           <Link to="/" className="text-slate-600 dark:text-slate-300 hover:text-blue-600 font-medium text-sm">Home</Link>
           <Link to="/submit-ticket" className="bg-blue-600 text-slate-900 dark:text-white px-4 py-2 rounded-lg font-medium text-sm hover:bg-blue-700 shadow-sm transition">
             Submit Ticket
@@ -115,7 +115,7 @@ const CustomerDashboard = () => {
             </button>
             
             {showNotifications && (
-              <div className="absolute right-0 mt-3 w-80 md:w-96 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 origin-top-right">
+              <div className="absolute right-[-4rem] sm:right-0 mt-3 w-72 sm:w-80 md:w-96 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 origin-top-right">
                 <div className="p-4 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex justify-between items-center">
                   <div className="flex items-center space-x-2">
                     <h3 className="font-bold text-slate-900 dark:text-white">Notifications</h3>
@@ -278,7 +278,7 @@ const CustomerDashboard = () => {
       {/* Ticket Details Modal */}
       {selectedTicket && (
         <div className="fixed inset-0 bg-slate-900/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-slate-900/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-slate-300 dark:border-slate-700/60 w-full max-w-2xl max-h-[80vh] flex flex-col">
+          <div className="bg-slate-900/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-slate-300 dark:border-slate-700/60 w-full max-w-2xl max-h-[90vh] md:max-h-[80vh] flex flex-col">
             
             {/* Modal Header */}
             <div className="p-6 border-b border-slate-300 dark:border-slate-700/50 flex justify-between items-center bg-transparent rounded-t-3xl">

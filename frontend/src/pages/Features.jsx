@@ -33,9 +33,9 @@ const Features = () => {
                 </ul>
               </div>
               <div className="md:w-1/2 bg-slate-900/60 backdrop-blur-xl rounded-3xl p-8 border border-slate-900 dark:border-white/50 shadow-xl hover:-translate-y-1 transition-transform duration-300">
-                <div className="flex flex-col space-y-4">
-                  <div className="bg-slate-100 dark:bg-slate-800 self-end px-4 py-2 rounded-2xl rounded-tr-sm text-sm text-slate-800 dark:text-slate-100">Hi, what are your business hours?</div>
-                  <div className="bg-blue-600 self-start px-4 py-2 rounded-2xl rounded-tl-sm text-sm text-slate-900 dark:text-white shadow-sm">We are open Monday to Friday, 9 AM to 6 PM EST.</div>
+                 <div className="flex flex-col space-y-4">
+                  <div className="bg-slate-100 dark:bg-slate-800 self-end max-w-[90%] break-words px-4 py-2 rounded-2xl rounded-tr-sm text-sm text-slate-800 dark:text-slate-100">Hi, what are your business hours?</div>
+                  <div className="bg-blue-600 self-start max-w-[90%] break-words px-4 py-2 rounded-2xl rounded-tl-sm text-sm text-slate-900 dark:text-white shadow-sm">We are open Monday to Friday, 9 AM to 6 PM EST.</div>
                 </div>
               </div>
             </div>
@@ -82,8 +82,8 @@ const Features = () => {
               </div>
               <div className="md:w-1/2 bg-slate-900/60 backdrop-blur-xl rounded-3xl p-8 border border-slate-900 dark:border-white/50 shadow-xl hover:-translate-y-1 transition-transform duration-300">
                  <div className="flex flex-col space-y-4">
-                  <div className="bg-slate-100 dark:bg-slate-800 self-end px-4 py-2 rounded-2xl rounded-tr-sm text-sm text-slate-800 dark:text-slate-100">I want to see a demo.</div>
-                  <div className="bg-amber-500 self-start px-4 py-2 rounded-2xl rounded-tl-sm text-sm text-slate-900 dark:text-white shadow-sm">Sure! What's your name and email so our sales team can contact you?</div>
+                  <div className="bg-slate-100 dark:bg-slate-800 self-end max-w-[90%] break-words px-4 py-2 rounded-2xl rounded-tr-sm text-sm text-slate-800 dark:text-slate-100">I want to see a demo.</div>
+                  <div className="bg-amber-500 self-start max-w-[90%] break-words px-4 py-2 rounded-2xl rounded-tl-sm text-sm text-slate-900 dark:text-white shadow-sm">Sure! What's your name and email so our sales team can contact you?</div>
                 </div>
               </div>
             </div>
