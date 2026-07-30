@@ -167,7 +167,7 @@ const Appointments = () => {
                         </select>
                       </div>
                       
-                      <div className="flex space-x-3 pt-1">
+                      <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3 pt-1">
                         <button onClick={() => {
                           const d = prompt('Enter new date (YYYY-MM-DD):', dateObj.toISOString().split('T')[0]);
                           const t = prompt('Enter new time (HH:MM):', dateObj.toTimeString().substring(0,5));
@@ -197,7 +197,7 @@ const Appointments = () => {
               <div className="h-px bg-slate-200 flex-1 ml-6"></div>
             </div>
             
-            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-x-auto shadow-sm">
               <table className="min-w-full divide-y divide-slate-100">
                 <thead className="bg-slate-950/80">
                   <tr>

@@ -145,8 +145,8 @@ const Tickets = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-            <div className="flex gap-4">
-              <div className="relative">
+            <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+              <div className="relative w-full sm:w-auto">
                 <Filter size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
                 <select 
                   className="pl-9 pr-8 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl outline-none shadow-sm font-semibold text-slate-700 dark:text-slate-200 appearance-none focus:ring-2 focus:ring-blue-500"
@@ -161,7 +161,7 @@ const Tickets = () => {
                   <option value="Closed">Closed</option>
                 </select>
               </div>
-              <div className="relative">
+              <div className="relative w-full sm:w-auto">
                 <Filter size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
                 <select 
                   className="pl-9 pr-8 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl outline-none shadow-sm font-semibold text-slate-700 dark:text-slate-200 appearance-none focus:ring-2 focus:ring-blue-500"
@@ -301,9 +301,9 @@ const Tickets = () => {
             </div>
           </div>
 
-          <div className="flex-1 flex overflow-hidden">
+          <div className="flex-1 flex flex-col lg:flex-row overflow-y-auto lg:overflow-hidden">
             {/* Left Column: Conversation */}
-            <div className="w-2/3 flex flex-col border-r border-slate-200 dark:border-slate-800 bg-slate-950/50 relative">
+            <div className="w-full lg:w-2/3 flex flex-col border-b lg:border-b-0 lg:border-r border-slate-200 dark:border-slate-800 bg-slate-950/50 relative min-h-[500px] lg:min-h-0">
               
               <div className="flex-1 overflow-y-auto p-8 space-y-8">
                 {/* Initial Issue */}
@@ -384,7 +384,7 @@ const Tickets = () => {
             </div>
 
             {/* Right Column: Context */}
-            <div className="w-1/3 bg-white dark:bg-slate-900 p-8 overflow-y-auto">
+            <div className="w-full lg:w-1/3 bg-white dark:bg-slate-900 p-8 lg:overflow-y-auto">
               <h3 className="text-sm font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-6">Customer Profile</h3>
               <div className="flex items-center space-x-4 mb-8">
                 <div className="h-14 w-14 rounded-2xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center text-xl font-bold">

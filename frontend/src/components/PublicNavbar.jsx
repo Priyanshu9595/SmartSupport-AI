@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { ChevronDown, Menu, X, LogOut, User } from 'lucide-react';
+import { Menu, X, LogOut, User } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const PublicNavbar = () => {
   const { user, logout } = useAuth();
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  // removed dropdownOpen state
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -73,26 +73,12 @@ const PublicNavbar = () => {
               </div>
             ) : (
               <div className="relative">
-                <button
-                  onClick={() => setDropdownOpen(!dropdownOpen)}
-                  onBlur={() => setTimeout(() => setDropdownOpen(false), 200)}
+                <Link
+                  to="/login"
                   className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-medium transition-colors flex items-center shadow-sm"
                 >
-                  Start <ChevronDown size={16} className="ml-1" />
-                </button>
-
-                {/* Dropdown Menu */}
-                {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-slate-900 rounded-xl shadow-lg border border-slate-800 py-1 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2">
-                    <Link to="/login?type=client" className="block px-4 py-3 text-sm text-slate-200 hover:bg-blue-900/40 hover:text-blue-400 font-medium transition-colors">
-                      Login as a Client
-                    </Link>
-                    <div className="border-t border-slate-800"></div>
-                    <Link to="/login?type=admin" className="block px-4 py-3 text-sm text-slate-200 hover:bg-blue-900/40 hover:text-blue-400 font-medium transition-colors">
-                      Login as an Admin
-                    </Link>
-                  </div>
-                )}
+                  Login
+                </Link>
               </div>
             )}
           </div>
@@ -127,8 +113,7 @@ const PublicNavbar = () => {
 
           {!user && (
             <div className="pt-4 pb-2 border-t border-slate-800 mt-2">
-              <Link to="/login?type=client" className="block px-3 py-2 rounded-md text-base font-bold text-blue-600 hover:bg-blue-900/40">Login as Client</Link>
-              <Link to="/login?type=admin" className="block px-3 py-2 rounded-md text-base font-bold text-blue-600 hover:bg-blue-900/40">Login as Admin</Link>
+              <Link to="/login" className="block px-3 py-2 rounded-md text-base font-bold text-blue-600 hover:bg-blue-900/40">Login</Link>
             </div>
           )}
         </div>
