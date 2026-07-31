@@ -81,7 +81,7 @@ const Leads = () => {
   );
 
   return (
-    <div className="h-full flex flex-col max-w-7xl mx-auto w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="flex flex-col max-w-7xl mx-auto w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="mb-8 flex flex-col md:flex-row md:justify-between md:items-end gap-4">
         <div>
           <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Lead Management</h2>
@@ -127,8 +127,8 @@ const Leads = () => {
         </div>
       </div>
 
-      <div className="flex-1 overflow-hidden bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col">
-        <div className="overflow-x-auto flex-1">
+      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+        <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-slate-100">
             <thead className="bg-slate-950/80 sticky top-0 z-10 backdrop-blur-sm">
               <tr>

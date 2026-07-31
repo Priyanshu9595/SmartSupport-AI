@@ -34,10 +34,7 @@ const AdminLayout = () => {
     { name: 'Chatbot', path: '/dashboard/chatbot', icon: MessageSquare },
   ];
 
-  if (user?.role === 'Admin') {
-    navItems.push({ name: 'Settings', path: '/dashboard/settings', icon: Settings });
-  }
-
+  // Settings route removed as per request
   return (
     <div className="flex h-screen text-white relative overflow-hidden bg-slate-950">
 

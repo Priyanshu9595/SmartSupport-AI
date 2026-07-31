@@ -66,7 +66,7 @@ const Appointments = () => {
   const past = appointments.filter(a => ['Completed', 'Cancelled'].includes(a.status));
 
   return (
-    <div className="h-full flex flex-col max-w-7xl mx-auto w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="flex flex-col max-w-7xl mx-auto w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="mb-8 flex justify-between items-end">
         <div>
           <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Master Schedule</h2>
@@ -78,7 +78,7 @@ const Appointments = () => {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto bg-slate-950/50 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 space-y-10 shadow-inner">
+      <div className="bg-slate-950/50 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 space-y-10 shadow-inner">
         
         {/* Upcoming Section */}
         <div>

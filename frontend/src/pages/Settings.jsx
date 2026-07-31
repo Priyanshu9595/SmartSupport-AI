@@ -14,7 +14,7 @@ const Settings = () => {
   };
 
   return (
-    <div className="h-full flex flex-col max-w-6xl mx-auto w-full">
+    <div className="flex flex-col max-w-6xl mx-auto w-full">
       <div className="mb-8">
         <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Settings</h2>
         <p className="text-slate-500 dark:text-slate-400 mt-2">Manage your account settings and business preferences.</p>

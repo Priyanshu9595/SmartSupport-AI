@@ -107,7 +107,7 @@ const KnowledgeBase = () => {
   };
 
   return (
-    <div className="h-full flex flex-col max-w-7xl mx-auto w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="flex flex-col max-w-7xl mx-auto w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="mb-8 flex flex-col md:flex-row md:justify-between md:items-end gap-4">
         <div>
           <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Knowledge Base</h2>
@@ -166,13 +166,13 @@ const KnowledgeBase = () => {
         </div>
       )}
 
-      <div className="bg-white dark:bg-slate-900 flex-1 rounded-2xl shadow-sm border border-slate-300 dark:border-slate-700 overflow-hidden flex flex-col">
+      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-300 dark:border-slate-700">
         {loading ? (
           <div className="flex h-full items-center justify-center">
              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
           </div>
         ) : activeTab === 'published' ? (
-          <div className="overflow-y-auto p-6 bg-slate-900/50/30 h-full">
+          <div className="p-6 bg-slate-900/50/30">
             {articles.length === 0 ? (
               <div className="text-center py-20 text-slate-500 dark:text-slate-400 flex flex-col items-center">
                 <Book size={64} className="mb-4 opacity-20" />
@@ -206,7 +206,7 @@ const KnowledgeBase = () => {
             )}
           </div>
         ) : (
-          <div className="overflow-y-auto p-6 bg-amber-50/20 h-full">
+          <div className="p-6 bg-amber-50/20">
             <div className="mb-6 bg-amber-50 border border-amber-200 p-4 rounded-2xl flex items-start space-x-4">
                <div className="p-3 bg-amber-100 rounded-xl text-amber-600">
                   <Sparkles size={24} />
