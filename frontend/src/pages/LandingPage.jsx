@@ -60,14 +60,14 @@ const LandingPage = () => {
           {/* CTAs */}
           <div className="animate-fade-in-up animation-delay-300 flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto relative">
             <div className="absolute inset-0 bg-blue-500/20 blur-xl rounded-full scale-110 opacity-0 sm:group-hover:opacity-100 transition-opacity"></div>
-            <button
-              onClick={() => document.querySelector('.chatbot-trigger-btn')?.click()}
+            <Link
+              to="/login"
               className="relative group bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-2xl text-lg font-bold shadow-[0_0_40px_-10px_rgba(37,99,235,0.5)] hover:shadow-[0_0_60px_-15px_rgba(37,99,235,0.7)] hover:-translate-y-1 transition-all duration-300 flex items-center justify-center w-full sm:w-auto border border-blue-400/20"
             >
               See it in action
               <ArrowRight className="ml-2 group-hover:translate-x-1.5 transition-transform" size={20} />
-            </button>
-            <Link to="/book-demo" className="relative group bg-white/50 dark:bg-slate-900/50 backdrop-blur-md text-slate-800 dark:text-slate-200 border border-slate-300/50 dark:border-slate-700/50 px-8 py-4 rounded-2xl text-lg font-bold hover:bg-white dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center w-full sm:w-auto shadow-sm">
+            </Link>
+            <Link to="/login" className="relative group bg-white/50 dark:bg-slate-900/50 backdrop-blur-md text-slate-800 dark:text-slate-200 border border-slate-300/50 dark:border-slate-700/50 px-8 py-4 rounded-2xl text-lg font-bold hover:bg-white dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center w-full sm:w-auto shadow-sm">
               <Calendar className="mr-2 text-slate-500 group-hover:text-blue-500 transition-colors" size={20} />
               Book a Demo
             </Link>
