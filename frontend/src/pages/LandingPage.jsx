@@ -1,90 +1,111 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import { faqs } from '../constants/faqs';
-import api from '../utils/api';
 import {
   MessageSquare, HelpCircle, Calendar, Users, Sparkles, Brain, Zap,
-  Rocket, Headphones, CheckCircle, Star, ArrowRight, ChevronDown
+  Rocket, Headphones, CheckCircle, Star, ArrowRight, ChevronDown, Bot
 } from 'lucide-react';
 
 const LandingPage = () => {
+  const { user } = useAuth();
   const [expandedFaq, setExpandedFaq] = useState(null);
 
-  return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col font-sans overflow-x-hidden relative selection:bg-blue-100 selection:text-blue-900">
+  // Redirect if already logged in
+  if (user) {
+    if (user.role === 'Admin' || user.role === 'Support Agent') {
+      return <Navigate to="/dashboard" replace />;
+    }
+    return <Navigate to="/my-profile" replace />;
+  }
 
-      {/* Decorative Background Blobs */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-blue-400/20 blur-[120px]" />
-        <div className="absolute top-[20%] right-[-10%] w-[35%] h-[35%] rounded-full bg-purple-400/20 blur-[120px]" />
-        <div className="absolute bottom-[-10%] left-[20%] w-[50%] h-[50%] rounded-full bg-indigo-400/10 blur-[150px]" />
+  // Intersection Observer for scroll animations could be added here, 
+  // but we'll use pure CSS animations for simplicity
+
+  return (
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col font-sans overflow-x-hidden relative selection:bg-blue-500/30 selection:text-blue-200">
+
+      {/* Decorative Background Effects - Premium Glows */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-blue-600/10 blur-[120px] dark:bg-blue-600/20 mix-blend-screen" />
+        <div className="absolute top-[20%] -right-[10%] w-[40%] h-[40%] rounded-full bg-indigo-600/10 blur-[120px] dark:bg-indigo-600/20 mix-blend-screen" />
+        <div className="absolute -bottom-[20%] left-[20%] w-[60%] h-[60%] rounded-full bg-purple-600/10 blur-[150px] dark:bg-purple-600/20 mix-blend-screen" />
       </div>
 
       <main className="flex-grow flex flex-col items-center w-full relative z-10">
 
         {/* HERO SECTION */}
-        <section className="w-full max-w-6xl mx-auto px-4 pt-24 pb-20 md:pt-32 md:pb-32 flex flex-col items-center text-center">
-          <div className="slide-in-up opacity-0 inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-sm font-semibold text-slate-600 dark:text-slate-300 shadow-sm hover:shadow-md transition-shadow cursor-default" style={{ animationDelay: '100ms' }}>
-            <Sparkles size={16} className="text-blue-600" />
+        <section className="w-full max-w-7xl mx-auto px-4 pt-24 pb-20 md:pt-36 md:pb-32 flex flex-col items-center text-center">
+          
+          {/* Badge */}
+          <div className="animate-fade-in-up inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full bg-white/5 dark:bg-slate-900/50 border border-slate-200/50 dark:border-slate-700/50 backdrop-blur-md text-sm font-medium text-slate-700 dark:text-slate-300 shadow-sm hover:border-blue-500/30 transition-all cursor-default">
+            <Sparkles size={16} className="text-blue-500 animate-pulse" />
             <span>Meet your new AI Support Agent</span>
-            <span className="bg-blue-100 text-blue-400 text-xs px-2 py-0.5 rounded-full ml-2">New</span>
+            <span className="bg-blue-500/10 text-blue-500 dark:text-blue-400 text-xs px-2.5 py-0.5 rounded-full ml-2 font-bold tracking-wide">NEW</span>
           </div>
 
-          <h1 className="slide-in-up opacity-0 text-5xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-8 leading-[1.1] max-w-4xl mx-auto" style={{ animationDelay: '250ms' }}>
-            Automate customer support with <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">human-like AI</span>
+          {/* Headline */}
+          <h1 className="animate-fade-in-up animation-delay-100 text-5xl md:text-6xl lg:text-[5rem] font-extrabold text-slate-900 dark:text-white tracking-tight mb-8 leading-[1.1] max-w-5xl mx-auto">
+            Automate customer support with <br className="hidden sm:block" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 whitespace-nowrap drop-shadow-sm">
+              human-like AI
+            </span>
           </h1>
 
-          <p className="slide-in-up opacity-0 text-lg md:text-xl text-slate-500 mb-10 max-w-2xl mx-auto leading-relaxed" style={{ animationDelay: '400ms' }}>
-            Instantly resolve FAQs, capture high-quality leads, and schedule appointments 24/7 without growing your headcount.
+          {/* Subheadline */}
+          <p className="animate-fade-in-up animation-delay-200 text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+            Instantly resolve FAQs, capture high-quality leads, and schedule appointments 24/7. Scale your support without growing your headcount.
           </p>
 
-          <div className="slide-in-up opacity-0 flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto" style={{ animationDelay: '550ms' }}>
+          {/* CTAs */}
+          <div className="animate-fade-in-up animation-delay-300 flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto relative">
+            <div className="absolute inset-0 bg-blue-500/20 blur-xl rounded-full scale-110 opacity-0 sm:group-hover:opacity-100 transition-opacity"></div>
             <button
               onClick={() => document.querySelector('.chatbot-trigger-btn')?.click()}
-              className="group bg-blue-600 text-slate-900 dark:text-white px-8 py-4 rounded-xl text-lg font-semibold shadow-[0_4px_14px_0_rgba(37,99,235,0.39)] hover:shadow-[0_6px_20px_rgba(37,99,235,0.23)] hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center w-full sm:w-auto"
+              className="relative group bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-2xl text-lg font-bold shadow-[0_0_40px_-10px_rgba(37,99,235,0.5)] hover:shadow-[0_0_60px_-15px_rgba(37,99,235,0.7)] hover:-translate-y-1 transition-all duration-300 flex items-center justify-center w-full sm:w-auto border border-blue-400/20"
             >
               See it in action
-              <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+              <ArrowRight className="ml-2 group-hover:translate-x-1.5 transition-transform" size={20} />
             </button>
-            <Link to="/book-demo" className="bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-8 py-4 rounded-xl text-lg font-semibold shadow-sm hover:shadow-md hover:border-slate-300 hover:bg-slate-50 dark:bg-slate-950 transition-all duration-200 flex items-center justify-center w-full sm:w-auto">
-              <Calendar className="mr-2 text-slate-500" size={20} />
+            <Link to="/book-demo" className="relative group bg-white/50 dark:bg-slate-900/50 backdrop-blur-md text-slate-800 dark:text-slate-200 border border-slate-300/50 dark:border-slate-700/50 px-8 py-4 rounded-2xl text-lg font-bold hover:bg-white dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center w-full sm:w-auto shadow-sm">
+              <Calendar className="mr-2 text-slate-500 group-hover:text-blue-500 transition-colors" size={20} />
               Book a Demo
             </Link>
           </div>
 
-          <div className="mt-16 fade-in opacity-0" style={{ animationDelay: '700ms' }}>
-            <p className="text-sm font-medium text-slate-500 mb-6 uppercase tracking-widest">Trusted by forward-thinking teams</p>
-            <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-70 grayscale">
-              {/* Trust Badges - Generic SVG Placeholders */}
-              <div className="flex items-center gap-2 font-bold text-xl text-slate-500"><div className="w-6 h-6 rounded-sm bg-slate-400"></div> Acme Corp</div>
-              <div className="flex items-center gap-2 font-bold text-xl text-slate-500"><div className="w-6 h-6 rounded-full bg-slate-400"></div> GlobalTech</div>
-              <div className="flex items-center gap-2 font-bold text-xl text-slate-500"><div className="w-6 h-6 rounded-tl-lg rounded-br-lg bg-slate-400"></div> InnovateIO</div>
-              <div className="flex items-center gap-2 font-bold text-xl text-slate-500"><div className="w-6 h-6 rotate-45 bg-slate-400"></div> Zenith</div>
+          {/* Social Proof */}
+          <div className="animate-fade-in-up animation-delay-400 mt-20">
+            <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-6 uppercase tracking-[0.2em]">Trusted by forward-thinking teams</p>
+            <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16 opacity-60 dark:opacity-40 grayscale hover:grayscale-0 transition-all duration-500">
+              <div className="flex items-center gap-3 font-bold text-2xl text-slate-800 dark:text-slate-200"><div className="w-8 h-8 rounded bg-gradient-to-br from-slate-400 to-slate-600"></div> Acme Corp</div>
+              <div className="flex items-center gap-3 font-bold text-2xl text-slate-800 dark:text-slate-200"><div className="w-8 h-8 rounded-full bg-gradient-to-br from-slate-400 to-slate-600"></div> GlobalTech</div>
+              <div className="flex items-center gap-3 font-bold text-2xl text-slate-800 dark:text-slate-200"><div className="w-8 h-8 rounded-tl-xl rounded-br-xl bg-gradient-to-br from-slate-400 to-slate-600"></div> InnovateIO</div>
             </div>
           </div>
         </section>
 
-        {/* FEATURES SECTION */}
-        <section className="w-full bg-transparent py-24 border-y border-slate-200 dark:border-slate-800 relative z-10">
+        {/* FEATURES SECTION - Glassmorphism Cards */}
+        <section className="w-full py-24 relative z-10 border-t border-slate-200/20 dark:border-slate-800/20 bg-slate-50/50 dark:bg-slate-900/20 backdrop-blur-3xl">
           <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">Everything you need to support customers</h2>
-              <p className="text-lg text-slate-500 max-w-2xl mx-auto">A complete suite of tools designed to automate repetitive tasks and delight your users.</p>
+            <div className="text-center mb-16 max-w-3xl mx-auto">
+              <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">Everything you need to support customers</h2>
+              <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400">A complete suite of tools designed to automate repetitive tasks and delight your users.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
-                { icon: MessageSquare, color: 'text-blue-600', bg: 'bg-blue-900/30', title: 'Smart Chatbot', desc: 'AI-powered virtual assistant providing human-like answers 24/7.' },
-                { icon: HelpCircle, color: 'text-emerald-600', bg: 'bg-emerald-900/30', title: 'Knowledge Base', desc: 'Centralized repository of articles synced directly with the AI.' },
-                { icon: Users, color: 'text-purple-600', bg: 'bg-purple-900/30', title: 'Lead Management', desc: 'Automatically capture contact details and score prospect intent.' },
-                { icon: Calendar, color: 'text-orange-600', bg: 'bg-orange-900/30', title: 'Appointments', desc: 'Seamlessly schedule meetings and send automated email reminders.' }
+                { icon: MessageSquare, color: 'text-blue-500', glow: 'shadow-blue-500/20', bg: 'bg-blue-500/10', title: 'Smart Chatbot', desc: 'AI-powered virtual assistant providing human-like answers 24/7.' },
+                { icon: HelpCircle, color: 'text-emerald-500', glow: 'shadow-emerald-500/20', bg: 'bg-emerald-500/10', title: 'Knowledge Base', desc: 'Centralized repository of articles synced directly with the AI.' },
+                { icon: Users, color: 'text-purple-500', glow: 'shadow-purple-500/20', bg: 'bg-purple-500/10', title: 'Lead Management', desc: 'Automatically capture contact details and score prospect intent.' },
+                { icon: Calendar, color: 'text-orange-500', glow: 'shadow-orange-500/20', bg: 'bg-orange-500/10', title: 'Appointments', desc: 'Seamlessly schedule meetings and send automated email reminders.' }
               ].map((feat, i) => (
-                <div key={i} className="group bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border border-slate-200 dark:border-slate-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-left flex flex-col h-full">
-                  <div className={`w-14 h-14 ${feat.bg} ${feat.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                <div key={i} className="group relative bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl p-8 rounded-3xl border border-slate-200 dark:border-slate-700/50 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-white dark:hover:bg-slate-800/80 hover:-translate-y-2 transition-all duration-300 flex flex-col h-full overflow-hidden">
+                  <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-white/0 to-white/0 dark:from-white/5 dark:to-transparent rounded-bl-full -mr-16 -mt-16 transition-opacity opacity-0 group-hover:opacity-100`}></div>
+                  <div className={`w-14 h-14 ${feat.bg} ${feat.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:shadow-lg ${feat.glow} transition-all duration-300 relative z-10`}>
                     <feat.icon size={28} strokeWidth={2} />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3">{feat.title}</h3>
-                  <p className="text-slate-500 leading-relaxed flex-grow">{feat.desc}</p>
+                  <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3 relative z-10">{feat.title}</h3>
+                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed flex-grow relative z-10">{feat.desc}</p>
                 </div>
               ))}
             </div>
@@ -92,118 +113,125 @@ const LandingPage = () => {
         </section>
 
         {/* HOW IT WORKS SECTION */}
-        <section className="w-full max-w-7xl mx-auto px-4 py-24 relative z-10" id="how-it-works">
-          <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">How SupportFlow AI works</h2>
-            <p className="text-lg text-slate-500 max-w-2xl mx-auto">From a customer's first question to a complete resolution in seconds.</p>
-          </div>
+        <section className="w-full py-24 relative z-10" id="how-it-works">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="text-center mb-20 max-w-3xl mx-auto">
+              <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">How SupportFlow AI works</h2>
+              <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400">From a customer's first question to a complete resolution in seconds.</p>
+            </div>
 
-          <div className="relative">
-            <div className="hidden md:block absolute top-[60px] left-[10%] right-[10%] h-0.5 bg-gradient-to-r from-blue-100 via-indigo-200 to-purple-100 z-0"></div>
+            <div className="relative">
+              {/* Connecting Line */}
+              <div className="hidden md:block absolute top-[45px] left-[15%] right-[15%] h-0.5 bg-gradient-to-r from-blue-500/20 via-indigo-500/20 to-purple-500/20 z-0"></div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative z-10">
-              {[
-                { step: 1, icon: MessageSquare, title: 'Customer asks a question', desc: 'User interacts with the friendly chat widget on your website.' },
-                { step: 2, icon: Brain, title: 'AI analyzes intent', desc: 'Our engine searches your knowledge base and understands the context instantly.' },
-                { step: 3, icon: Zap, title: 'Instant resolution', desc: 'AI provides the exact answer, captures a lead, or books an appointment.' }
-              ].map((item, i) => (
-                <div key={i} className="flex flex-col items-center text-center">
-                  <div className="w-32 h-32 bg-white dark:bg-slate-900 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-slate-200 dark:border-slate-800 flex items-center justify-center mb-6 relative group hover:-translate-y-2 transition-transform duration-300">
-                    <div className="absolute top-2 right-2 w-8 h-8 bg-blue-600 text-slate-900 dark:text-white font-bold rounded-full flex items-center justify-center shadow-sm">
-                      {item.step}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative z-10">
+                {[
+                  { step: 1, icon: MessageSquare, title: 'Customer asks a question', desc: 'User interacts with the friendly chat widget on your website.' },
+                  { step: 2, icon: Brain, title: 'AI analyzes intent', desc: 'Our engine searches your knowledge base and understands the context instantly.' },
+                  { step: 3, icon: Zap, title: 'Instant resolution', desc: 'AI provides the exact answer, captures a lead, or books an appointment.' }
+                ].map((item, i) => (
+                  <div key={i} className="flex flex-col items-center text-center group">
+                    <div className="relative mb-8">
+                      <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-xl group-hover:bg-blue-500/30 transition-colors"></div>
+                      <div className="w-24 h-24 bg-white dark:bg-slate-900 rounded-full shadow-xl border border-slate-200/50 dark:border-slate-700/50 flex items-center justify-center relative z-10 group-hover:scale-110 transition-transform duration-300">
+                        <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 text-white font-bold rounded-full flex items-center justify-center shadow-lg border-2 border-white dark:border-slate-900">
+                          {item.step}
+                        </div>
+                        <item.icon size={36} className="text-slate-700 dark:text-slate-300 group-hover:text-blue-500 transition-colors" />
+                      </div>
                     </div>
-                    <item.icon size={40} className="text-slate-600 dark:text-slate-300 group-hover:text-blue-600 transition-colors" />
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{item.title}</h3>
+                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed max-w-xs">{item.desc}</p>
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{item.title}</h3>
-                  <p className="text-slate-500 leading-relaxed max-w-xs">{item.desc}</p>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
-        {/* BENEFITS SECTION */}
-        <section className="w-full bg-transparent text-slate-900 dark:text-white py-24 relative overflow-hidden" id="benefits">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-900/30/80 blur-[100px] rounded-full pointer-events-none"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-900/30/80 blur-[100px] rounded-full pointer-events-none"></div>
+        {/* BENEFITS SECTION - Modern Layout */}
+        <section className="w-full py-24 relative overflow-hidden bg-slate-900 text-white" id="benefits">
+          {/* Dark section background effects */}
+          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 mix-blend-overlay"></div>
+          <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-b from-transparent to-slate-950 pointer-events-none"></div>
+          <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[50%] bg-blue-600/20 blur-[120px] rounded-full pointer-events-none"></div>
 
           <div className="max-w-7xl mx-auto px-4 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               <div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight leading-tight text-slate-900 dark:text-white">Deliver exceptional support without the overhead</h2>
-                <p className="text-slate-500 text-lg mb-8 leading-relaxed">
+                <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight leading-[1.1] text-white">
+                  Deliver exceptional support without the overhead
+                </h2>
+                <p className="text-slate-300 text-lg md:text-xl mb-10 leading-relaxed">
                   SupportFlow AI acts as your front-line defense, resolving up to 70% of routine customer queries automatically so your human team can focus on complex issues.
                 </p>
-                <ul className="space-y-4 mb-10">
-                  {['Available 24/7/365, no sleep required', 'Instant response times (under 1 second)', 'Reduces support ticket volume by 70%', 'Seamless human handoff when necessary'].map((benefit, i) => (
-                    <li key={i} className="flex items-center gap-3">
-                      <CheckCircle className="text-blue-500 shrink-0" size={24} />
-                      <span className="text-slate-600 dark:text-slate-300 text-lg">{benefit}</span>
+                <ul className="space-y-5 mb-10">
+                  {[
+                    'Available 24/7/365, no sleep required', 
+                    'Instant response times (under 1 second)', 
+                    'Reduces support ticket volume by 70%', 
+                    'Seamless human handoff when necessary'
+                  ].map((benefit, i) => (
+                    <li key={i} className="flex items-center gap-4 bg-white/5 border border-white/10 rounded-2xl p-4 backdrop-blur-md">
+                      <div className="bg-blue-500/20 p-2 rounded-full">
+                        <CheckCircle className="text-blue-400 shrink-0" size={24} />
+                      </div>
+                      <span className="text-slate-200 font-medium text-lg">{benefit}</span>
                     </li>
                   ))}
                 </ul>
-                <Link to="/register" className="inline-flex items-center text-blue-600 hover:text-blue-400 font-semibold text-lg transition-colors">
+                <Link to="/register" className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-xl text-lg font-bold transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:shadow-[0_0_30px_rgba(37,99,235,0.5)]">
                   Get started for free <ArrowRight className="ml-2" size={20} />
                 </Link>
               </div>
-              <div className="relative">
-                {/* Dashboard Mockup Placeholder */}
-                <div className="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-2xl p-3 shadow-2xl transform lg:rotate-2 hover:rotate-0 transition-transform duration-500 overflow-hidden">
-                  <div className="bg-slate-50 dark:bg-slate-950 rounded-xl overflow-hidden flex flex-col border border-slate-200 dark:border-slate-800">
+              
+              <div className="relative lg:ml-auto w-full max-w-lg">
+                {/* Dashboard Mockup - Glassmorphism */}
+                <div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-4 shadow-2xl transform lg:rotate-2 hover:rotate-0 transition-transform duration-500">
+                  <div className="bg-slate-900 rounded-2xl overflow-hidden flex flex-col border border-slate-800 shadow-inner">
                     {/* Header */}
-                    <div className="h-10 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-4">
-                      <div className="flex gap-1.5">
-                        <div className="w-3 h-3 rounded-full bg-red-400"></div>
-                        <div className="w-3 h-3 rounded-full bg-amber-400"></div>
-                        <div className="w-3 h-3 rounded-full bg-green-400"></div>
+                    <div className="h-12 bg-slate-800/80 border-b border-slate-700/50 flex items-center px-5 gap-4">
+                      <div className="flex gap-2">
+                        <div className="w-3.5 h-3.5 rounded-full bg-rose-500/80"></div>
+                        <div className="w-3.5 h-3.5 rounded-full bg-amber-500/80"></div>
+                        <div className="w-3.5 h-3.5 rounded-full bg-emerald-500/80"></div>
                       </div>
-                      <div className="text-xs font-bold text-slate-800 dark:text-slate-200 tracking-tight">SupportFlow Overview</div>
-                      <div className="w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center">
-                        <div className="w-2.5 h-2.5 rounded-full bg-blue-500"></div>
-                      </div>
+                      <div className="text-sm font-semibold text-slate-300 tracking-wide mx-auto">Dashboard Overview</div>
                     </div>
                     {/* Body */}
-                    <div className="p-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div className="p-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {/* Stat Cards */}
-                      <div className="bg-white dark:bg-slate-900 p-3 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-center">
-                        <div className="text-[9px] font-bold text-slate-500 uppercase tracking-wider mb-1">Total Tickets</div>
-                        <div className="text-2xl font-extrabold text-slate-800 dark:text-white">1,284</div>
-                        <div className="text-[9px] text-emerald-500 mt-1 font-semibold">+12% this week</div>
-                      </div>
-                      <div className="bg-white dark:bg-slate-900 p-3 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-center">
-                        <div className="text-[9px] font-bold text-slate-500 uppercase tracking-wider mb-1">Avg Response</div>
-                        <div className="text-2xl font-extrabold text-blue-500">1m 14s</div>
-                        <div className="text-[9px] text-emerald-500 mt-1 font-semibold">-45s this week</div>
-                      </div>
-                      <div className="bg-gradient-to-br from-blue-500 to-indigo-600 p-3 rounded-lg shadow-sm flex flex-col justify-center">
-                        <div className="text-[9px] font-bold text-blue-100 uppercase tracking-wider mb-1">AI Resolution</div>
-                        <div className="text-2xl font-extrabold text-white">73.5%</div>
-                        <div className="text-[9px] text-blue-200 mt-1 font-semibold">Automated</div>
-                      </div>
-
-                      {/* Chart area */}
-                      <div className="col-span-1 sm:col-span-3 bg-white dark:bg-slate-900 p-3 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm mt-1 h-32 flex flex-col relative overflow-hidden">
-                        <div className="text-[9px] font-bold text-slate-500 uppercase tracking-wider mb-2">Weekly Ticket Volume</div>
-                        <div className="flex-1 flex items-end justify-between gap-1 mt-2 z-10 px-1">
-                          {[30, 45, 25, 60, 75, 40, 80].map((h, i) => (
-                            <div key={i} className="w-full bg-slate-100 dark:bg-slate-800 rounded-t-sm relative group h-full">
-                              <div className="absolute bottom-0 w-full bg-blue-500 rounded-t-sm hover:bg-blue-400 transition-all duration-300" style={{ height: `${h}%` }}></div>
-                            </div>
-                          ))}
+                      <div className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700/50">
+                        <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Total Tickets</div>
+                        <div className="text-3xl font-extrabold text-white">1,284</div>
+                        <div className="text-xs text-emerald-400 mt-2 font-semibold flex items-center gap-1">
+                          <span className="bg-emerald-400/10 px-1.5 py-0.5 rounded text-emerald-400">+12%</span> this week
                         </div>
+                      </div>
+                      <div className="bg-gradient-to-br from-blue-600 to-indigo-700 p-4 rounded-2xl shadow-lg relative overflow-hidden">
+                        <div className="absolute -right-4 -top-4 opacity-20"><Bot size={80} /></div>
+                        <div className="text-xs font-bold text-blue-200 uppercase tracking-wider mb-2 relative z-10">AI Resolution</div>
+                        <div className="text-3xl font-extrabold text-white relative z-10">73.5%</div>
+                        <div className="text-xs text-blue-100 mt-2 font-semibold relative z-10">Automated successfully</div>
                       </div>
 
                       {/* Recent list */}
-                      <div className="col-span-1 sm:col-span-3 bg-white dark:bg-slate-900 p-3 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm mt-1">
-                        <div className="text-[9px] font-bold text-slate-500 uppercase tracking-wider mb-2">Recent AI Actions</div>
-                        <div className="space-y-1.5">
-                          <div className="flex justify-between items-center text-[10px] p-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded">
-                            <span className="font-semibold text-slate-700 dark:text-slate-300 truncate pr-2">Resolved login issue</span>
-                            <span className="bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400 px-1.5 py-0.5 rounded-full font-bold text-[8px] whitespace-nowrap">Automated</span>
+                      <div className="col-span-1 sm:grid-cols-2 sm:col-span-2 bg-slate-800/50 p-4 rounded-2xl border border-slate-700/50 mt-2">
+                        <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Recent AI Actions</div>
+                        <div className="space-y-2">
+                          <div className="flex justify-between items-center p-3 bg-slate-900/50 border border-slate-700/50 rounded-xl">
+                            <div className="flex items-center gap-3">
+                              <div className="bg-emerald-500/20 p-1.5 rounded-lg text-emerald-400"><CheckCircle size={16} /></div>
+                              <span className="font-semibold text-slate-200 text-sm">Resolved login issue</span>
+                            </div>
+                            <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-1 rounded-md font-bold text-[10px] uppercase">Automated</span>
                           </div>
-                          <div className="flex justify-between items-center text-[10px] p-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded">
-                            <span className="font-semibold text-slate-700 dark:text-slate-300 truncate pr-2">Booked Demo: Acme Corp</span>
-                            <span className="bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400 px-1.5 py-0.5 rounded-full font-bold text-[8px] whitespace-nowrap">Scheduled</span>
+                          <div className="flex justify-between items-center p-3 bg-slate-900/50 border border-slate-700/50 rounded-xl">
+                            <div className="flex items-center gap-3">
+                              <div className="bg-purple-500/20 p-1.5 rounded-lg text-purple-400"><Calendar size={16} /></div>
+                              <span className="font-semibold text-slate-200 text-sm">Booked Demo: Acme Corp</span>
+                            </div>
+                            <span className="bg-purple-500/10 text-purple-400 border border-purple-500/20 px-2 py-1 rounded-md font-bold text-[10px] uppercase">Scheduled</span>
                           </div>
                         </div>
                       </div>
@@ -215,53 +243,66 @@ const LandingPage = () => {
           </div>
         </section>
 
-        {/* FAQ PREVIEW SECTION */}
-        <section className="w-full bg-transparent pt-24 pb-12 border-t border-slate-200 dark:border-slate-800 relative z-10">
+        {/* FAQ SECTION */}
+        <section className="w-full py-24 relative z-10 bg-slate-50/50 dark:bg-slate-950/50">
           <div className="max-w-3xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">Frequently asked questions</h2>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">Frequently asked questions</h2>
+              <p className="text-lg text-slate-600 dark:text-slate-400">Everything you need to know about the product and billing.</p>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-4">
               {faqs.map((faq, i) => (
                 <div
                   key={i}
-                  className="bg-slate-900/60 hover:bg-slate-800/80 backdrop-blur-sm rounded-xl px-6 py-5 border border-slate-800/60 transition-all duration-200 cursor-pointer shadow-sm"
+                  className={`bg-white dark:bg-slate-900 border ${expandedFaq === i ? 'border-blue-500/50 shadow-md' : 'border-slate-200 dark:border-slate-800'} rounded-2xl overflow-hidden transition-all duration-300 cursor-pointer`}
                   onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}
                 >
-                  <h3 className="text-base md:text-lg font-semibold text-slate-200 flex justify-between items-center">
-                    {faq.question}
-                    <ChevronDown className={`transition-transform duration-300 shrink-0 ml-4 ${expandedFaq === i ? 'rotate-180 text-blue-500' : 'text-slate-500'}`} size={20} />
-                  </h3>
-                  <div className={`overflow-hidden transition-all duration-300 ${expandedFaq === i ? 'max-h-96 mt-3 opacity-100' : 'max-h-0 opacity-0'}`}>
-                    <p className="text-slate-400 text-sm md:text-base leading-relaxed">{faq.answer}</p>
+                  <div className="px-6 py-5 flex justify-between items-center">
+                    <h3 className={`text-lg font-bold transition-colors ${expandedFaq === i ? 'text-blue-600 dark:text-blue-400' : 'text-slate-800 dark:text-slate-200'}`}>
+                      {faq.question}
+                    </h3>
+                    <div className={`p-1 rounded-full transition-colors ${expandedFaq === i ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'}`}>
+                      <ChevronDown className={`transition-transform duration-300 ${expandedFaq === i ? 'rotate-180' : ''}`} size={20} />
+                    </div>
+                  </div>
+                  <div className={`px-6 overflow-hidden transition-all duration-300 ease-in-out ${expandedFaq === i ? 'max-h-96 pb-5 opacity-100' : 'max-h-0 opacity-0'}`}>
+                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{faq.answer}</p>
                   </div>
                 </div>
               ))}
             </div>
-            <div className="text-center mt-8">
-              <Link to="/help" className="text-blue-600 font-semibold hover:text-blue-400">View all FAQs &rarr;</Link>
+            <div className="text-center mt-10">
+              <Link to="/help" className="inline-flex items-center text-blue-600 dark:text-blue-400 font-bold hover:text-blue-500 transition-colors">
+                View all FAQs <ArrowRight className="ml-1" size={16} />
+              </Link>
             </div>
           </div>
         </section>
 
-        {/* FINAL CTA SECTION */}
-        <section className="w-full px-4 py-20 mb-12 relative z-10 border-t border-slate-200 dark:border-slate-800">
-          <div className="max-w-6xl mx-auto relative flex flex-col items-center text-center">
+        {/* FINAL CTA SECTION - Glow & Gradient */}
+        <section className="w-full px-4 py-24 relative z-10">
+          <div className="max-w-5xl mx-auto relative flex flex-col items-center text-center bg-gradient-to-br from-blue-600 to-purple-700 rounded-[3rem] p-12 md:p-20 overflow-hidden shadow-2xl">
+            
+            {/* Background effects for CTA */}
+            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10 mix-blend-overlay"></div>
+            <div className="absolute -top-24 -right-24 w-64 h-64 bg-white/10 blur-3xl rounded-full"></div>
+            <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-white/10 blur-3xl rounded-full"></div>
 
-            {/* Subtle glow behind CTA */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl h-64 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
-
-            <div className="relative z-10 max-w-3xl">
-              <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">Ready to transform your customer support?</h2>
-              <p className="text-slate-500 dark:text-slate-400 text-lg mb-10 leading-relaxed">Join businesses using SupportFlow AI to automate interactions, reduce costs, and delight customers 24/7.</p>
+            <div className="relative z-10">
+              <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6 leading-tight tracking-tight">
+                Ready to transform your customer support?
+              </h2>
+              <p className="text-blue-100 text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
+                Join businesses using SupportFlow AI to automate interactions, reduce costs, and delight customers 24/7.
+              </p>
 
               <div className="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
-                <Link to="/register" className="bg-blue-600 text-slate-900 dark:text-white px-8 py-4 rounded-xl text-lg font-bold shadow-[0_4px_14px_0_rgba(37,99,235,0.39)] hover:shadow-[0_6px_20px_rgba(37,99,235,0.23)] hover:-translate-y-0.5 transition-all flex items-center justify-center w-full sm:w-auto">
+                <Link to="/register" className="bg-white text-blue-600 hover:bg-blue-50 px-8 py-4 rounded-2xl text-lg font-bold shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center w-full sm:w-auto">
                   <Rocket className="mr-2" size={20} />
                   Start your free trial
                 </Link>
-                <Link to="/inquiry" className="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white px-8 py-4 rounded-xl text-lg font-bold hover:bg-slate-100 dark:bg-slate-800 transition-all flex items-center justify-center w-full sm:w-auto">
+                <Link to="/inquiry" className="bg-blue-700/50 hover:bg-blue-700/70 backdrop-blur-sm border border-blue-400/30 text-white px-8 py-4 rounded-2xl text-lg font-bold transition-all duration-300 flex items-center justify-center w-full sm:w-auto">
                   <Headphones className="mr-2" size={20} />
                   Contact Sales
                 </Link>

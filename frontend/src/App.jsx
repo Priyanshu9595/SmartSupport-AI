@@ -31,7 +31,7 @@ function App() {
         <GlobalChatbot />
         <div className="relative z-0 min-h-screen">
           <Routes>
-            {/* Public Routes */}
+            {/* Public Routes & Protected Customer Routes inside PublicLayout */}
             <Route element={<PublicLayout />}>
               <Route path="/" element={<LandingPage />} />
               <Route path="/services" element={<Features />} />
@@ -39,16 +39,16 @@ function App() {
               <Route path="/help" element={<PublicKB />} />
               <Route path="/submit-ticket" element={<CustomerTicketForm />} />
               <Route path="/book-demo" element={<BookAppointment />} />
+              
+              {/* Protected Customer Route */}
+              <Route element={<ProtectedRoute allowedRoles={['Customer', 'Admin', 'Support Agent']} />}>
+                <Route path="/my-profile" element={<CustomerDashboard />} />
+              </Route>
             </Route>
 
             {/* Auth Routes (Standalone / Full Screen) */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-
-            {/* Protected Customer Route */}
-            <Route element={<ProtectedRoute allowedRoles={['Customer', 'Admin', 'Support Agent']} />}>
-              <Route path="/my-profile" element={<CustomerDashboard />} />
-            </Route>
 
             {/* Protected Routes (Admin/Agent) */}
             <Route element={<ProtectedRoute allowedRoles={['Admin', 'Support Agent']} />}>

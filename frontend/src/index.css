@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --color-primary: #3b82f6;
@@ -14,10 +15,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #020617;
-  /* slate-950 */
-  color: #f8fafc;
-  /* slate-50 */
+  background-color: #000000 !important;
+  color: #ffffff !important;
 }
 
 @layer base {

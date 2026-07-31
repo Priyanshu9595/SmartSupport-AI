@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { MessageCircle, X, Send } from 'lucide-react';
+import { MessageCircle, X, Send, RefreshCw } from 'lucide-react';
 import api from '../utils/api';
 
 const ChatbotWidget = ({ user }) => {
@@ -33,6 +33,14 @@ const ChatbotWidget = ({ user }) => {
   }, [messages, isOpen]);
 
   const toggleChat = () => setIsOpen(!isOpen);
+
+  const startNewChat = () => {
+    const newSessionId = 'session_' + Math.random().toString(36).substr(2, 9);
+    localStorage.setItem('chatbotSessionId', newSessionId);
+    setSessionId(newSessionId);
+    setMessages([{ role: 'model', text: "Hi there! 👋 I'm Sarah from SupportFlow. How can I help you today?", intent: 'support' }]);
+    setInput('');
+  };
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -76,9 +84,14 @@ const ChatbotWidget = ({ user }) => {
                 <p className="text-blue-100 text-xs flex items-center"><span className="w-1.5 h-1.5 bg-green-400 rounded-full mr-1.5 animate-pulse"></span> Online - Replies instantly</p>
               </div>
             </div>
-            <button onClick={toggleChat} className="text-blue-100 hover:text-slate-900 dark:text-white transition bg-white/10 p-1.5 rounded-full hover:bg-white/20">
-              <X size={18} />
-            </button>
+            <div className="flex items-center gap-2">
+              <button onClick={startNewChat} title="New Chat" className="text-blue-100 hover:text-slate-900 dark:text-white transition bg-white/10 p-1.5 rounded-full hover:bg-white/20">
+                <RefreshCw size={18} />
+              </button>
+              <button onClick={toggleChat} className="text-blue-100 hover:text-slate-900 dark:text-white transition bg-white/10 p-1.5 rounded-full hover:bg-white/20">
+                <X size={18} />
+              </button>
+            </div>
           </div>
 
           {/* Messages */}

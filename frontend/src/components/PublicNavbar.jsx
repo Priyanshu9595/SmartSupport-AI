@@ -13,12 +13,11 @@ const PublicNavbar = () => {
   const isActive = (path) => location.pathname === path;
 
   const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Services', path: '/services' },
-    { name: 'FAQ', path: '/help' },
     { name: 'Inquiry', path: '/inquiry' },
     { name: 'Submit Ticket', path: '/submit-ticket' },
     { name: 'History', path: '/my-profile' },
+    { name: 'FAQ', path: '/help' },
+    { name: 'Services', path: '/services' },
   ];
 
   return (
@@ -72,12 +71,18 @@ const PublicNavbar = () => {
                 </button>
               </div>
             ) : (
-              <div className="relative">
+              <div className="flex items-center space-x-3">
                 <Link
                   to="/login"
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-medium transition-colors flex items-center shadow-sm"
+                  className="text-slate-300 hover:text-white px-4 py-2 rounded-lg font-medium transition-colors"
                 >
                   Login
+                </Link>
+                <Link
+                  to="/register"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-medium transition-colors flex items-center shadow-sm"
+                >
+                  Start for free
                 </Link>
               </div>
             )}
@@ -112,8 +117,9 @@ const PublicNavbar = () => {
           ))}
 
           {!user && (
-            <div className="pt-4 pb-2 border-t border-slate-800 mt-2">
-              <Link to="/login" className="block px-3 py-2 rounded-md text-base font-bold text-blue-600 hover:bg-blue-900/40">Login</Link>
+            <div className="pt-4 pb-2 border-t border-slate-800 mt-2 flex flex-col space-y-2 px-2">
+              <Link to="/login" className="block px-4 py-2 rounded-lg text-base font-bold text-slate-300 hover:text-white hover:bg-slate-800 text-center transition-colors">Login</Link>
+              <Link to="/register" className="block px-4 py-2 rounded-lg text-base font-bold text-white bg-blue-600 hover:bg-blue-700 text-center shadow-sm transition-colors">Start for free</Link>
             </div>
           )}
         </div>

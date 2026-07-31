@@ -46,14 +46,16 @@ const Contact = () => {
       <main className="flex-grow pt-16 pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight sm:text-5xl mb-4">
-              Get in <span className="text-blue-600">Touch</span>
-            </h1>
-            <p className="text-xl text-slate-600 dark:text-slate-300">
-              Have questions about our platform? Send us a message and our support team will get back to you shortly.
-            </p>
-          </div>
+          {!user && (
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight sm:text-5xl mb-4">
+                Get in <span className="text-blue-600">Touch</span>
+              </h1>
+              <p className="text-xl text-slate-600 dark:text-slate-300">
+                Have questions about our platform? Send us a message and our support team will get back to you shortly.
+              </p>
+            </div>
+          )}
 
           <div className="flex flex-col lg:flex-row gap-12 max-w-5xl mx-auto">
             

@@ -97,135 +97,63 @@ const CustomerDashboard = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 font-sans text-slate-900 dark:text-white">
-      <nav className="relative z-50 bg-slate-900/70 backdrop-blur-md border-b border-slate-300 dark:border-slate-700/50 shadow-sm">
-        <div className="px-4 md:px-8 py-4 flex justify-between items-center">
-          <Link to="/" className="text-xl font-bold text-blue-600">SupportFlow AI</Link>
-          
-          {/* Mobile Menu Toggle */}
-          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden text-slate-600 dark:text-slate-300">
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex flex-wrap justify-center items-center gap-3 sm:gap-4 md:gap-6 mt-2 md:mt-0">
-            <Link to="/" className="text-slate-600 dark:text-slate-300 hover:text-blue-600 font-medium text-sm">Home</Link>
-            <Link to="/submit-ticket" className="bg-blue-600 text-slate-900 dark:text-white px-4 py-2 rounded-lg font-medium text-sm hover:bg-blue-700 shadow-sm transition">
-              Submit Ticket
-            </Link>
-            
-            <div className="relative">
-              <button onClick={() => setShowNotifications(!showNotifications)} className="text-slate-600 dark:text-slate-300 hover:text-blue-600 transition relative p-1 mt-1">
-                <Bell size={20} />
-                {unreadCount > 0 && (
-                  <span className="absolute top-0 right-0 bg-red-500 text-slate-900 dark:text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center border-2 border-slate-900 dark:border-white">
-                    {unreadCount}
-                  </span>
-                )}
-              </button>
-              
-              {showNotifications && (
-                <div className="absolute right-[-4rem] sm:right-0 mt-3 w-72 sm:w-80 md:w-96 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 origin-top-right">
-                  <div className="p-4 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex justify-between items-center">
-                    <div className="flex items-center space-x-2">
-                      <h3 className="font-bold text-slate-900 dark:text-white">Notifications</h3>
-                      {unreadCount > 0 && <span className="text-[10px] bg-blue-100 text-blue-700 font-bold px-2 py-0.5 rounded-full">{unreadCount} New</span>}
-                    </div>
-                    {unreadCount > 0 && (
-                      <button onClick={markAllAsRead} className="text-xs font-semibold text-blue-600 hover:text-blue-800 transition">
-                        Mark all as read
-                      </button>
-                    )}
-                  </div>
-                  <div className="max-h-[400px] overflow-y-auto">
-                    {notifications.length === 0 ? (
-                      <div className="p-8 text-center text-slate-500 text-sm">No notifications yet.</div>
-                    ) : (
-                      notifications.map(notification => (
-                        <div 
-                          key={notification._id} 
-                          onClick={() => markNotificationRead(notification._id)}
-                          className="p-4 border-b border-slate-200 dark:border-slate-800 hover:bg-white dark:bg-slate-900 transition cursor-pointer flex flex-col gap-2 bg-slate-800/40"
-                        >
-                          <div className="flex justify-between items-center">
-                            <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md ${(notification.type || 'system') === 'appointment_update' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700'}`}>
-                              {(notification.type || 'system').replace('_', ' ')}
-                            </span>
-                            <span className="w-2 h-2 bg-blue-500 rounded-full shadow-sm"></span>
-                          </div>
-                          <p className="text-sm leading-relaxed text-slate-900 dark:text-white font-medium">
-                            {notification.message}
-                          </p>
-                          <p className="text-[10px] font-semibold text-slate-500">{new Date(notification.createdAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' })}</p>
-                        </div>
-                      ))
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <button onClick={handleLogout} className="text-red-500 hover:text-red-700 font-medium text-sm flex items-center">
-              <LogOut size={16} className="mr-1" /> Logout
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation Dropdown */}
-        {mobileMenuOpen && (
-          <div className="md:hidden px-4 pb-4 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-4 mt-2">
-            <Link to="/" className="text-slate-600 dark:text-slate-300 hover:text-blue-600 font-medium text-sm pt-2">Home</Link>
-            <div className="flex justify-between items-center">
-              <button onClick={() => setShowNotifications(!showNotifications)} className="text-slate-600 dark:text-slate-300 hover:text-blue-600 transition flex items-center">
-                <Bell size={20} className="mr-2" /> Notifications 
-                {unreadCount > 0 && <span className="ml-2 bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">{unreadCount}</span>}
-              </button>
-            </div>
-            
-            {showNotifications && mobileMenuOpen && (
-                <div className="bg-slate-100 dark:bg-slate-900 rounded-xl shadow-inner border border-slate-200 dark:border-slate-800 overflow-hidden">
-                  <div className="p-3 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
-                    <h3 className="font-bold text-sm text-slate-900 dark:text-white">Recent Notifications</h3>
-                    {unreadCount > 0 && (
-                      <button onClick={markAllAsRead} className="text-xs font-semibold text-blue-600 hover:text-blue-800 transition">
-                        Mark read
-                      </button>
-                    )}
-                  </div>
-                  <div className="max-h-60 overflow-y-auto">
-                    {notifications.length === 0 ? (
-                      <div className="p-4 text-center text-slate-500 text-xs">No notifications yet.</div>
-                    ) : (
-                      notifications.slice(0, 5).map(notification => (
-                        <div 
-                          key={notification._id} 
-                          onClick={() => markNotificationRead(notification._id)}
-                          className="p-3 border-b border-slate-200 dark:border-slate-800 hover:bg-white dark:bg-slate-800 transition cursor-pointer flex flex-col gap-1"
-                        >
-                          <p className="text-xs leading-relaxed text-slate-900 dark:text-white font-medium">
-                            {notification.message}
-                          </p>
-                        </div>
-                      ))
-                    )}
-                  </div>
-                </div>
-            )}
-            
-            <Link to="/submit-ticket" className="bg-blue-600 text-slate-900 dark:text-white px-4 py-2 rounded-lg font-medium text-sm hover:bg-blue-700 shadow-sm transition text-center mt-2">
-              Submit Ticket
-            </Link>
-            
-            <button onClick={handleLogout} className="text-red-500 hover:text-red-700 font-medium text-sm flex items-center justify-center border border-red-500/20 py-2 rounded-lg">
-              <LogOut size={16} className="mr-2" /> Logout
-            </button>
-          </div>
-        )}
-      </nav>
-
       <main className="max-w-5xl mx-auto py-10 px-6">
-        <div className="mb-8">
-          <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-2">Hello, {user?.name}</h1>
-          <p className="text-slate-500">Track the status of your support requests below.</p>
+        <div className="mb-8 flex justify-between items-start">
+          <div>
+            <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-2">Hello, {user?.name}</h1>
+            <p className="text-slate-500">Track the status of your support requests below.</p>
+          </div>
+          
+          <div className="relative">
+            <button onClick={() => setShowNotifications(!showNotifications)} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3 rounded-xl shadow-sm text-slate-600 dark:text-slate-300 hover:text-blue-600 transition relative">
+              <Bell size={20} />
+              {unreadCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white dark:border-slate-900">
+                  {unreadCount}
+                </span>
+              )}
+            </button>
+            
+            {showNotifications && (
+              <div className="absolute right-0 mt-3 w-72 sm:w-80 md:w-96 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 origin-top-right">
+                <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+                  <div className="flex items-center space-x-2">
+                    <h3 className="font-bold text-slate-900 dark:text-white">Notifications</h3>
+                    {unreadCount > 0 && <span className="text-[10px] bg-blue-100 text-blue-700 font-bold px-2 py-0.5 rounded-full">{unreadCount} New</span>}
+                  </div>
+                  {unreadCount > 0 && (
+                    <button onClick={markAllAsRead} className="text-xs font-semibold text-blue-600 hover:text-blue-800 transition">
+                      Mark all as read
+                    </button>
+                  )}
+                </div>
+                <div className="max-h-[400px] overflow-y-auto">
+                  {notifications.length === 0 ? (
+                    <div className="p-8 text-center text-slate-500 text-sm">No notifications yet.</div>
+                  ) : (
+                    notifications.map(notification => (
+                      <div 
+                        key={notification._id} 
+                        onClick={() => markNotificationRead(notification._id)}
+                        className="p-4 border-b border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition cursor-pointer flex flex-col gap-2"
+                      >
+                        <div className="flex justify-between items-center">
+                          <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md ${(notification.type || 'system') === 'appointment_update' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700'}`}>
+                            {(notification.type || 'system').replace('_', ' ')}
+                          </span>
+                          <span className="w-2 h-2 bg-blue-500 rounded-full shadow-sm"></span>
+                        </div>
+                        <p className="text-sm leading-relaxed text-slate-900 dark:text-white font-medium">
+                          {notification.message}
+                        </p>
+                        <p className="text-[10px] font-semibold text-slate-500">{new Date(notification.createdAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' })}</p>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="bg-slate-900/70 backdrop-blur-xl rounded-3xl shadow-lg border border-slate-300 dark:border-slate-700/50 overflow-hidden">

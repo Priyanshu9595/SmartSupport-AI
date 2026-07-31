@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { faqs } from '../constants/faqs';
 import { Search, ChevronDown, ChevronUp } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 const PublicKB = () => {
+  const { user } = useAuth();
   const [search, setSearch] = useState('');
   const [expandedId, setExpandedId] = useState(null);
 
@@ -15,7 +17,7 @@ const PublicKB = () => {
     <div className="min-h-screen bg-transparent flex flex-col font-sans">
       <main className="flex-1 max-w-4xl w-full mx-auto p-4 sm:p-8">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">How can we help?</h1>
+          {!user && <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">How can we help?</h1>}
           <div className="relative max-w-xl mx-auto">
             <Search className="absolute left-4 top-3.5 text-slate-500" size={20} />
             <input 
