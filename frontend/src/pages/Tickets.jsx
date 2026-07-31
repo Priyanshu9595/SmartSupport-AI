@@ -93,22 +93,22 @@ const Tickets = () => {
 
   const getStatusBadge = (status) => {
     switch (status) {
-      case 'Open': return <span className="px-3 py-1 bg-blue-900/40 text-blue-400 text-xs font-bold rounded-lg border border-blue-100">Open</span>;
-      case 'In Progress': return <span className="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-lg border border-amber-100">In Progress</span>;
-      case 'Waiting for Customer': return <span className="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-bold rounded-lg border border-purple-100">Waiting on Cust</span>;
-      case 'Resolved': return <span className="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-lg border border-emerald-100">Resolved</span>;
-      case 'Closed': return <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold rounded-lg border border-slate-200 dark:border-slate-800">Closed</span>;
-      default: return <span className="px-3 py-1 bg-gray-50 text-gray-700 text-xs font-bold rounded-lg border border-gray-200">{status}</span>;
+      case 'Open': return <span className="px-2 py-0.5 bg-brand-50 text-brand-600 text-[11px] font-semibold rounded-md border border-brand-200 uppercase tracking-wider">Open</span>;
+      case 'In Progress': return <span className="px-2 py-0.5 bg-warning-bg text-warning-text text-[11px] font-semibold rounded-md border border-warning-text/20 uppercase tracking-wider">In Progress</span>;
+      case 'Waiting for Customer': return <span className="px-2 py-0.5 bg-brand-50 text-brand-600 text-[11px] font-semibold rounded-md border border-brand-200 uppercase tracking-wider">Waiting on Cust</span>;
+      case 'Resolved': return <span className="px-2 py-0.5 bg-success-bg text-success-text text-[11px] font-semibold rounded-md border border-success-text/20 uppercase tracking-wider">Resolved</span>;
+      case 'Closed': return <span className="px-2 py-0.5 bg-subtle text-text-secondary text-[11px] font-semibold rounded-md border border-border uppercase tracking-wider">Closed</span>;
+      default: return <span className="px-2 py-0.5 bg-subtle text-text-secondary text-[11px] font-semibold rounded-md border border-border uppercase tracking-wider">{status}</span>;
     }
   };
 
   const getPriorityBadge = (priority) => {
     switch (priority) {
       case 'High':
-      case 'Urgent': return <span className="text-rose-600 font-bold text-xs flex items-center bg-rose-50 px-2.5 py-1 rounded-lg border border-rose-100 w-max"><AlertCircle size={14} className="mr-1.5"/> {priority}</span>;
-      case 'Medium': return <span className="text-amber-600 font-bold text-xs flex items-center bg-amber-50 px-2.5 py-1 rounded-lg border border-amber-100 w-max">{priority}</span>;
-      case 'Low': return <span className="text-emerald-600 font-bold text-xs flex items-center bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-100 w-max">{priority}</span>;
-      default: return <span className="text-slate-600 dark:text-slate-300 font-bold text-xs bg-slate-50 dark:bg-slate-950 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-800 w-max">{priority}</span>;
+      case 'Urgent': return <span className="text-danger-text font-semibold text-[11px] flex items-center bg-danger-bg px-2 py-0.5 rounded-md border border-danger-text/20 w-max uppercase tracking-wider"><AlertCircle size={12} className="mr-1"/> {priority}</span>;
+      case 'Medium': return <span className="text-warning-text font-semibold text-[11px] flex items-center bg-warning-bg px-2 py-0.5 rounded-md border border-warning-text/20 w-max uppercase tracking-wider">{priority}</span>;
+      case 'Low': return <span className="text-success-text font-semibold text-[11px] flex items-center bg-success-bg px-2 py-0.5 rounded-md border border-success-text/20 w-max uppercase tracking-wider">{priority}</span>;
+      default: return <span className="text-text-secondary font-semibold text-[11px] bg-subtle px-2 py-0.5 rounded-md border border-border w-max uppercase tracking-wider">{priority}</span>;
     }
   };
 
@@ -125,31 +125,31 @@ const Tickets = () => {
         <>
           <div className="mb-8 flex items-center justify-between">
             <div>
-              <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Helpdesk Tickets</h2>
-              <p className="text-slate-500 dark:text-slate-400 mt-2">Manage and respond to customer issues and inquiries.</p>
+              <h2 className="text-2xl font-bold text-text-primary tracking-tight">Helpdesk Tickets</h2>
+              <p className="text-[14px] text-text-secondary mt-1">Manage and respond to customer issues and inquiries.</p>
             </div>
-            <div className="bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 px-5 py-3 rounded-xl font-bold flex items-center border border-slate-200 dark:border-slate-800 shadow-sm">
-              <MessageSquare size={20} className="mr-3 text-blue-600" />
+            <div className="bg-surface text-text-primary px-4 py-2 rounded-lg font-medium flex items-center border border-border shadow-sm text-[13px]">
+              <MessageSquare size={18} className="mr-2 text-brand-600" />
               {tickets.length} Total Tickets
             </div>
           </div>
 
           <div className="flex flex-col md:flex-row gap-4 mb-6">
             <div className="relative flex-1">
-              <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
               <input 
                 type="text" 
                 placeholder="Search tickets by ID, name, or email..." 
-                className="w-full pl-11 pr-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none shadow-sm transition"
+                className="w-full pl-9 pr-4 py-2 bg-surface border border-border-strong rounded-lg focus:ring-3 focus:ring-brand-600/12 focus:border-brand-600 outline-none shadow-sm transition text-[13px] text-text-primary placeholder:text-text-muted"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
             <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
               <div className="relative w-full sm:w-auto">
-                <Filter size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+                <Filter size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
                 <select 
-                  className="pl-9 pr-8 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl outline-none shadow-sm font-semibold text-slate-700 dark:text-slate-200 appearance-none focus:ring-2 focus:ring-blue-500"
+                  className="pl-9 pr-8 py-2 bg-surface border border-border-strong rounded-lg outline-none shadow-sm font-medium text-text-primary text-[13px] appearance-none focus:ring-3 focus:ring-brand-600/12 focus:border-brand-600"
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
                 >
@@ -162,9 +162,9 @@ const Tickets = () => {
                 </select>
               </div>
               <div className="relative w-full sm:w-auto">
-                <Filter size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+                <Filter size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
                 <select 
-                  className="pl-9 pr-8 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl outline-none shadow-sm font-semibold text-slate-700 dark:text-slate-200 appearance-none focus:ring-2 focus:ring-blue-500"
+                  className="pl-9 pr-8 py-2 bg-surface border border-border-strong rounded-lg outline-none shadow-sm font-medium text-text-primary text-[13px] appearance-none focus:ring-3 focus:ring-brand-600/12 focus:border-brand-600"
                   value={priorityFilter}
                   onChange={(e) => setPriorityFilter(e.target.value)}
                 >
@@ -178,21 +178,21 @@ const Tickets = () => {
             </div>
           </div>
 
-          <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+          <div className="bg-surface rounded-xl border border-border shadow-sm">
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-slate-100">
-                <thead className="bg-slate-950/80 sticky top-0 z-10 backdrop-blur-sm">
+              <table className="min-w-full divide-y divide-border">
+                <thead className="bg-subtle sticky top-0 z-10 backdrop-blur-sm">
                   <tr>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Ticket ID</th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Customer Name</th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Category</th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Priority</th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Status</th>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Date</th>
-                    <th className="px-6 py-4 text-right text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Action</th>
+                    <th className="px-6 py-3 text-left text-[12px] font-semibold text-text-secondary uppercase tracking-wider">Ticket ID</th>
+                    <th className="px-6 py-3 text-left text-[12px] font-semibold text-text-secondary uppercase tracking-wider">Customer Name</th>
+                    <th className="px-6 py-3 text-left text-[12px] font-semibold text-text-secondary uppercase tracking-wider">Category</th>
+                    <th className="px-6 py-3 text-left text-[12px] font-semibold text-text-secondary uppercase tracking-wider">Priority</th>
+                    <th className="px-6 py-3 text-left text-[12px] font-semibold text-text-secondary uppercase tracking-wider">Status</th>
+                    <th className="px-6 py-3 text-left text-[12px] font-semibold text-text-secondary uppercase tracking-wider">Date</th>
+                    <th className="px-6 py-3 text-right text-[12px] font-semibold text-text-secondary uppercase tracking-wider">Action</th>
                   </tr>
                 </thead>
-                <tbody className="bg-white dark:bg-slate-900 divide-y divide-slate-50">
+                <tbody className="bg-surface divide-y divide-border">
                   {tickets
                     .filter(t => statusFilter === 'All' || t.status === statusFilter)
                     .filter(t => priorityFilter === 'All' || t.priority === priorityFilter)
@@ -203,10 +203,10 @@ const Tickets = () => {
                     ).length === 0 ? (
                     <tr>
                       <td colSpan="7" className="px-6 py-16 text-center">
-                        <div className="flex flex-col items-center text-slate-500 dark:text-slate-400">
+                        <div className="flex flex-col items-center text-text-secondary">
                           <MessageSquare size={48} className="mb-4 opacity-20" />
-                          <p className="text-lg font-semibold text-slate-600 dark:text-slate-300">No tickets found.</p>
-                          <p className="text-sm">Try adjusting your search or filters.</p>
+                          <p className="text-[14px] font-semibold text-text-primary">No tickets found.</p>
+                          <p className="text-[12px]">Try adjusting your search or filters.</p>
                         </div>
                       </td>
                     </tr>
@@ -219,25 +219,25 @@ const Tickets = () => {
                         (t.customerName?.toLowerCase() || '').includes(searchQuery.toLowerCase()) || 
                         (t.customerEmail?.toLowerCase() || '').includes(searchQuery.toLowerCase())
                       ).map(ticket => (
-                      <tr key={ticket._id} className="hover:bg-slate-950/80 transition-colors cursor-pointer group" onClick={() => handleSelectTicket(ticket)}>
-                        <td className="px-6 py-4 whitespace-nowrap font-bold text-sm text-slate-900 dark:text-white">{ticket.ticketId || 'TCK-000'}</td>
+                      <tr key={ticket._id} className="hover:bg-subtle transition-colors cursor-pointer group" onClick={() => handleSelectTicket(ticket)}>
+                        <td className="px-6 py-4 whitespace-nowrap font-semibold text-[13px] text-text-primary">{ticket.ticketId || 'TCK-000'}</td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
-                            <div className="h-8 w-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs mr-3">
+                            <div className="h-8 w-8 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center font-bold text-[12px] mr-3">
                               {ticket.customerName.charAt(0).toUpperCase()}
                             </div>
                             <div>
-                              <div className="text-sm font-bold text-slate-900 dark:text-white">{ticket.customerName}</div>
-                              <div className="text-xs text-slate-500 dark:text-slate-400">{ticket.customerEmail}</div>
+                              <div className="text-[13px] font-semibold text-text-primary">{ticket.customerName}</div>
+                              <div className="text-[12px] text-text-secondary">{ticket.customerEmail}</div>
                             </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center h-full pt-6"><Bookmark size={14} className="mr-2 text-slate-500 dark:text-slate-400"/> {ticket.category || 'General'}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-[13px] font-medium text-text-secondary flex items-center h-full pt-6"><Bookmark size={14} className="mr-2 opacity-70"/> {ticket.category || 'General'}</td>
                         <td className="px-6 py-4 whitespace-nowrap">{getPriorityBadge(ticket.priority)}</td>
                         <td className="px-6 py-4 whitespace-nowrap">{getStatusBadge(ticket.status)}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-500 dark:text-slate-400">{new Date(ticket.createdAt).toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' })}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <button className="text-blue-600 font-bold hover:text-blue-700 bg-blue-50 opacity-0 group-hover:opacity-100 px-4 py-2 rounded-lg transition-all">
+                        <td className="px-6 py-4 whitespace-nowrap text-[13px] font-medium text-text-secondary">{new Date(ticket.createdAt).toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' })}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-right text-[13px] font-medium">
+                          <button className="text-brand-600 font-medium hover:text-brand-700 bg-brand-50 opacity-0 group-hover:opacity-100 px-3 py-1.5 rounded-lg transition-all">
                             View Ticket
                           </button>
                         </td>
@@ -251,37 +251,37 @@ const Tickets = () => {
         </>
       ) : (
         // Detail View
-        <div className="flex-1 flex flex-col bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden h-full">
+        <div className="flex-1 flex flex-col bg-surface rounded-xl shadow-sm border border-border overflow-hidden h-full">
           {/* Header */}
-          <div className="bg-white dark:bg-slate-900 p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between z-10">
+          <div className="bg-surface p-5 border-b border-border flex items-center justify-between z-10 shadow-sm">
             <div className="flex items-center">
               <button 
                 onClick={() => setViewMode('list')}
-                className="mr-5 p-2 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:bg-slate-800 rounded-xl transition-colors border border-transparent hover:border-slate-200 dark:border-slate-800"
+                className="mr-4 p-2 text-text-secondary hover:text-text-primary hover:bg-subtle rounded-lg transition-colors border border-transparent"
               >
                 <ChevronLeft size={24} />
               </button>
               <div>
-                <div className="flex items-center space-x-3 mb-2">
-                  <h2 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">{selectedTicket.subject}</h2>
-                  <span className="text-xs font-bold bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 px-3 py-1 rounded-lg">{selectedTicket.ticketId}</span>
+                <div className="flex items-center space-x-3 mb-1">
+                  <h2 className="text-xl font-bold text-text-primary tracking-tight">{selectedTicket.subject}</h2>
+                  <span className="text-[12px] font-semibold bg-subtle border border-border text-text-secondary px-2 py-0.5 rounded-md">{selectedTicket.ticketId}</span>
                 </div>
-                <div className="flex items-center text-sm text-slate-500 dark:text-slate-400 space-x-6 font-medium">
-                  <span className="flex items-center"><User size={16} className="mr-2 text-slate-500 dark:text-slate-400"/> {selectedTicket.customerName}</span>
-                  <span className="flex items-center"><Clock size={16} className="mr-2 text-slate-500 dark:text-slate-400"/> {new Date(selectedTicket.createdAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}</span>
-                  <span className="flex items-center"><Bookmark size={16} className="mr-2 text-slate-500 dark:text-slate-400"/> {selectedTicket.category || 'General'}</span>
+                <div className="flex items-center text-[13px] text-text-secondary space-x-5 font-medium">
+                  <span className="flex items-center"><User size={14} className="mr-1.5 opacity-70"/> {selectedTicket.customerName}</span>
+                  <span className="flex items-center"><Clock size={14} className="mr-1.5 opacity-70"/> {new Date(selectedTicket.createdAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}</span>
+                  <span className="flex items-center"><Bookmark size={14} className="mr-1.5 opacity-70"/> {selectedTicket.category || 'General'}</span>
                   <span className="flex items-center">{getPriorityBadge(selectedTicket.priority)}</span>
                 </div>
               </div>
             </div>
             
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-3">
               <div className="flex flex-col text-right">
-                <span className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Update Status</span>
+                <span className="text-[11px] font-semibold text-text-secondary uppercase tracking-wider mb-1">Update Status</span>
                 <select 
                   value={selectedTicket.status} 
                   onChange={(e) => handleUpdateStatus(e.target.value)}
-                  className="bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-100 text-sm rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 block px-4 py-2 font-bold cursor-pointer outline-none transition-all hover:border-slate-300 dark:border-slate-700"
+                  className="bg-surface border border-border-strong text-text-primary text-[13px] rounded-lg focus:ring-3 focus:ring-brand-600/12 focus:border-brand-600 block px-3 py-1.5 font-medium cursor-pointer outline-none transition-all shadow-sm"
                 >
                   <option value="Open">Open</option>
                   <option value="In Progress">In Progress</option>
@@ -293,9 +293,9 @@ const Tickets = () => {
               <button 
                 onClick={handleSaveToFaq}
                 disabled={savingFaq}
-                className="flex items-center bg-white dark:bg-slate-900 text-slate-900 dark:text-white px-5 py-3.5 rounded-xl text-sm font-bold hover:bg-slate-100 dark:bg-slate-800 transition shadow-sm disabled:opacity-70 mt-4 group"
+                className="flex items-center bg-surface border border-border text-text-primary px-4 py-2 rounded-lg text-[13px] font-medium hover:bg-subtle transition shadow-sm disabled:opacity-70 mt-4 group"
               >
-                <Save size={18} className="mr-2 group-hover:scale-110 transition-transform"/> 
+                <Save size={16} className="mr-2 group-hover:scale-110 transition-transform"/> 
                 {savingFaq ? 'Generating...' : 'Save as FAQ'}
               </button>
             </div>
@@ -303,44 +303,44 @@ const Tickets = () => {
 
           <div className="flex-1 flex flex-col lg:flex-row overflow-y-auto lg:overflow-hidden">
             {/* Left Column: Conversation */}
-            <div className="w-full lg:w-2/3 flex flex-col border-b lg:border-b-0 lg:border-r border-slate-200 dark:border-slate-800 bg-slate-950/50 relative min-h-[500px] lg:min-h-0">
+            <div className="w-full lg:w-2/3 flex flex-col border-b lg:border-b-0 lg:border-r border-border bg-bg-app relative min-h-[500px] lg:min-h-0">
               
-              <div className="flex-1 overflow-y-auto p-8 space-y-8">
+              <div className="flex-1 overflow-y-auto p-6 space-y-6">
                 {/* Initial Issue */}
                 <div className="flex justify-start">
-                  <div className="max-w-[85%] rounded-3xl rounded-tl-sm p-6 shadow-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 relative">
-                    <div className="absolute -left-3 -top-3 h-8 w-8 rounded-full bg-indigo-100 border-2 border-slate-900 dark:border-white flex items-center justify-center text-indigo-700 font-bold text-xs z-10 shadow-sm">
+                  <div className="max-w-[85%] rounded-2xl rounded-tl-sm p-5 shadow-sm bg-surface border border-border relative mt-3">
+                    <div className="absolute -left-3 -top-3 h-8 w-8 rounded-full bg-brand-50 border border-brand-50 flex items-center justify-center text-brand-600 font-bold text-[12px] z-10 shadow-sm">
                       {selectedTicket.customerName.charAt(0).toUpperCase()}
                     </div>
-                    <div className="flex justify-between items-center mb-4 pl-4">
-                      <span className="text-sm font-bold text-slate-900 dark:text-white">{selectedTicket.customerName}</span>
-                      <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">{new Date(selectedTicket.createdAt).toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata',hour: '2-digit', minute:'2-digit'})}</span>
+                    <div className="flex justify-between items-center mb-3 pl-4">
+                      <span className="text-[13px] font-semibold text-text-primary">{selectedTicket.customerName}</span>
+                      <span className="text-[12px] font-medium text-text-secondary">{new Date(selectedTicket.createdAt).toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata',hour: '2-digit', minute:'2-digit'})}</span>
                     </div>
-                    <div className="text-[15px] text-slate-700 dark:text-slate-200 whitespace-pre-wrap leading-relaxed pl-4">{selectedTicket.description}</div>
+                    <div className="text-[14px] text-text-primary whitespace-pre-wrap leading-relaxed pl-4">{selectedTicket.description}</div>
                   </div>
                 </div>
 
                 {/* Messages */}
                 {messages.map((msg, idx) => (
                   <div key={msg._id} className={`flex ${msg.senderType === 'Customer' ? 'justify-start' : 'justify-end'}`}>
-                    <div className={`max-w-[85%] rounded-3xl p-6 shadow-sm relative ${msg.senderType === 'Customer' ? 'rounded-tl-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800' : 'rounded-tr-sm ' + (msg.isInternalNote ? 'bg-amber-50 border border-amber-200' : 'bg-blue-600 text-slate-900 dark:text-white border border-blue-700')}`}>
+                    <div className={`max-w-[85%] rounded-2xl p-5 shadow-sm relative mt-3 ${msg.senderType === 'Customer' ? 'rounded-tl-sm bg-surface border border-border' : 'rounded-tr-sm ' + (msg.isInternalNote ? 'bg-warning-bg border border-warning-text/20' : 'bg-brand-600 text-white border border-brand-700')}`}>
                       
                       {msg.senderType === 'Customer' && (
-                        <div className="absolute -left-3 -top-3 h-8 w-8 rounded-full bg-indigo-100 border-2 border-slate-900 dark:border-white flex items-center justify-center text-indigo-700 font-bold text-xs z-10 shadow-sm">
+                        <div className="absolute -left-3 -top-3 h-8 w-8 rounded-full bg-brand-50 border border-brand-50 flex items-center justify-center text-brand-600 font-bold text-[12px] z-10 shadow-sm">
                           {msg.senderName.charAt(0).toUpperCase()}
                         </div>
                       )}
 
-                      <div className={`flex justify-between items-center mb-4 ${msg.senderType === 'Customer' ? 'pl-4' : ''}`}>
-                        <span className="text-sm font-bold flex items-center">
+                      <div className={`flex justify-between items-center mb-3 ${msg.senderType === 'Customer' ? 'pl-4' : ''}`}>
+                        <span className="text-[13px] font-semibold flex items-center">
                           {msg.senderName} 
-                          {msg.isInternalNote && <span className="ml-3 text-[10px] bg-amber-200/50 border border-amber-300 text-amber-800 px-2 py-1 rounded-lg uppercase tracking-wider">Internal Note</span>}
+                          {msg.isInternalNote && <span className="ml-2 text-[10px] bg-warning-bg border border-warning-text/30 text-warning-text px-2 py-0.5 rounded-md uppercase tracking-wider">Internal Note</span>}
                         </span>
-                        <span className={`text-xs font-semibold ${msg.senderType === 'Customer' || msg.isInternalNote ? 'text-slate-500 dark:text-slate-400' : 'text-blue-200'}`}>
+                        <span className={`text-[12px] font-medium ${msg.senderType === 'Customer' || msg.isInternalNote ? 'text-text-secondary' : 'text-brand-100'}`}>
                           {new Date(msg.createdAt).toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata',hour: '2-digit', minute:'2-digit'})}
                         </span>
                       </div>
-                      <p className={`text-[15px] whitespace-pre-wrap leading-relaxed ${msg.senderType === 'Customer' ? 'pl-4 text-slate-700 dark:text-slate-200' : (msg.isInternalNote ? 'text-slate-700 dark:text-slate-200' : 'text-blue-50')}`}>
+                      <p className={`text-[14px] whitespace-pre-wrap leading-relaxed ${msg.senderType === 'Customer' ? 'pl-4 text-text-primary' : (msg.isInternalNote ? 'text-text-primary' : 'text-white')}`}>
                         {msg.message}
                       </p>
                     </div>
@@ -349,34 +349,34 @@ const Tickets = () => {
               </div>
 
               {/* Reply Box */}
-              <div className="p-6 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
-                <form onSubmit={handleReply} className="flex flex-col space-y-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center space-x-6 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl w-max">
-                      <label className={`flex items-center px-4 py-2 text-sm font-bold rounded-lg cursor-pointer transition-all ${!isInternal ? 'bg-white dark:bg-slate-900 shadow-sm text-blue-600' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200'}`}>
+              <div className="p-5 bg-surface border-t border-border">
+                <form onSubmit={handleReply} className="flex flex-col space-y-3">
+                  <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center p-1 bg-subtle rounded-lg w-max">
+                      <label className={`flex items-center px-3 py-1.5 text-[12px] font-semibold rounded-md cursor-pointer transition-all ${!isInternal ? 'bg-surface shadow-sm text-brand-600' : 'text-text-secondary hover:text-text-primary'}`}>
                         <input type="radio" name="replyType" checked={!isInternal} onChange={() => setIsInternal(false)} className="sr-only" />
                         Public Reply
                       </label>
-                      <label className={`flex items-center px-4 py-2 text-sm font-bold rounded-lg cursor-pointer transition-all ${isInternal ? 'bg-white dark:bg-slate-900 shadow-sm text-amber-600' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200'}`}>
+                      <label className={`flex items-center px-3 py-1.5 text-[12px] font-semibold rounded-md cursor-pointer transition-all ${isInternal ? 'bg-surface shadow-sm text-warning-text' : 'text-text-secondary hover:text-text-primary'}`}>
                         <input type="radio" name="replyType" checked={isInternal} onChange={() => setIsInternal(true)} className="sr-only" />
                         Internal Note
                       </label>
                     </div>
                   </div>
-                  <div className="flex items-end space-x-4">
+                  <div className="flex items-end space-x-3">
                     <textarea 
                       value={replyText}
                       onChange={(e) => setReplyText(e.target.value)}
                       placeholder={isInternal ? "Type a private note for your team (not visible to customer)..." : "Type your reply to the customer (they will receive an email)..."}
-                      className={`flex-1 p-4 border-2 rounded-2xl focus:ring-4 focus:outline-none resize-none shadow-sm transition-all text-[15px] ${isInternal ? 'border-amber-200 focus:ring-amber-100 focus:border-amber-400 bg-amber-50/30 placeholder-amber-400/70' : 'border-slate-200 dark:border-slate-800 focus:ring-blue-100 focus:border-blue-500 bg-white dark:bg-slate-900 placeholder-slate-400'}`}
+                      className={`flex-1 p-3 border rounded-xl focus:outline-none resize-none shadow-sm transition-all text-[13px] ${isInternal ? 'border-warning-text/30 focus:ring-3 focus:ring-warning-text/10 focus:border-warning-text bg-warning-bg/30 placeholder-warning-text/60' : 'border-border-strong focus:ring-3 focus:ring-brand-600/12 focus:border-brand-600 bg-surface text-text-primary placeholder:text-text-muted'}`}
                       rows={3}
                     />
                     <button 
                       type="submit" 
                       disabled={!replyText.trim()} 
-                      className={`px-6 py-4 rounded-2xl text-slate-900 dark:text-white font-bold shadow-sm transition-all flex items-center h-full mt-auto ${isInternal ? 'bg-amber-500 hover:bg-amber-600' : 'bg-blue-600 hover:bg-blue-700'} disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-md hover:-translate-y-0.5`}
+                      className={`px-5 py-3.5 rounded-xl text-white font-medium shadow-sm transition-all flex items-center h-full mt-auto ${isInternal ? 'bg-warning-text hover:opacity-90' : 'bg-brand-600 hover:bg-brand-700'} disabled:opacity-50 disabled:cursor-not-allowed`}
                     >
-                      Send <Send size={18} className="ml-3" />
+                      Send <Send size={16} className="ml-2" />
                     </button>
                   </div>
                 </form>
@@ -384,38 +384,38 @@ const Tickets = () => {
             </div>
 
             {/* Right Column: Context */}
-            <div className="w-full lg:w-1/3 bg-white dark:bg-slate-900 p-8 lg:overflow-y-auto">
-              <h3 className="text-sm font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-6">Customer Profile</h3>
-              <div className="flex items-center space-x-4 mb-8">
-                <div className="h-14 w-14 rounded-2xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center text-xl font-bold">
+            <div className="w-full lg:w-1/3 bg-surface p-6 lg:overflow-y-auto border-l border-border">
+              <h3 className="text-[11px] font-semibold text-text-secondary uppercase tracking-wider mb-5">Customer Profile</h3>
+              <div className="flex items-center space-x-3 mb-6">
+                <div className="h-12 w-12 rounded-xl bg-brand-50 border border-brand-100 text-brand-600 flex items-center justify-center text-lg font-bold">
                   {selectedTicket.customerName.charAt(0).toUpperCase()}
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900 dark:text-white text-lg">{selectedTicket.customerName}</h4>
-                  <a href={`mailto:${selectedTicket.customerEmail}`} className="font-medium text-slate-500 dark:text-slate-400 hover:text-blue-600 transition flex items-center mt-1 text-sm">
-                    <Mail size={14} className="mr-1.5" /> {selectedTicket.customerEmail}
+                  <h4 className="font-semibold text-text-primary text-[15px]">{selectedTicket.customerName}</h4>
+                  <a href={`mailto:${selectedTicket.customerEmail}`} className="font-medium text-text-secondary hover:text-brand-600 transition flex items-center mt-0.5 text-[12px]">
+                    <Mail size={12} className="mr-1.5" /> {selectedTicket.customerEmail}
                   </a>
                 </div>
               </div>
 
-              <div className="h-px w-full bg-slate-100 dark:bg-slate-800 my-8"></div>
+              <div className="h-px w-full bg-border my-6"></div>
 
-              <h3 className="text-sm font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-6">Ticket Details</h3>
-              <div className="space-y-6">
+              <h3 className="text-[11px] font-semibold text-text-secondary uppercase tracking-wider mb-5">Ticket Details</h3>
+              <div className="space-y-5">
                 <div>
-                  <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">Ticket Source</p>
-                  <span className="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-800 text-xs font-bold rounded-lg capitalize inline-flex items-center">
-                    {selectedTicket.source === 'chatbot' ? <MessageSquare size={12} className="mr-1.5"/> : <AlertCircle size={12} className="mr-1.5"/>}
+                  <p className="text-[11px] font-semibold text-text-secondary mb-1.5">Ticket Source</p>
+                  <span className="px-2.5 py-1 bg-subtle text-text-primary border border-border text-[11px] font-semibold rounded-md capitalize inline-flex items-center shadow-sm">
+                    {selectedTicket.source === 'chatbot' ? <MessageSquare size={12} className="mr-1.5 opacity-70"/> : <AlertCircle size={12} className="mr-1.5 opacity-70"/>}
                     {selectedTicket.source || 'Manual'}
                   </span>
                 </div>
                 {selectedTicket.keywordTags && selectedTicket.keywordTags.length > 0 && (
                   <div>
-                    <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3">AI Auto-Tags</p>
-                    <div className="flex flex-wrap gap-2">
+                    <p className="text-[11px] font-semibold text-text-secondary mb-2">AI Auto-Tags</p>
+                    <div className="flex flex-wrap gap-1.5">
                       {selectedTicket.keywordTags.map(tag => (
-                        <span key={tag} className="text-xs bg-blue-50 border border-blue-100 text-blue-700 px-3 py-1.5 rounded-lg font-bold flex items-center">
-                          <Tag size={12} className="mr-1.5 opacity-70" /> {tag}
+                        <span key={tag} className="text-[11px] bg-brand-50 border border-brand-100 text-brand-600 px-2 py-0.5 rounded-md font-semibold flex items-center shadow-sm">
+                          <Tag size={10} className="mr-1 opacity-70" /> {tag}
                         </span>
                       ))}
                     </div>

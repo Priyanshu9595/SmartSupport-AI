@@ -72,37 +72,37 @@ const ChatbotAdmin = () => {
     <div className="h-full flex flex-col max-w-7xl mx-auto w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="mb-8 flex justify-between items-end">
         <div>
-          <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Chatbot Conversations</h2>
-          <p className="text-slate-500 dark:text-slate-400 mt-2">Review transcripts and convert interactions into tickets or leads.</p>
+          <h2 className="text-2xl font-bold text-text-primary tracking-tight">Chatbot Conversations</h2>
+          <p className="text-[14px] text-text-secondary mt-1">Review transcripts and convert interactions into tickets or leads.</p>
         </div>
-        <div className="bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 px-5 py-3 rounded-xl font-bold flex items-center border border-slate-200 dark:border-slate-800 shadow-sm">
-          <MessageSquare size={20} className="mr-3 text-fuchsia-600" />
+        <div className="bg-surface text-text-primary px-4 py-2 rounded-lg font-medium text-[13px] flex items-center border border-border shadow-sm">
+          <MessageSquare size={18} className="mr-2 text-brand-600" />
           {conversations.length} Active Sessions
         </div>
       </div>
 
       <div className="flex-1 flex gap-6 overflow-hidden">
         {/* Sidebar List */}
-        <div className="w-1/3 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden flex flex-col">
-          <div className="p-5 border-b border-slate-200 dark:border-slate-800 bg-slate-950/50">
-            <h3 className="font-extrabold text-slate-800 dark:text-slate-100 mb-3 text-lg">Session History</h3>
+        <div className="w-1/3 bg-surface rounded-xl border border-border shadow-sm overflow-hidden flex flex-col">
+          <div className="p-4 border-b border-border bg-subtle">
+            <h3 className="font-semibold text-text-primary mb-2 text-[15px]">Session History</h3>
             <div className="relative">
-              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
+              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
               <input 
                 type="text" 
                 placeholder="Search sessions..." 
-                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none shadow-sm transition text-sm"
+                className="w-full pl-9 pr-3 py-1.5 bg-surface border border-border-strong rounded-lg focus:border-brand-600 focus:ring-3 focus:ring-brand-600/12 outline-none shadow-sm transition text-[13px] text-text-primary"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
           </div>
           
-          <div className="divide-y divide-slate-100 flex-1 overflow-y-auto">
+          <div className="divide-y divide-border flex-1 overflow-y-auto">
             {conversations.length === 0 ? (
-              <div className="p-8 text-center text-slate-500 dark:text-slate-400 flex flex-col items-center">
+              <div className="p-8 text-center text-text-secondary flex flex-col items-center">
                  <Bot size={32} className="mb-3 opacity-30" />
-                 <p className="text-sm font-semibold">No chat logs found.</p>
+                 <p className="text-[13px] font-medium">No chat logs found.</p>
               </div>
             ) : (
               conversations
@@ -111,16 +111,16 @@ const ChatbotAdmin = () => {
                 <div 
                   key={conv._id} 
                   onClick={() => setSelectedConv(conv)}
-                  className={`p-5 cursor-pointer transition-all ${selectedConv?._id === conv._id ? 'bg-fuchsia-50/50 border-l-4 border-fuchsia-500' : 'border-l-4 border-transparent hover:bg-slate-50 dark:bg-slate-950'}`}
+                  className={`p-4 cursor-pointer transition-all ${selectedConv?._id === conv._id ? 'bg-brand-50 border-l-4 border-brand-600' : 'border-l-4 border-transparent hover:bg-subtle'}`}
                 >
-                  <div className="flex justify-between items-start mb-2">
-                    <span className={`text-sm font-bold truncate pr-2 ${selectedConv?._id === conv._id ? 'text-fuchsia-900' : 'text-slate-800 dark:text-slate-100'}`}>Session: {conv.sessionId.substring(0, 15)}...</span>
+                  <div className="flex justify-between items-start mb-1">
+                    <span className={`text-[13px] font-semibold truncate pr-2 ${selectedConv?._id === conv._id ? 'text-brand-700' : 'text-text-primary'}`}>Session: {conv.sessionId.substring(0, 15)}...</span>
                   </div>
-                  <div className="flex items-center text-xs font-medium text-slate-500 dark:text-slate-400 mb-3">
+                  <div className="flex items-center text-[12px] font-medium text-text-muted mb-3">
                     <Clock size={12} className="mr-1.5" />
                     {new Date(conv.updatedAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
                   </div>
-                  <div className="text-[11px] font-bold text-slate-600 dark:text-slate-300 flex items-center bg-slate-800/80 px-2.5 py-1 rounded-md w-max border border-slate-200 dark:border-slate-800/60 uppercase tracking-wider">
+                  <div className="text-[11px] font-medium text-text-secondary bg-surface px-2 py-0.5 rounded-md w-max border border-border uppercase tracking-wider flex items-center">
                     <MessageSquare size={10} className="mr-1.5" />
                     {conv.messages.length} messages
                   </div>
@@ -131,37 +131,37 @@ const ChatbotAdmin = () => {
         </div>
 
         {/* Chat Detail View */}
-        <div className="flex-1 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col overflow-hidden">
+        <div className="flex-1 bg-surface rounded-xl border border-border shadow-sm flex flex-col overflow-hidden">
           {selectedConv ? (
             <>
-              <div className="p-6 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col md:flex-row md:items-center justify-between gap-4 z-10 shadow-sm">
+              <div className="p-5 border-b border-border bg-surface flex flex-col md:flex-row md:items-center justify-between gap-4 z-10 shadow-sm">
                 <div className="flex items-center">
-                  <div className="h-12 w-12 rounded-2xl bg-fuchsia-100 text-fuchsia-600 flex items-center justify-center mr-4 shadow-inner">
-                     <Bot size={24} />
+                  <div className="h-10 w-10 rounded-lg bg-brand-50 text-brand-600 flex items-center justify-center mr-3 shadow-inner">
+                     <Bot size={20} />
                   </div>
                   <div>
-                    <h3 className="font-extrabold text-slate-900 dark:text-white text-lg tracking-tight">AI Chat Transcript</h3>
-                    <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-0.5">ID: {selectedConv.sessionId}</p>
+                    <h3 className="font-semibold text-text-primary text-[15px] tracking-tight">AI Chat Transcript</h3>
+                    <p className="text-[12px] font-medium text-text-secondary mt-0.5">ID: {selectedConv.sessionId}</p>
                   </div>
                 </div>
                 
                 <div className="flex space-x-3 items-center">
-                  <div className="flex space-x-3">
-                    <button onClick={handleConvertToTicket} className="text-sm font-bold bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 px-4 py-2 rounded-xl hover:bg-slate-50 dark:bg-slate-950 hover:border-slate-300 dark:border-slate-700 transition flex items-center group">
-                      <Plus size={16} className="mr-2 text-blue-500 group-hover:scale-110 transition-transform" />
+                  <div className="flex space-x-2">
+                    <button onClick={handleConvertToTicket} className="text-[13px] font-medium bg-surface border border-border text-text-primary px-3 py-1.5 rounded-lg hover:bg-subtle transition flex items-center group shadow-sm">
+                      <Plus size={14} className="mr-1.5 text-brand-600 group-hover:scale-110 transition-transform" />
                       Create Ticket
                     </button>
-                    <button onClick={handleConvertToLead} className="text-sm font-bold bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 px-4 py-2 rounded-xl hover:bg-slate-50 dark:bg-slate-950 hover:border-slate-300 dark:border-slate-700 transition flex items-center group">
-                      <Users size={16} className="mr-2 text-indigo-500 group-hover:scale-110 transition-transform" />
+                    <button onClick={handleConvertToLead} className="text-[13px] font-medium bg-surface border border-border text-text-primary px-3 py-1.5 rounded-lg hover:bg-subtle transition flex items-center group shadow-sm">
+                      <Users size={14} className="mr-1.5 text-brand-600 group-hover:scale-110 transition-transform" />
                       Save as Lead
                     </button>
                   </div>
                 </div>
               </div>
               
-              <div className="flex-1 p-8 overflow-y-auto space-y-6 bg-slate-950/80">
-                <div className="text-center mb-8">
-                   <span className="bg-slate-200 text-slate-600 dark:text-slate-300 text-xs font-bold px-3 py-1 rounded-full">
+              <div className="flex-1 p-6 overflow-y-auto space-y-6 bg-bg-app">
+                <div className="text-center mb-6">
+                   <span className="bg-subtle text-text-secondary border border-border text-[11px] font-medium px-3 py-1 rounded-full">
                       Chat Started on {new Date(selectedConv.createdAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
                    </span>
                 </div>
@@ -171,20 +171,20 @@ const ChatbotAdmin = () => {
                     <div className={`flex items-center mb-2 space-x-2 px-1 ${msg.role === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
                       {msg.role === 'user' ? (
                         <>
-                           <div className="h-6 w-6 rounded-full bg-slate-200 flex items-center justify-center text-slate-500 dark:text-slate-400"><User size={12}/></div>
-                           <span className="text-xs font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-wider">User</span>
+                           <div className="h-6 w-6 rounded-full bg-subtle flex items-center justify-center text-text-secondary"><User size={12}/></div>
+                           <span className="text-[11px] font-semibold text-text-muted uppercase tracking-wider">User</span>
                         </>
                       ) : (
                         <>
-                           <div className="h-6 w-6 rounded-full bg-fuchsia-100 flex items-center justify-center text-fuchsia-600"><Bot size={12}/></div>
-                           <span className="text-xs font-extrabold text-fuchsia-600 uppercase tracking-wider">Support AI</span>
+                           <div className="h-6 w-6 rounded-full bg-brand-50 flex items-center justify-center text-brand-600"><Bot size={12}/></div>
+                           <span className="text-[11px] font-semibold text-brand-600 uppercase tracking-wider">Support AI</span>
                         </>
                       )}
                     </div>
-                    <div className={`max-w-[75%] px-5 py-4 text-[15px] leading-relaxed shadow-sm relative ${
+                    <div className={`max-w-[75%] px-4 py-3 text-[14px] leading-relaxed shadow-sm relative ${
                       msg.role === 'user' 
-                        ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white rounded-2xl rounded-tr-sm' 
-                        : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 rounded-2xl rounded-tl-sm'
+                        ? 'bg-brand-600 text-white rounded-xl rounded-tr-sm' 
+                        : 'bg-surface border border-border text-text-primary rounded-xl rounded-tl-sm'
                     }`}>
                       {msg.text}
                     </div>
@@ -193,12 +193,12 @@ const ChatbotAdmin = () => {
               </div>
             </>
           ) : (
-            <div className="flex-1 flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 bg-slate-950/50">
-              <div className="h-24 w-24 bg-white dark:bg-slate-900 rounded-full flex items-center justify-center shadow-sm mb-6 border border-slate-200 dark:border-slate-800">
-                <MessageSquare size={48} className="text-slate-600 dark:text-slate-300" />
+            <div className="flex-1 flex flex-col items-center justify-center text-text-secondary bg-subtle">
+              <div className="h-20 w-20 bg-surface rounded-full flex items-center justify-center shadow-sm mb-4 border border-border">
+                <MessageSquare size={32} className="text-text-muted" />
               </div>
-              <h3 className="text-xl font-bold text-slate-600 dark:text-slate-300 mb-2">No Transcript Selected</h3>
-              <p className="text-sm font-medium">Choose a chat session from the sidebar to view the full transcript and take actions.</p>
+              <h3 className="text-lg font-semibold text-text-primary mb-1">No Transcript Selected</h3>
+              <p className="text-[13px] font-medium text-text-secondary">Choose a chat session from the sidebar to view the full transcript and take actions.</p>
             </div>
           )}
         </div>

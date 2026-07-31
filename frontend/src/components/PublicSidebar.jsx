@@ -22,20 +22,20 @@ const PublicSidebar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
       {/* Mobile Overlay */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-40 md:hidden"
+          className="fixed inset-0 bg-text-primary/20 backdrop-blur-sm z-40 md:hidden"
           onClick={() => setMobileMenuOpen(false)}
         />
       )}
 
-      <aside className={`fixed inset-y-0 left-0 w-64 bg-slate-950/95 backdrop-blur-xl border-r border-slate-800 flex flex-col z-50 transform transition-transform duration-300 ease-in-out ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
-        <div className="h-16 flex items-center justify-between px-6 border-b border-slate-800">
+      <aside className={`fixed inset-y-0 left-0 w-64 bg-sidebar-bg border-r border-sidebar-border flex flex-col z-50 transform transition-transform duration-300 ease-in-out ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
+        <div className="h-16 flex items-center justify-between px-6 border-b border-sidebar-border">
           <div className="flex items-center cursor-pointer" onClick={() => navigate('/inquiry')}>
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mr-3 shadow-[0_0_15px_rgba(37,99,235,0.5)]">
+            <div className="w-8 h-8 bg-brand-600 rounded flex items-center justify-center mr-2 shadow-sm">
               <span className="text-white font-bold text-lg">S</span>
             </div>
-            <span className="font-bold text-xl text-white tracking-tight">SupportFlow</span>
+            <span className="font-extrabold text-xl text-white tracking-tight">SupportFlow</span>
           </div>
-          <button onClick={() => setMobileMenuOpen(false)} className="md:hidden text-slate-400 hover:text-white">
+          <button onClick={() => setMobileMenuOpen(false)} className="md:hidden text-sidebar-text hover:text-sidebar-text-hover">
             <X size={24} />
           </button>
         </div>
@@ -49,12 +49,12 @@ const PublicSidebar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
                   key={link.name}
                   to={link.path}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center px-4 py-3 text-sm font-bold rounded-xl transition-all ${isActive(link.path)
-                    ? 'bg-blue-600/20 text-blue-400 border border-blue-500/30 shadow-[0_0_15px_rgba(37,99,235,0.15)]'
-                    : 'text-slate-400 hover:bg-slate-900 hover:text-slate-200 border border-transparent'
+                  className={`flex items-center px-4 py-3 text-sm font-medium transition-all ${isActive(link.path)
+                    ? 'bg-sidebar-active-bg text-sidebar-active-text border-l-[3px] border-l-brand-600 pl-[13px]'
+                    : 'text-sidebar-text hover:bg-sidebar-active-bg/50 hover:text-sidebar-text-hover pl-4'
                     }`}
                 >
-                  <Icon className={`mr-3 h-5 w-5 transition-colors ${isActive(link.path) ? 'text-blue-400' : 'text-slate-500'}`} />
+                  <Icon className={`mr-3 h-5 w-5 transition-colors ${isActive(link.path) ? 'text-sidebar-active-text' : 'text-sidebar-text'}`} />
                   {link.name}
                 </Link>
               )
@@ -62,25 +62,25 @@ const PublicSidebar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
           </nav>
         </div>
 
-        <div className="p-4 border-t border-slate-800 bg-slate-900/30">
+        <div className="p-4 border-t border-sidebar-border bg-sidebar-bg">
           <div className="flex items-center mb-4">
-            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold shadow-inner">
+            <div className="h-10 w-10 rounded-lg bg-brand-600 flex items-center justify-center text-white font-medium shadow-sm">
               {(user?.name || 'U').charAt(0).toUpperCase()}
             </div>
             <div className="ml-3 overflow-hidden">
-              <p className="text-sm font-bold text-slate-100 truncate">{user?.name}</p>
-              <p className="text-xs font-semibold text-slate-400 truncate">{user?.role}</p>
+              <p className="text-sm font-medium text-[#F1F5F9] truncate">{user?.name}</p>
+              <p className="text-xs text-[#64748B] truncate">{user?.role}</p>
             </div>
           </div>
           {(user?.role === 'Admin' || user?.role === 'Support Agent') && (
-            <Link to="/dashboard" className="flex items-center justify-center w-full px-4 py-2 mb-2 text-sm font-bold text-indigo-400 bg-indigo-900/20 rounded-xl hover:bg-indigo-900/40 border border-indigo-900/50 transition-colors">
+            <Link to="/dashboard" className="flex items-center justify-center w-full px-4 py-2 mb-2 text-sm font-medium text-brand-600 bg-brand-50 rounded-lg hover:bg-[rgba(37,99,235,0.1)] transition-colors">
               <LayoutDashboard className="mr-2 h-4 w-4" />
               Dashboard
             </Link>
           )}
           <button
             onClick={() => { logout(); navigate('/'); }}
-            className="flex items-center justify-center w-full px-4 py-2 text-sm font-bold text-rose-400 bg-rose-900/20 rounded-xl hover:bg-rose-900/40 border border-rose-900/50 transition-colors"
+            className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-danger-text bg-transparent hover:bg-[rgba(248,113,113,0.1)] rounded-lg transition-colors"
           >
             <LogOut className="mr-2 h-4 w-4" />
             Logout

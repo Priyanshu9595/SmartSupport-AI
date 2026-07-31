@@ -36,23 +36,26 @@ const AdminLayout = () => {
 
   // Settings route removed as per request
   return (
-    <div className="flex h-screen text-white relative overflow-hidden bg-slate-950">
+    <div className="flex h-screen text-text-primary relative overflow-hidden bg-app">
 
       {/* Sidebar Overlay */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-20"
+          className="fixed inset-0 bg-text-primary/20 backdrop-blur-sm z-20"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 w-64 bg-slate-900/90 backdrop-blur-xl border-r border-slate-800/50 flex flex-col z-30 shadow-2xl transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        className={`fixed inset-y-0 left-0 w-64 bg-sidebar-bg border-r border-sidebar-border flex flex-col z-30 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
-        <div className="h-16 flex items-center justify-between px-6 border-b border-slate-800/50">
-          <span className="text-xl font-extrabold text-blue-400 tracking-tight">SupportFlow AI</span>
-          <button onClick={() => setIsSidebarOpen(false)} className="text-slate-400 hover:text-slate-300">
+        <div className="h-16 flex items-center justify-between px-6 border-b border-sidebar-border">
+          <div className="flex items-center">
+            <div className="w-8 h-8 bg-brand-600 text-white flex items-center justify-center font-bold text-lg rounded mr-2 shadow-sm">S</div>
+            <span className="text-xl font-extrabold text-white tracking-tight">SupportFlow</span>
+          </div>
+          <button onClick={() => setIsSidebarOpen(false)} className="text-sidebar-text hover:text-sidebar-text-hover">
             <X size={20} />
           </button>
         </div>
@@ -67,12 +70,12 @@ const AdminLayout = () => {
                   key={item.name}
                   to={item.path}
                   onClick={() => setIsSidebarOpen(false)}
-                  className={`flex items-center px-4 py-3 text-sm font-bold rounded-xl transition-all ${isActive
-                      ? 'bg-blue-600 text-white shadow-md shadow-blue-900/20'
-                      : 'text-slate-300 hover:bg-slate-900 hover:shadow-sm hover:text-white'
+                  className={`flex items-center px-4 py-3 text-sm font-medium transition-all ${isActive
+                      ? 'bg-sidebar-active-bg text-sidebar-active-text border-l-[3px] border-l-brand-600 pl-[13px]'
+                      : 'text-sidebar-text hover:bg-sidebar-active-bg/50 hover:text-sidebar-text-hover pl-4'
                     }`}
                 >
-                  <Icon className={`mr-3 flex-shrink-0 h-5 w-5 ${isActive ? 'text-white' : 'text-slate-400'}`} />
+                  <Icon className={`mr-3 flex-shrink-0 h-5 w-5 ${isActive ? 'text-sidebar-active-text' : 'text-sidebar-text'}`} />
                   {item.name}
                 </Link>
               );
@@ -80,19 +83,19 @@ const AdminLayout = () => {
           </nav>
         </div>
 
-        <div className="p-4 border-t border-slate-800/50 bg-slate-900/50 backdrop-blur-md">
+        <div className="p-4 border-t border-sidebar-border bg-sidebar-bg">
           <div className="flex items-center mb-4">
-            <div className="h-10 w-10 rounded-xl bg-blue-900/40 flex items-center justify-center text-blue-400 font-bold shadow-inner">
+            <div className="h-10 w-10 rounded-lg bg-brand-600 flex items-center justify-center text-white font-medium shadow-sm">
               {user?.name?.charAt(0)}
             </div>
             <div className="ml-3 overflow-hidden">
-              <p className="text-sm font-bold text-slate-100 truncate">{user?.name}</p>
-              <p className="text-xs font-semibold text-slate-400 truncate">{user?.role}</p>
+              <p className="text-sm font-medium text-[#F1F5F9] truncate">{user?.name}</p>
+              <p className="text-xs text-[#64748B] truncate">{user?.role}</p>
             </div>
           </div>
           <button
             onClick={handleLogout}
-            className="flex items-center justify-center w-full px-4 py-2 text-sm font-bold text-rose-400 bg-rose-900/30 rounded-xl hover:bg-rose-900/50 transition-colors"
+            className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-danger-text bg-transparent hover:bg-[rgba(248,113,113,0.1)] rounded-lg transition-colors"
           >
             <LogOut className="mr-2 h-4 w-4" />
             Logout
@@ -102,14 +105,14 @@ const AdminLayout = () => {
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col overflow-hidden z-10 w-full">
-        <header className="h-16 bg-slate-900/60 backdrop-blur-md border-b border-slate-800/50 flex items-center px-4 md:px-8 shadow-sm">
+        <header className="h-16 bg-surface border-b border-border flex items-center px-4 md:px-8">
           <button
             onClick={() => setIsSidebarOpen(true)}
-            className="p-2 mr-4 bg-slate-900 border border-slate-800 rounded-lg text-slate-300 hover:bg-slate-950 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="p-2 mr-4 bg-surface border border-border rounded-lg text-text-secondary hover:bg-subtle transition-colors focus:outline-none focus:ring-2 focus:ring-brand-600/12"
           >
             <Menu size={20} />
           </button>
-          <h1 className="text-xl font-extrabold text-slate-100 tracking-tight">
+          <h1 className="text-xl font-semibold text-text-primary tracking-tight">
             {navItems.find(i => i.path === location.pathname)?.name || 'Dashboard'}
           </h1>
         </header>

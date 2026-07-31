@@ -48,10 +48,10 @@ const Contact = () => {
           
           {!user && (
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight sm:text-5xl mb-4">
-                Get in <span className="text-blue-600">Touch</span>
+              <h1 className="text-4xl font-extrabold text-text-primary tracking-tight sm:text-5xl mb-4">
+                Get in <span className="text-brand-600">Touch</span>
               </h1>
-              <p className="text-xl text-slate-600 dark:text-slate-300">
+              <p className="text-xl text-text-secondary">
                 Have questions about our platform? Send us a message and our support team will get back to you shortly.
               </p>
             </div>
@@ -61,31 +61,31 @@ const Contact = () => {
             
             {/* Contact Information */}
             <div className="lg:w-1/3 space-y-8">
-              <div className="bg-slate-900/60 backdrop-blur-xl p-8 rounded-3xl border border-slate-900 dark:border-white/50 shadow-lg">
-                <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-6">Contact Information</h3>
+              <div className="bg-surface p-8 rounded-xl border border-border shadow-sm">
+                <h3 className="text-xl font-bold text-text-primary mb-6">Contact Information</h3>
                 
                 <div className="space-y-6">
                   <div className="flex items-start">
-                    <Mail className="text-blue-600 mt-1 mr-4" size={24} />
+                    <Mail className="text-brand-600 mt-1 mr-4" size={24} />
                     <div>
-                      <p className="font-bold text-slate-700 dark:text-slate-200">Email</p>
-                      <p className="text-slate-600 dark:text-slate-300">support@supportflow.ai</p>
+                      <p className="font-semibold text-text-primary">Email</p>
+                      <p className="text-text-secondary">support@supportflow.ai</p>
                     </div>
                   </div>
                   
                   <div className="flex items-start">
-                    <Phone className="text-blue-600 mt-1 mr-4" size={24} />
+                    <Phone className="text-brand-600 mt-1 mr-4" size={24} />
                     <div>
-                      <p className="font-bold text-slate-700 dark:text-slate-200">Phone</p>
-                      <p className="text-slate-600 dark:text-slate-300">+1 (555) 123-4567</p>
+                      <p className="font-semibold text-text-primary">Phone</p>
+                      <p className="text-text-secondary">+1 (555) 123-4567</p>
                     </div>
                   </div>
                   
                   <div className="flex items-start">
-                    <MapPin className="text-blue-600 mt-1 mr-4" size={24} />
+                    <MapPin className="text-brand-600 mt-1 mr-4" size={24} />
                     <div>
-                      <p className="font-bold text-slate-700 dark:text-slate-200">Office</p>
-                      <p className="text-slate-600 dark:text-slate-300">123 AI Boulevard<br/>Tech District, CA 94043</p>
+                      <p className="font-semibold text-text-primary">Office</p>
+                      <p className="text-text-secondary">123 AI Boulevard<br/>Tech District, CA 94043</p>
                     </div>
                   </div>
                 </div>
@@ -93,8 +93,8 @@ const Contact = () => {
             </div>
 
             {/* Contact Form */}
-            <div className="lg:w-2/3 bg-slate-900/60 backdrop-blur-xl p-6 md:p-10 rounded-3xl border border-slate-900 dark:border-white/50 shadow-xl">
-              <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-6">Send an Inquiry</h3>
+            <div className="lg:w-2/3 bg-surface p-6 md:p-10 rounded-xl border border-border shadow-sm">
+              <h3 className="text-2xl font-bold text-text-primary mb-6">Send an Inquiry</h3>
               
               {status === 'success' && (
                 <div className="mb-6 bg-green-50 text-green-800 p-4 rounded-xl border border-green-200 flex items-center">
@@ -107,9 +107,9 @@ const Contact = () => {
                 </div>
               )}
               {!user && (
-                <div className="mb-6 p-4 bg-blue-50/10 border border-blue-500/20 text-blue-400 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between shadow-sm gap-4">
+                <div className="mb-6 p-4 bg-brand-50 border border-brand-600/20 text-brand-700 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between shadow-sm gap-4">
                   <span>You must be logged in to submit an inquiry.</span>
-                  <button onClick={() => navigate('/login?type=client')} className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 transition-colors whitespace-nowrap">
+                  <button onClick={() => navigate('/login?type=client')} className="px-4 py-2 bg-brand-600 text-white rounded-md text-sm font-medium hover:bg-brand-700 transition-colors whitespace-nowrap">
                     Login Now
                   </button>
                 </div>
@@ -118,19 +118,19 @@ const Contact = () => {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-bold text-slate-700 dark:text-slate-200 mb-2">Name</label>
+                    <label className="block text-sm font-medium text-text-primary mb-2">Name</label>
                     <input 
                       type="text" 
                       required 
                       disabled={!user}
                       value={formData.name}
                       onChange={(e) => setFormData({...formData, name: e.target.value})}
-                      className={`w-full bg-slate-900/50 border border-slate-900 dark:border-white/60 backdrop-blur-sm rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all shadow-inner ${!user ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      className={`w-full ${!user ? 'opacity-50 cursor-not-allowed' : ''}`}
                       placeholder="John Doe"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-bold text-slate-700 dark:text-slate-200 mb-2">Email Address</label>
+                    <label className="block text-sm font-medium text-text-primary mb-2">Email Address</label>
                     <input 
                       type="email" 
                       required 
@@ -138,33 +138,33 @@ const Contact = () => {
                       disabled={!user}
                       value={formData.email}
                       onChange={(e) => setFormData({...formData, email: e.target.value})}
-                      className={`w-full bg-slate-900/50 border border-slate-900 dark:border-white/60 backdrop-blur-sm rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all shadow-inner cursor-not-allowed opacity-70 text-slate-500`}
+                      className={`w-full ${!user ? 'cursor-not-allowed opacity-70 text-text-muted' : ''}`}
                       placeholder="john@example.com"
                     />
                   </div>
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-bold text-slate-700 dark:text-slate-200 mb-2">Phone Number</label>
+                  <label className="block text-sm font-medium text-text-primary mb-2">Phone Number</label>
                   <input 
                     type="text" 
                     disabled={!user}
                     value={formData.phone}
                     onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    className={`w-full bg-slate-900/50 border border-slate-900 dark:border-white/60 backdrop-blur-sm rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all shadow-inner ${!user ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    className={`w-full ${!user ? 'opacity-50 cursor-not-allowed' : ''}`}
                     placeholder="+1 (555) 000-0000"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-slate-700 dark:text-slate-200 mb-2">Message</label>
+                  <label className="block text-sm font-medium text-text-primary mb-2">Message</label>
                   <textarea 
                     required 
                     disabled={!user}
                     rows="5"
                     value={formData.message}
                     onChange={(e) => setFormData({...formData, message: e.target.value})}
-                    className={`w-full bg-slate-900/50 border border-slate-900 dark:border-white/60 backdrop-blur-sm rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all shadow-inner resize-none ${!user ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    className={`w-full resize-none ${!user ? 'opacity-50 cursor-not-allowed' : ''}`}
                     placeholder="How can we help you today?"
                   ></textarea>
                 </div>
@@ -173,7 +173,7 @@ const Contact = () => {
                   <button 
                     type="button" 
                     onClick={() => navigate('/login?type=client')}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-slate-900 dark:text-white font-bold py-4 rounded-xl shadow-md transition-all flex justify-center items-center"
+                    className="w-full bg-brand-600 hover:bg-brand-700 text-white font-medium py-3 rounded-lg shadow-sm transition-all flex justify-center items-center"
                   >
                     Login to Submit
                   </button>
@@ -181,7 +181,7 @@ const Contact = () => {
                   <button 
                     type="submit" 
                     disabled={status === 'submitting'}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-slate-900 dark:text-white font-bold py-4 rounded-xl shadow-md transition-all flex justify-center items-center disabled:opacity-70"
+                    className="w-full bg-brand-600 hover:bg-brand-700 text-white font-medium py-3 rounded-lg shadow-sm transition-all flex justify-center items-center disabled:opacity-70"
                   >
                     {status === 'submitting' ? 'Sending...' : (
                       <>

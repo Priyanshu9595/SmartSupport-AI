@@ -85,15 +85,15 @@ const DashboardHome = () => {
     setChartData(dynamicChartData);
   }, [timeRange, rawTickets]);
 
-  const StatCard = ({ title, value, icon: Icon, colorClass, bgClass }) => (
-    <div className={`p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 ${bgClass} transition-all duration-300 hover:shadow-md hover:-translate-y-1`}>
+  const StatCard = ({ title, value, icon: Icon, iconColorClass, bgClass }) => (
+    <div className={`p-6 rounded-xl shadow-sm border border-border bg-surface transition-all duration-150 hover:shadow-md hover:border-border-strong`}>
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-slate-500 dark:text-slate-400 text-sm font-semibold mb-1">{title}</p>
-          <h3 className={`text-3xl font-extrabold ${colorClass}`}>{value}</h3>
+          <p className="text-[13px] text-text-secondary font-medium mb-1">{title}</p>
+          <h3 className="text-[30px] font-semibold text-text-primary leading-tight">{value}</h3>
         </div>
-        <div className={`p-3 rounded-xl ${colorClass.replace('text-', 'bg-').replace('400', '900/30')} ${colorClass}`}>
-          <Icon size={24} />
+        <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${bgClass} ${iconColorClass}`}>
+          <Icon size={20} />
         </div>
       </div>
     </div>
@@ -103,33 +103,33 @@ const DashboardHome = () => {
     <div className="flex flex-col max-w-7xl mx-auto w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Dashboard Overview</h2>
-          <p className="text-slate-500 dark:text-slate-400 mt-2">Welcome back! Here's what's happening with your platform today.</p>
+          <h2 className="text-2xl font-semibold text-text-primary tracking-tight">Dashboard Overview</h2>
+          <p className="text-[14px] text-text-secondary mt-1">Welcome back! Here's what's happening with your platform today.</p>
         </div>
-        <div className="hidden md:flex items-center space-x-2 bg-blue-900/40 text-blue-400 px-4 py-2 rounded-lg font-semibold text-sm border border-blue-100">
+        <div className="hidden md:flex items-center space-x-2 bg-brand-50 text-brand-600 px-4 py-2 rounded-lg font-medium text-[13px] border border-transparent">
           <TrendingUp size={16} />
           <span>Systems Optimal</span>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <StatCard title="Total Tickets" value={stats.totalTickets} icon={Ticket} colorClass="text-slate-500 dark:text-slate-400" bgClass="bg-white dark:bg-slate-900" />
-        <StatCard title="Open Tickets" value={stats.openTickets} icon={Activity} colorClass="text-blue-400" bgClass="bg-white dark:bg-slate-900" />
-        <StatCard title="Resolved Tickets" value={stats.resolvedTickets} icon={CheckCircle2} colorClass="text-emerald-400" bgClass="bg-white dark:bg-slate-900" />
-        <StatCard title="Total Leads" value={stats.newLeads} icon={Users} colorClass="text-amber-400" bgClass="bg-white dark:bg-slate-900" />
-        <StatCard title="Total Appointments" value={stats.appointments} icon={Calendar} colorClass="text-purple-400" bgClass="bg-white dark:bg-slate-900" />
-        <StatCard title="Pending Appointments" value={stats.pendingAppointments} icon={Clock} colorClass="text-indigo-400" bgClass="bg-white dark:bg-slate-900" />
-        <StatCard title="Knowledge Base" value={stats.faqCount} icon={BookOpen} colorClass="text-teal-400" bgClass="bg-white dark:bg-slate-900" />
+        <StatCard title="Total Tickets" value={stats.totalTickets} icon={Ticket} iconColorClass="text-brand-600" bgClass="bg-brand-50" />
+        <StatCard title="Open Tickets" value={stats.openTickets} icon={Activity} iconColorClass="text-warning-text" bgClass="bg-warning-bg" />
+        <StatCard title="Resolved Tickets" value={stats.resolvedTickets} icon={CheckCircle2} iconColorClass="text-success-text" bgClass="bg-success-bg" />
+        <StatCard title="Total Leads" value={stats.newLeads} icon={Users} iconColorClass="text-neutral-text" bgClass="bg-neutral-bg" />
+        <StatCard title="Total Appointments" value={stats.appointments} icon={Calendar} iconColorClass="text-brand-600" bgClass="bg-brand-50" />
+        <StatCard title="Pending Appointments" value={stats.pendingAppointments} icon={Clock} iconColorClass="text-warning-text" bgClass="bg-warning-bg" />
+        <StatCard title="Knowledge Base" value={stats.faqCount} icon={BookOpen} iconColorClass="text-neutral-text" bgClass="bg-neutral-bg" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 min-h-[300px] flex flex-col">
+        <div className="lg:col-span-2 bg-surface p-6 rounded-xl shadow-sm border border-border min-h-[300px] flex flex-col">
            <div className="mb-6 flex justify-between items-center">
-             <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100">Weekly Ticket Volume</h3>
+             <h3 className="text-lg font-semibold text-text-primary">Weekly Ticket Volume</h3>
              <select 
                value={timeRange} 
                onChange={(e) => setTimeRange(e.target.value)}
-               className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 text-xs font-semibold rounded-lg px-3 py-1.5 outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+               className="text-[13px] py-1 h-8 bg-surface border border-border-strong text-text-primary rounded-lg focus:border-brand-600 focus:ring-3 focus:ring-brand-600/12"
              >
                 <option value="Last 7 Days">Last 7 Days</option>
                 <option value="This Month">This Month</option>
@@ -140,30 +140,30 @@ const DashboardHome = () => {
                <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                  <defs>
                    <linearGradient id="colorTickets" x1="0" y1="0" x2="0" y2="1">
-                     <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3}/>
-                     <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
+                     <stop offset="5%" stopColor="#2563EB" stopOpacity={0.1}/>
+                     <stop offset="95%" stopColor="#2563EB" stopOpacity={0}/>
                    </linearGradient>
                  </defs>
-                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#334155" />
-                 <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12}} dy={10} />
-                 <YAxis axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12}} />
+                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E4E7EC" />
+                 <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#98A2B3', fontSize: 12}} dy={10} />
+                 <YAxis axisLine={false} tickLine={false} tick={{fill: '#98A2B3', fontSize: 12}} />
                  <Tooltip 
-                   contentStyle={{ backgroundColor: '#0f172a', borderColor: '#1e293b', color: '#f8fafc', borderRadius: '12px', padding: '12px' }}
-                   itemStyle={{ color: '#3b82f6', fontWeight: 'bold' }}
-                   cursor={{ stroke: '#475569', strokeWidth: 1, strokeDasharray: '4 4' }}
+                   contentStyle={{ backgroundColor: '#FFFFFF', borderColor: '#E4E7EC', color: '#101828', borderRadius: '8px', padding: '8px 12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
+                   itemStyle={{ color: '#2563EB', fontWeight: '500' }}
+                   cursor={{ stroke: '#D0D5DD', strokeWidth: 1, strokeDasharray: '4 4' }}
                  />
-                 <Area type="monotone" dataKey="tickets" stroke="#3b82f6" strokeWidth={3} fillOpacity={1} fill="url(#colorTickets)" />
+                 <Area type="monotone" dataKey="tickets" stroke="#2563EB" strokeWidth={2} fillOpacity={1} fill="url(#colorTickets)" />
                </AreaChart>
              </ResponsiveContainer>
            </div>
         </div>
-        <div className="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-8 rounded-2xl shadow-lg text-slate-900 dark:text-white relative overflow-hidden flex flex-col justify-center">
-          <div className="absolute -right-6 -top-6 opacity-20">
-            <CheckCircle2 size={120} />
+        <div className="bg-surface p-8 rounded-xl shadow-sm border border-border relative overflow-hidden flex flex-col justify-center items-center text-center">
+          <div className="w-16 h-16 bg-success-bg text-success-text rounded-full flex items-center justify-center mb-6">
+            <CheckCircle2 size={32} />
           </div>
-          <h3 className="text-2xl font-bold mb-2">Great Job!</h3>
-          <p className="text-slate-900 dark:text-white/90 mb-6">You've resolved {stats.resolvedTickets} tickets so far. Keep up the excellent support!</p>
-          <button className="bg-white dark:bg-slate-900 text-indigo-600 hover:bg-slate-50 dark:bg-slate-950 font-bold py-2 px-5 rounded-xl transition w-max shadow-sm">
+          <h3 className="text-xl font-semibold text-text-primary mb-2">Great Job!</h3>
+          <p className="text-text-secondary text-[14px] mb-8">You've resolved {stats.resolvedTickets} tickets so far. Keep up the excellent support!</p>
+          <button className="bg-brand-50 text-brand-600 hover:bg-subtle text-[14px] font-medium py-2.5 px-6 rounded-lg transition-colors border border-transparent w-full">
             View Reports
           </button>
         </div>
