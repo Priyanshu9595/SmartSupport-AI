@@ -119,10 +119,10 @@ const CustomerDashboard = () => {
                 <div className="p-4 border-b border-border flex justify-between items-center">
                   <div className="flex items-center space-x-2">
                     <h3 className="font-bold text-text-primary">Notifications</h3>
-                    {unreadCount > 0 && <span className="text-[10px] bg-blue-100 text-blue-700 font-bold px-2 py-0.5 rounded-full">{unreadCount} New</span>}
+                    {unreadCount > 0 && <span className="text-[10px] bg-brand-50 text-brand-700 font-bold px-2 py-0.5 rounded-full">{unreadCount} New</span>}
                   </div>
                   {unreadCount > 0 && (
-                    <button onClick={markAllAsRead} className="text-xs font-semibold text-blue-600 hover:text-blue-800 transition">
+                    <button onClick={markAllAsRead} className="text-xs font-semibold text-brand-600 hover:text-brand-700 transition">
                       Mark all as read
                     </button>
                   )}
