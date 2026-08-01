@@ -44,31 +44,49 @@ const PublicLayout = () => {
         
         {/* Simple Footer */}
         {!user && (
-          <footer className="bg-surface py-8 border-t border-border mt-auto">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-                
-                {/* Logo */}
-                <div className="flex items-center">
-                  <div className="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center mr-3">
-                    <Zap size={18} className="text-white" fill="currentColor" />
+          <footer className="bg-subtle border-t border-border mt-auto pt-16 pb-8">
+            <div className="max-w-6xl mx-auto px-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+                <div className="lg:col-span-2">
+                  <div className="flex items-center mb-4">
+                    <img src="/favicon.svg" alt="SupportFlow Logo" className="w-8 h-8 mr-3" />
+                    <span className="font-bold text-xl text-text-primary tracking-tight">SupportFlow</span>
                   </div>
-                  <span className="font-bold text-xl text-text-primary tracking-tight">SupportFlow</span>
+                  <p className="text-text-secondary text-sm max-w-sm mb-6">
+                    AI-powered support desk that helps you resolve tickets faster, capture leads, and book appointments 24/7.
+                  </p>
                 </div>
-                
-                {/* Links */}
-                <div className="flex flex-wrap justify-center gap-8">
-                  <Link to="/services" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="text-text-secondary hover:text-brand-600 text-sm font-medium transition-colors">Features</Link>
-                  <Link to="/pricing" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="text-text-secondary hover:text-brand-600 text-sm font-medium transition-colors">Pricing</Link>
-                  <Link to="/help" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="text-text-secondary hover:text-brand-600 text-sm font-medium transition-colors">FAQ</Link>
-                  <Link to="/inquiry" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="text-text-secondary hover:text-brand-600 text-sm font-medium transition-colors">Contact</Link>
+                <div>
+                  <h4 className="font-semibold text-text-primary mb-4 text-sm">Product</h4>
+                  <ul className="space-y-3 text-sm text-text-secondary">
+                    <li><Link to="/services" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="hover:text-brand-600 transition-colors">Features</Link></li>
+                    <li><Link to="/pricing" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="hover:text-brand-600 transition-colors">Pricing</Link></li>
+                    <li><Link to="/integrations" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="hover:text-brand-600 transition-colors">Integrations</Link></li>
+                    <li><Link to="/help" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="hover:text-brand-600 transition-colors">FAQ</Link></li>
+                  </ul>
                 </div>
-                
-                {/* Copyright */}
+                <div>
+                  <h4 className="font-semibold text-text-primary mb-4 text-sm">Company</h4>
+                  <ul className="space-y-3 text-sm text-text-secondary">
+                    <li><Link to="/about" className="hover:text-brand-600 transition-colors">About Us</Link></li>
+                    <li><Link to="/careers" className="hover:text-brand-600 transition-colors">Careers</Link></li>
+                    <li><Link to="/blog" className="hover:text-brand-600 transition-colors">Blog</Link></li>
+                    <li><Link to="/inquiry" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="hover:text-brand-600 transition-colors">Contact</Link></li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-text-primary mb-4 text-sm">Legal</h4>
+                  <ul className="space-y-3 text-sm text-text-secondary">
+                    <li><Link to="/terms" className="hover:text-brand-600 transition-colors">Terms of Service</Link></li>
+                    <li><Link to="/privacy" className="hover:text-brand-600 transition-colors">Privacy Policy</Link></li>
+                    <li><Link to="/security" className="hover:text-brand-600 transition-colors">Security</Link></li>
+                  </ul>
+                </div>
+              </div>
+              <div className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
                 <p className="text-text-muted text-sm">
                   © {new Date().getFullYear()} SupportFlow. All rights reserved.
                 </p>
-
               </div>
             </div>
           </footer>
