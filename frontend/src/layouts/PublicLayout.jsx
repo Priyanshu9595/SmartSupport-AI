@@ -23,9 +23,7 @@ const PublicLayout = () => {
           {/* Mobile Header for Sidebar Mode */}
           <div className="md:hidden flex items-center justify-between h-16 bg-surface px-4 border-b border-border sticky top-0 z-30">
             <Link to="/inquiry" className="flex items-center cursor-pointer">
-               <div className="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center mr-2">
-                 <span className="text-white font-bold text-lg">S</span>
-               </div>
+               <img src="/favicon.svg" alt="SupportFlow Logo" className="w-8 h-8 mr-2" />
                <span className="font-bold text-xl text-text-primary tracking-tight">SupportFlow</span>
             </Link>
             <button onClick={() => setMobileMenuOpen(true)} className="text-text-secondary hover:text-brand-600 transition-colors">

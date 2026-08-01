@@ -30,9 +30,7 @@ const PublicSidebar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
       <aside className={`fixed inset-y-0 left-0 w-64 bg-sidebar-bg border-r border-sidebar-border flex flex-col z-50 transform transition-transform duration-300 ease-in-out ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
         <div className="h-16 flex items-center justify-between px-6 border-b border-sidebar-border">
           <div className="flex items-center cursor-pointer" onClick={() => navigate('/inquiry')}>
-            <div className="w-8 h-8 bg-brand-600 rounded flex items-center justify-center mr-2 shadow-sm">
-              <span className="text-white font-bold text-lg">S</span>
-            </div>
+            <img src="/favicon.svg" alt="SupportFlow Logo" className="w-8 h-8 mr-2" />
             <span className="font-extrabold text-xl text-white tracking-tight">SupportFlow</span>
           </div>
           <button onClick={() => setMobileMenuOpen(false)} className="md:hidden text-sidebar-text hover:text-sidebar-text-hover">
@@ -69,7 +67,7 @@ const PublicSidebar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
             </div>
             <div className="ml-3 overflow-hidden">
               <p className="text-sm font-medium text-[#F1F5F9] truncate">{user?.name}</p>
-              <p className="text-xs text-[#64748B] truncate">{user?.role}</p>
+              <p className="text-xs text-[#94A3B8] truncate">{user?.role}</p>
             </div>
           </div>
           {(user?.role === 'Admin' || user?.role === 'Support Agent') && (

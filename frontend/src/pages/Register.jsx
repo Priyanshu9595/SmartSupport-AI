@@ -27,7 +27,7 @@ const Register = () => {
       {/* Left Panel - Hidden on small screens */}
       <div className="hidden lg:flex w-1/2 bg-sidebar-bg text-white flex-col justify-between p-12 relative overflow-hidden">
         <div className="relative z-10 flex items-center">
-          <div className="w-8 h-8 bg-brand-600 text-white rounded flex items-center justify-center mr-2 shadow-sm font-bold text-lg">S</div>
+          <img src="/favicon.svg" alt="SupportFlow Logo" className="w-8 h-8 mr-2" />
           <h1 className="text-xl font-extrabold tracking-tight text-white">SupportFlow</h1>
         </div>
         

@@ -52,7 +52,7 @@ const AdminLayout = () => {
       >
         <div className="h-16 flex items-center justify-between px-6 border-b border-sidebar-border">
           <div className="flex items-center">
-            <div className="w-8 h-8 bg-brand-600 text-white flex items-center justify-center font-bold text-lg rounded mr-2 shadow-sm">S</div>
+            <img src="/favicon.svg" alt="SupportFlow Logo" className="w-8 h-8 mr-2" />
             <span className="text-xl font-extrabold text-white tracking-tight">SupportFlow</span>
           </div>
           <button onClick={() => setIsSidebarOpen(false)} className="text-sidebar-text hover:text-sidebar-text-hover">
@@ -90,7 +90,7 @@ const AdminLayout = () => {
             </div>
             <div className="ml-3 overflow-hidden">
               <p className="text-sm font-medium text-[#F1F5F9] truncate">{user?.name}</p>
-              <p className="text-xs text-[#64748B] truncate">{user?.role}</p>
+              <p className="text-xs text-[#94A3B8] truncate">{user?.role}</p>
             </div>
           </div>
           <button
