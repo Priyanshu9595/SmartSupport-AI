@@ -98,7 +98,7 @@ const CustomerDashboard = () => {
   return (
     <div className="min-h-screen bg-bg-app font-sans text-text-primary">
       <main className="max-w-5xl mx-auto py-10 px-6">
-        <div className="mb-8 flex justify-between items-start">
+        <div className="mb-8 flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
           <div>
             <h1 className="text-2xl font-bold text-text-primary mb-2">Hello, {user?.name}</h1>
             <p className="text-text-secondary">Track the status of your support requests below.</p>
@@ -115,7 +115,7 @@ const CustomerDashboard = () => {
             </button>
             
             {showNotifications && (
-              <div className="absolute right-0 mt-3 w-72 sm:w-80 md:w-96 bg-surface rounded-xl shadow-lg border border-border z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 origin-top-right">
+              <div className="absolute right-0 mt-3 w-64 sm:w-80 md:w-96 max-w-[calc(100vw-3rem)] bg-surface rounded-xl shadow-lg border border-border z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 origin-top-right">
                 <div className="p-4 border-b border-border flex justify-between items-center">
                   <div className="flex items-center space-x-2">
                     <h3 className="font-bold text-text-primary">Notifications</h3>
@@ -267,7 +267,7 @@ const CustomerDashboard = () => {
       {/* Ticket Details Modal */}
       {selectedTicket && (
         <div className="fixed inset-0 bg-text-primary/20 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-surface rounded-xl shadow-xl border border-border w-full max-w-2xl max-h-[90vh] md:max-h-[80vh] flex flex-col">
+          <div className="bg-surface rounded-xl shadow-xl border border-border w-full max-w-2xl max-h-[90vh] md:max-h-[80vh] flex flex-col overflow-hidden">
             
             {/* Modal Header */}
             <div className="p-6 border-b border-border flex justify-between items-center bg-transparent rounded-t-xl">

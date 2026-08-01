@@ -123,7 +123,7 @@ const Tickets = () => {
       
       {viewMode === 'list' ? (
         <>
-          <div className="mb-8 flex items-center justify-between">
+          <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <h2 className="text-2xl font-bold text-text-primary tracking-tight">Helpdesk Tickets</h2>
               <p className="text-[14px] text-text-secondary mt-1">Manage and respond to customer issues and inquiries.</p>
@@ -363,7 +363,7 @@ const Tickets = () => {
                       </label>
                     </div>
                   </div>
-                  <div className="flex items-end space-x-3">
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-end gap-3">
                     <textarea 
                       value={replyText}
                       onChange={(e) => setReplyText(e.target.value)}
@@ -374,7 +374,7 @@ const Tickets = () => {
                     <button 
                       type="submit" 
                       disabled={!replyText.trim()} 
-                      className={`px-5 py-3.5 rounded-xl text-white font-medium shadow-sm transition-all flex items-center h-full mt-auto ${isInternal ? 'bg-warning-text hover:opacity-90' : 'bg-brand-600 hover:bg-brand-700'} disabled:opacity-50 disabled:cursor-not-allowed`}
+                      className={`px-5 py-3 sm:py-3.5 rounded-xl text-white font-medium shadow-sm transition-all flex items-center justify-center sm:h-full mt-auto ${isInternal ? 'bg-warning-text hover:opacity-90' : 'bg-brand-600 hover:bg-brand-700'} disabled:opacity-50 disabled:cursor-not-allowed`}
                     >
                       Send <Send size={16} className="ml-2" />
                     </button>
