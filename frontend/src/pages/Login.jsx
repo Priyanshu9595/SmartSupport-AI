@@ -35,17 +35,17 @@ const Login = () => {
           <img src="/favicon.svg" alt="SupportFlow Logo" className="w-8 h-8 mr-2" />
           <h1 className="text-xl font-extrabold tracking-tight text-white">SupportFlow</h1>
         </div>
-        
+
         <div className="relative z-10">
           <h2 className="text-4xl lg:text-5xl font-extrabold leading-[1.05] mb-6 tracking-tight text-white">
             UNIFIED<br />WORKSPACE.
           </h2>
-          <p className="text-xl text-[#94A3B8] max-w-md leading-relaxed font-medium">
+          <p className="text-xl text-[#E2E8F0] max-w-md leading-relaxed font-medium">
             One intelligent portal for everyone. Customers get instant answers, while your support team gets the tools they need to succeed.
           </p>
         </div>
-        
-        <div className="relative z-10 text-text-muted text-sm">
+
+        <div className="relative z-10 text-[#E2E8F0] text-sm">
           © {new Date().getFullYear()} SupportFlow AI
         </div>
 
@@ -66,7 +66,7 @@ const Login = () => {
         <div className="flex-grow flex flex-col justify-center max-w-md w-full mx-auto mt-12 sm:mt-0">
           <h2 className="text-[30px] font-semibold mb-3 tracking-tight text-text-primary">Log in</h2>
           <p className="text-text-secondary mb-10 text-[16px]">Enter your credentials to access your role dashboard.</p>
-          
+
           {error && <div className="mb-6 bg-danger-bg text-danger-text border-l-4 border-danger-text p-4 text-sm font-medium">{error}</div>}
 
           <form onSubmit={handleSubmit} className="space-y-6">
