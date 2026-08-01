@@ -174,13 +174,7 @@ const LandingPage = () => {
               <blockquote className="text-[20px] md:text-[24px] font-medium text-text-primary leading-snug mb-8">
                 "SupportFlow completely changed how we handle customer inquiries. Our small team now operates like a 24/7 enterprise support desk."
               </blockquote>
-              <div className="flex flex-col items-center">
-                <div className="w-12 h-12 bg-subtle rounded-full border border-border mb-3 overflow-hidden">
-                   <img src="https://i.pravatar.cc/150?img=32" alt="Avatar" className="w-full h-full object-cover grayscale opacity-80" />
-                </div>
-                <div className="text-[14px] font-semibold text-text-primary">Sarah Jenkins</div>
-                <div className="text-[13px] text-text-secondary">Head of Customer Success, TechStart</div>
-              </div>
+
             </div>
           </div>
         </section>
