@@ -210,22 +210,31 @@ CRITICAL: Return ONLY JSON matching these formats:
 
         // Handle checking ticket status
         if (intent === 'check_ticket_status' && parsed.ticketId) {
-          const ticket = await Ticket.findOne({ ticketId: parsed.ticketId.toUpperCase() });
-          if (ticket) {
-            reply = `The status of your ticket ${ticket.ticketId} is currently: ${ticket.status}.`;
+          if (!userEmail || userEmail === 'Unknown') {
+            reply = "Please log in to view your account details.";
           } else {
-            reply = `I could not find a ticket with the ID ${parsed.ticketId}. Please check the ID and try again.`;
+            const ticket = await Ticket.findOne({ ticketId: parsed.ticketId.toUpperCase() });
+            if (ticket) {
+              reply = `The status of your ticket ${ticket.ticketId} is currently: ${ticket.status}.`;
+            } else {
+              reply = `I could not find a ticket with the ID ${parsed.ticketId}. Please check the ID and try again.`;
+            }
           }
         }
         
         // Handle checking appointment
         if (intent === 'check_appointment' && parsed.email) {
-          const appointment = await Appointment.findOne({ email: parsed.email.toLowerCase() }).sort({ dateTime: -1 });
-          if (appointment) {
-            const timeString = appointment.dateTime.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' });
-            reply = `You have an appointment on ${timeString}. The status is: ${appointment.status}. You can join using this link: ${appointment.meetingLink}`;
+          if (!userEmail || userEmail === 'Unknown') {
+            reply = "Please log in to view your account details.";
           } else {
-            reply = `I could not find any appointments booked under the email ${parsed.email}.`;
+            const emailToCheck = (parsed.email && parsed.email.toLowerCase() !== 'unknown') ? parsed.email.toLowerCase() : userEmail.toLowerCase();
+            const appointment = await Appointment.findOne({ email: emailToCheck }).sort({ dateTime: -1 });
+            if (appointment) {
+              const timeString = appointment.dateTime.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' });
+              reply = `You have an appointment on ${timeString}. The status is: ${appointment.status}. You can join using this link: ${appointment.meetingLink}`;
+            } else {
+              reply = `I could not find any appointments booked under the email ${emailToCheck}.`;
+            }
           }
         }
 
