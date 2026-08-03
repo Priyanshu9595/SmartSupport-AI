@@ -61,28 +61,30 @@ const PublicSidebar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
         </div>
 
         <div className="p-4 border-t border-sidebar-border bg-sidebar-bg">
-          <div className="flex items-center mb-4">
-            <div className="h-10 w-10 rounded-lg bg-brand-600 flex items-center justify-center text-white font-medium shadow-sm">
-              {(user?.name || 'U').charAt(0).toUpperCase()}
-            </div>
-            <div className="ml-3 overflow-hidden">
-              <p className="text-sm font-medium text-[#F1F5F9] truncate">{user?.name}</p>
-              <p className="text-xs text-[#94A3B8] truncate">{user?.role}</p>
-            </div>
-          </div>
           {(user?.role === 'Admin' || user?.role === 'Support Agent') && (
-            <Link to="/dashboard" className="flex items-center justify-center w-full px-4 py-2 mb-2 text-sm font-medium text-brand-600 bg-brand-50 rounded-lg hover:bg-[rgba(37,99,235,0.1)] transition-colors">
+            <Link to="/dashboard" className="flex items-center justify-center w-full px-4 py-2 mb-4 text-sm font-medium text-brand-600 bg-brand-50 rounded-lg hover:bg-[rgba(37,99,235,0.1)] transition-colors">
               <LayoutDashboard className="mr-2 h-4 w-4" />
               Dashboard
             </Link>
           )}
-          <button
-            onClick={() => { logout(); navigate('/'); }}
-            className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white/80 bg-transparent hover:bg-white/10 hover:text-white rounded-lg transition-colors"
-          >
-            <LogOut className="mr-2 h-4 w-4" />
-            Logout
-          </button>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center overflow-hidden">
+              <div className="h-10 w-10 flex-shrink-0 rounded-lg bg-brand-600 flex items-center justify-center text-white font-medium shadow-sm">
+                {(user?.name || 'U').charAt(0).toUpperCase()}
+              </div>
+              <div className="ml-3 overflow-hidden pr-2">
+                <p className="text-sm font-medium text-[#F1F5F9] truncate">{user?.name}</p>
+                <p className="text-xs text-[#94A3B8] truncate">{user?.role}</p>
+              </div>
+            </div>
+            <button
+              onClick={() => { logout(); navigate('/'); }}
+              title="Logout"
+              className="flex-shrink-0 text-sidebar-text hover:text-white p-2 rounded-lg hover:bg-white/10 transition-colors"
+            >
+              <LogOut size={18} />
+            </button>
+          </div>
         </div>
       </aside>
     </>
