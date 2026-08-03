@@ -233,12 +233,17 @@ CRITICAL: Return ONLY JSON matching these formats:
             reply = "Please log in to view your account details.";
           } else {
             const emailToCheck = (parsed.email && parsed.email.toLowerCase() !== 'unknown') ? parsed.email.toLowerCase() : userEmail.toLowerCase();
-            const appointment = await Appointment.findOne({ email: emailToCheck }).sort({ dateTime: -1 });
-            if (appointment) {
-              const timeString = appointment.dateTime.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' });
-              reply = `You have an appointment on ${timeString}. The status is: ${appointment.status}. You can join using this link: ${appointment.meetingLink}`;
+            
+            if (emailToCheck !== userEmail.toLowerCase()) {
+              reply = "It is not your email id.";
             } else {
-              reply = `I could not find any appointments booked under the email ${emailToCheck}.`;
+              const appointment = await Appointment.findOne({ email: emailToCheck }).sort({ dateTime: -1 });
+              if (appointment) {
+                const timeString = appointment.dateTime.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' });
+                reply = `You have an appointment on ${timeString}. The status is: ${appointment.status}. You can join using this link: ${appointment.meetingLink}`;
+              } else {
+                reply = `I could not find any appointments booked under the email ${emailToCheck}.`;
+              }
             }
           }
         }
