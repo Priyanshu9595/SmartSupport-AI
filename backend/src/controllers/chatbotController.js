@@ -155,26 +155,31 @@ CRITICAL: Return ONLY JSON matching these formats:
           const { name, email, date, time } = parsed.bookingData;
           const dateTime = new Date(`${date}T${time}:00+05:30`);
           
-          let meetingLink = await createGoogleMeetEvent({ serviceType: "Chatbot Booking", customerName: name, email, dateTime });
-          
-          if (!meetingLink) {
-            const uniqueRoomId = Math.random().toString(36).substring(2, 12) + Math.random().toString(36).substring(2, 12);
-            meetingLink = `https://meet.jit.si/SmartSupport-${uniqueRoomId}`;
+          if (dateTime < new Date()) {
+            intent = 'booking_in_progress';
+            reply = 'The time you selected is in the past. Please choose a future date and time for your appointment.';
+          } else {
+            let meetingLink = await createGoogleMeetEvent({ serviceType: "Chatbot Booking", customerName: name, email, dateTime });
+            
+            if (!meetingLink) {
+              const uniqueRoomId = Math.random().toString(36).substring(2, 12) + Math.random().toString(36).substring(2, 12);
+              meetingLink = `https://meet.jit.si/SmartSupport-${uniqueRoomId}`;
+            }
+
+            await Appointment.create({
+              customerName: name,
+              email: email,
+              dateTime: dateTime,
+              meetingLink: meetingLink,
+              status: 'Pending'
+            });
+
+            // Send instant confirmation email
+            const emailSubject = 'Booking Confirmation - SmartSupport AI';
+            const emailBody = `Hi ${name},\n\nWe have received your booking request via our Virtual Assistant.\n\nDate & Time: ${dateTime.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' })}\nMeeting Link: ${meetingLink}\n\nOur team will review this and confirm shortly. You will receive a reminder 24 hours before the meeting.\n\nBest,\nSupportFlow AI Team`;
+            
+            sendEmail(email, emailSubject, emailBody).catch(e => console.error('Failed to send booking email from chatbot:', e));
           }
-
-          await Appointment.create({
-            customerName: name,
-            email: email,
-            dateTime: dateTime,
-            meetingLink: meetingLink,
-            status: 'Pending'
-          });
-
-          // Send instant confirmation email
-          const emailSubject = 'Booking Confirmation - SmartSupport AI';
-          const emailBody = `Hi ${name},\n\nWe have received your booking request via our Virtual Assistant.\n\nDate & Time: ${dateTime.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' })}\nMeeting Link: ${meetingLink}\n\nOur team will review this and confirm shortly. You will receive a reminder 24 hours before the meeting.\n\nBest,\nSupportFlow AI Team`;
-          
-          sendEmail(email, emailSubject, emailBody).catch(e => console.error('Failed to send booking email from chatbot:', e));
         }
 
         // Handle the actual lead capture
