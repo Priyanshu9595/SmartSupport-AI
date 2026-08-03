@@ -12,7 +12,11 @@ import {
   ArrowRight,
   Check,
   Star,
-  BookOpen
+  BookOpen,
+  Search,
+  Mail,
+  MessageCircle,
+  Hash
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -95,27 +99,71 @@ const LandingPage = () => {
       </div>
       <div className="grid md:grid-cols-3 gap-6 auto-rows-[300px]">
         <div className="md:col-span-2 bg-white border border-border rounded-2xl p-8 relative group overflow-hidden transition-all shadow-sm hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)]">
-        <div className="w-12 h-12 rounded-xl bg-brand-50 border border-brand-600/20 flex items-center justify-center mb-6 relative z-10"><MessageSquare className="w-5 h-5 text-brand-600" /></div>
-        <h3 className="text-xl font-bold text-text-primary mb-2 relative z-10">AI-Powered Inbox</h3>
-        <p className="text-text-secondary text-[15px] max-w-sm relative z-10">Automatically route, tag, and draft responses to common queries before your agents even see them.</p>
-        <div className="absolute right-0 bottom-0 w-[85%] md:w-[70%] h-auto bg-app border-t border-l border-border rounded-tl-2xl p-4 md:p-6 shadow-sm"><div className="flex flex-col gap-3 md:gap-4"><div className="h-2 w-1/3 bg-border-strong rounded" /><div className="p-3 bg-white rounded-lg text-[11px] md:text-[12px] text-text-secondary border border-border shadow-sm font-medium">Customer: Where is my order?</div><div className="p-3 bg-brand-50 border border-brand-600/20 rounded-lg text-[11px] md:text-[12px] text-brand-600 font-semibold flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-brand-600 flex-shrink-0" /> <span className="truncate">Drafting response based on tracking ID...</span></div></div></div>
-      </div>
-      <div className="md:row-span-2 bg-white border border-border rounded-2xl p-8 relative group overflow-hidden transition-all shadow-sm hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)]">
-        <div className="w-12 h-12 rounded-xl bg-brand-50 border border-brand-600/20 flex items-center justify-center mb-6 relative z-10"><Ticket className="w-5 h-5 text-brand-600" /></div>
-        <h3 className="text-xl font-bold text-text-primary mb-2 relative z-10">Unified Queue</h3>
-        <p className="text-text-secondary text-[15px] relative z-10 mb-8">Email, chat, social — all in one seamless stream.</p>
-        <div className="flex flex-col gap-3 relative z-10">{[1, 2, 3, 4].map(i => (<div key={i} className="bg-app p-3 rounded-lg border border-border flex items-center justify-between"><div className="w-24 h-2 bg-border-strong rounded" /><div className="w-4 h-4 rounded-full bg-border-strong" /></div>))}</div>
-      </div>
-      <div className="bg-white border border-border rounded-2xl p-8 relative group overflow-hidden transition-all shadow-sm hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)]">
-        <div className="w-12 h-12 rounded-xl bg-brand-50 border border-brand-600/20 flex items-center justify-center mb-6 relative z-10"><Users className="w-5 h-5 text-brand-600" /></div>
-        <h3 className="text-xl font-bold text-text-primary mb-2 relative z-10">Team Collab</h3>
-        <p className="text-text-secondary text-[15px] relative z-10">Private notes & mentions.</p>
-      </div>
-      <div className="bg-white border border-border rounded-2xl p-8 relative group overflow-hidden transition-all shadow-sm hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)]">
-        <div className="w-12 h-12 rounded-xl bg-brand-50 border border-brand-600/20 flex items-center justify-center mb-6 relative z-10"><BookOpen className="w-5 h-5 text-brand-600" /></div>
-        <h3 className="text-xl font-bold text-text-primary mb-2 relative z-10">Knowledge Base</h3>
-        <p className="text-text-secondary text-[15px] relative z-10">Self-serve articles.</p>
-      </div>
+          <div className="w-12 h-12 rounded-xl bg-brand-50 border border-brand-600/20 flex items-center justify-center mb-6 relative z-10"><MessageSquare className="w-5 h-5 text-brand-600" /></div>
+          <h3 className="text-xl font-bold text-text-primary mb-2 relative z-10">AI-Powered Inbox</h3>
+          <p className="text-text-secondary text-[15px] max-w-sm relative z-10">Automatically route, tag, and draft responses to common queries before your agents even see them.</p>
+          <div className="absolute right-0 bottom-0 w-[85%] md:w-[70%] bg-app border-t border-l border-border rounded-tl-2xl p-4 md:p-6 shadow-sm flex flex-col gap-3">
+            <div className="h-2 w-1/4 bg-border-strong rounded mb-2" />
+            <div className="p-3 bg-white rounded-xl rounded-tl-sm text-[11px] md:text-[12px] text-text-secondary border border-border shadow-sm font-medium self-start w-fit max-w-[85%] leading-relaxed">
+              Where is my order? I haven't received it yet.
+            </div>
+            <div className="p-3 bg-brand-50 border border-brand-600/20 rounded-xl rounded-tr-sm text-[11px] md:text-[12px] text-brand-600 font-semibold flex items-center gap-2 self-end w-fit max-w-[85%]">
+              <span className="w-2 h-2 rounded-full bg-brand-600 animate-pulse flex-shrink-0" />
+              <span className="truncate">Drafting response based on tracking ID...</span>
+            </div>
+          </div>
+        </div>
+        <div className="md:row-span-2 bg-white border border-border rounded-2xl p-8 relative group overflow-hidden transition-all shadow-sm hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)] flex flex-col">
+          <div className="w-12 h-12 rounded-xl bg-brand-50 border border-brand-600/20 flex items-center justify-center mb-6 relative z-10"><Ticket className="w-5 h-5 text-brand-600" /></div>
+          <h3 className="text-xl font-bold text-text-primary mb-2 relative z-10">Unified Queue</h3>
+          <p className="text-text-secondary text-[15px] relative z-10 mb-8">Email, chat, social — all in one seamless stream.</p>
+          <div className="absolute inset-x-0 bottom-0 h-[65%] bg-gradient-to-t from-app to-transparent pt-12 px-6 pb-6 flex flex-col justify-end gap-3 z-0">
+            <div className="bg-white p-3 rounded-lg border border-border flex items-center justify-between shadow-sm">
+              <div className="flex items-center gap-3"><div className="w-6 h-6 rounded bg-[#E35D5D] flex items-center justify-center text-white"><Mail size={12}/></div><div className="w-20 h-2 bg-border-strong rounded" /></div>
+              <div className="w-4 h-4 rounded-full bg-border-strong" />
+            </div>
+            <div className="bg-white p-3 rounded-lg border border-border flex items-center justify-between shadow-sm border-l-2 border-l-brand-600 relative overflow-hidden">
+              <div className="absolute inset-0 bg-brand-50/50" />
+              <div className="flex items-center gap-3 relative z-10"><div className="w-6 h-6 rounded bg-[#25D366] flex items-center justify-center text-white"><MessageCircle size={12}/></div><div className="w-24 h-2 bg-brand-600/40 rounded" /></div>
+              <div className="w-4 h-4 rounded-full bg-brand-600 relative z-10" />
+            </div>
+            <div className="bg-white p-3 rounded-lg border border-border flex items-center justify-between shadow-sm">
+              <div className="flex items-center gap-3"><div className="w-6 h-6 rounded bg-[#1DA1F2] flex items-center justify-center text-white"><Hash size={12}/></div><div className="w-16 h-2 bg-border-strong rounded" /></div>
+              <div className="w-4 h-4 rounded-full bg-border-strong" />
+            </div>
+            <div className="bg-white p-3 rounded-lg border border-border flex items-center justify-between shadow-sm">
+              <div className="flex items-center gap-3"><div className="w-6 h-6 rounded bg-brand-600 flex items-center justify-center text-white"><MessageSquare size={12}/></div><div className="w-24 h-2 bg-border-strong rounded" /></div>
+              <div className="w-4 h-4 rounded-full bg-border-strong" />
+            </div>
+          </div>
+        </div>
+        <div className="bg-white border border-border rounded-2xl p-8 relative group overflow-hidden transition-all shadow-sm hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)]">
+          <div className="w-12 h-12 rounded-xl bg-brand-50 border border-brand-600/20 flex items-center justify-center mb-6 relative z-10"><Users className="w-5 h-5 text-brand-600" /></div>
+          <h3 className="text-xl font-bold text-text-primary mb-2 relative z-10">Team Collab</h3>
+          <p className="text-text-secondary text-[15px] relative z-10">Private notes & mentions.</p>
+          <div className="absolute right-0 bottom-0 w-[75%] bg-warning-bg/40 border-t border-l border-warning-border rounded-tl-xl p-4 shadow-sm flex flex-col gap-2">
+            <div className="flex items-center gap-2 mb-1">
+               <div className="w-5 h-5 rounded bg-brand-600 text-white flex items-center justify-center text-[9px] font-bold">You</div>
+               <span className="text-[10px] text-text-secondary font-medium">Internal Note</span>
+            </div>
+            <div className="text-[12px] text-text-primary leading-tight"><span className="font-bold text-brand-600 bg-brand-50 px-1 rounded">@sarah</span> can you check the refund status for this order?</div>
+          </div>
+        </div>
+        <div className="bg-white border border-border rounded-2xl p-8 relative group overflow-hidden transition-all shadow-sm hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)]">
+          <div className="w-12 h-12 rounded-xl bg-brand-50 border border-brand-600/20 flex items-center justify-center mb-6 relative z-10"><BookOpen className="w-5 h-5 text-brand-600" /></div>
+          <h3 className="text-xl font-bold text-text-primary mb-2 relative z-10">Knowledge Base</h3>
+          <p className="text-text-secondary text-[15px] relative z-10">Self-serve articles.</p>
+          <div className="absolute left-1/2 -translate-x-1/2 bottom-0 w-[85%] h-[55%] bg-app border-t border-x border-border rounded-t-xl p-4 shadow-sm flex flex-col gap-3">
+            <div className="w-full bg-white border border-border rounded-md p-2.5 flex items-center gap-2 shadow-sm">
+              <Search size={12} className="text-text-muted" />
+              <div className="h-1.5 w-1/3 bg-border-strong rounded" />
+            </div>
+            <div className="w-full bg-white border border-border rounded-md p-3 flex items-center gap-3 shadow-sm">
+              <div className="w-6 h-6 rounded bg-brand-50 flex items-center justify-center text-brand-600"><BookOpen size={10} /></div>
+              <div className="flex flex-col gap-1.5 w-full"><div className="h-2 w-1/2 bg-border-strong rounded" /><div className="h-1.5 w-1/3 bg-border-strong/50 rounded" /></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
