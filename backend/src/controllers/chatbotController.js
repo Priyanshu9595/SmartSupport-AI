@@ -157,7 +157,7 @@ CRITICAL: Return ONLY JSON matching these formats:
           
           if (dateTime < new Date()) {
             intent = 'booking_in_progress';
-            reply = 'The time you selected is in the past. Please choose a future date and time for your appointment.';
+            reply = 'It is past time . Give me another time';
           } else {
             let meetingLink = await createGoogleMeetEvent({ serviceType: "Chatbot Booking", customerName: name, email, dateTime });
             
