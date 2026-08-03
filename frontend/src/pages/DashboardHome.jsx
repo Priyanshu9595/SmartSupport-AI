@@ -3,6 +3,8 @@ import api from '../utils/api';
 import { Ticket, Activity, CheckCircle2, Users, Calendar, Clock, BookOpen, TrendingUp } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
+
+
 const DashboardHome = () => {
   const [stats, setStats] = useState({
     totalTickets: 0,

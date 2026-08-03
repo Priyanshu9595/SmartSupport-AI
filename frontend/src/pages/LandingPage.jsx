@@ -1,16 +1,20 @@
 import React from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { 
-  MessageSquare, 
-  Ticket, 
-  Users, 
-  Book, 
-  Calendar, 
+import {
+  MessageSquare,
+  Ticket,
+  Users,
+  Book,
+  Calendar,
   BarChart3,
   CheckCircle,
-  ArrowRight
+  ArrowRight,
+  Check,
+  Star,
+  BookOpen
 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const FeatureCard = ({ icon: Icon, title, description }) => (
   <div className="bg-surface border border-border rounded-xl p-6 shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:shadow-[0_4px_8px_-2px_rgba(16,24,40,0.08)] transition-shadow">
@@ -33,47 +37,128 @@ const LandingPage = () => {
     return <Navigate to="/my-profile" replace />;
   }
 
+  const HeroMockup = () => (
+    <div className="w-full flex justify-center items-center py-12 md:py-16" style={{ perspective: '1600px' }}>
+      <div className="relative w-full max-w-[500px] aspect-[4/3] bg-white rounded-xl border border-border shadow-[0_20px_50px_rgba(0,0,0,0.1)] overflow-hidden flex flex-col z-10" style={{ transform: 'rotateY(-6deg) rotateX(2deg)' }}>
+        <div className="h-10 border-b border-border flex items-center px-4 gap-2 bg-surface">
+          <div className="w-3 h-3 rounded-full bg-red-400" />
+          <div className="w-3 h-3 rounded-full bg-yellow-400" />
+          <div className="w-3 h-3 rounded-full bg-green-400" />
+          <div className="ml-4 h-5 flex-1 max-w-[200px] rounded bg-white border border-border shadow-sm flex items-center px-3">
+            <span className="text-[10px] text-text-muted font-medium">app.supportflow.com</span>
+          </div>
+        </div>
+        <div className="flex-1 flex bg-white">
+          <div className="w-16 border-r border-border flex flex-col items-center py-4 gap-6 bg-surface">
+            <div className="w-8 h-8 rounded bg-brand-50 flex items-center justify-center text-brand-600"><MessageSquare className="w-4 h-4" /></div>
+            <div className="w-8 h-8 rounded flex items-center justify-center text-text-muted"><Ticket className="w-4 h-4" /></div>
+            <div className="w-8 h-8 rounded flex items-center justify-center text-text-muted"><Users className="w-4 h-4" /></div>
+          </div>
+          <div className="flex-1 flex flex-col bg-white">
+            <div className="p-5 border-b border-border">
+              <div className="text-[14px] font-semibold text-text-primary mb-1">Issue with API integration</div>
+              <div className="text-[12px] text-text-secondary">Sarah Jenkins • Enterprise Plan</div>
+            </div>
+            <div className="flex-1 p-5 flex flex-col gap-4 overflow-hidden relative bg-app">
+              <div className="self-start max-w-[80%] bg-white border border-border shadow-sm p-3 rounded-xl rounded-tl-sm text-[13px] text-text-primary">
+                Hi, I'm getting a 401 error when trying to use the new endpoints.
+              </div>
+              <div className="self-end max-w-[80%] bg-white border border-brand-600/30 shadow-[0_2px_10px_rgba(194,112,61,0.05)] p-3 rounded-xl rounded-tr-sm text-[13px] text-text-primary">
+                <div className="flex items-center gap-2 mb-2 text-[11px] text-brand-600 font-bold">
+                  <span className="w-2 h-2 rounded-full bg-brand-600 animate-pulse" /> AI Agent
+                </div>
+                I see you're using an older API key format. Let me generate a new v2 key for your workspace.
+              </div>
+            </div>
+            <div className="p-3 border-t border-border bg-white flex items-center m-4 rounded-lg shadow-sm border">
+              <span className="text-[12px] text-text-muted">Type a message...</span>
+            </div>
+          </div>
+        </div>
+        <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} className="absolute -right-6 top-1/4 bg-white/90 backdrop-blur-md border border-border p-3 rounded-xl shadow-xl flex items-center gap-3 z-20">
+          <div className="w-8 h-8 rounded-full bg-success-bg flex items-center justify-center"><Check className="w-4 h-4 text-success-text" /></div>
+          <div><div className="text-[11px] text-text-secondary uppercase tracking-wider font-bold">Resolved in</div><div className="text-[15px] font-bold text-text-primary">8 seconds</div></div>
+        </motion.div>
+        <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1 }} className="absolute -left-10 bottom-1/4 bg-white/90 backdrop-blur-md border border-border p-3 rounded-xl shadow-xl flex items-center gap-3 z-20">
+          <div className="w-8 h-8 rounded-full bg-warning-bg flex items-center justify-center"><Star className="w-4 h-4 text-warning-text fill-warning-text" /></div>
+          <div><div className="text-[11px] text-text-secondary uppercase tracking-wider font-bold">CSAT Score</div><div className="text-[15px] font-bold text-text-primary">4.9/5.0</div></div>
+        </motion.div>
+      </div>
+    </div>
+  );
+
+  const BentoGrid = () => (
+    <div className="max-w-6xl mx-auto px-6 pb-16 md:pb-20">
+      <div className="text-center mb-16 max-w-3xl mx-auto pt-16 md:pt-20">
+        <h2 className="text-[28px] md:text-[36px] font-semibold text-text-primary mb-4 tracking-[-0.01em]">Everything you need to support customers</h2>
+        <p className="text-[16px] text-text-secondary">A complete suite of tools designed to automate repetitive tasks and delight your users.</p>
+      </div>
+      <div className="grid md:grid-cols-3 gap-6 auto-rows-[300px]">
+        <div className="md:col-span-2 bg-white border border-border rounded-2xl p-8 relative group overflow-hidden transition-all shadow-sm hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)]">
+        <div className="w-12 h-12 rounded-xl bg-brand-50 border border-brand-600/20 flex items-center justify-center mb-6 relative z-10"><MessageSquare className="w-5 h-5 text-brand-600" /></div>
+        <h3 className="text-xl font-bold text-text-primary mb-2 relative z-10">AI-Powered Inbox</h3>
+        <p className="text-text-secondary text-[15px] max-w-sm relative z-10">Automatically route, tag, and draft responses to common queries before your agents even see them.</p>
+        <div className="absolute right-0 bottom-0 w-[85%] md:w-[70%] h-auto bg-app border-t border-l border-border rounded-tl-2xl p-4 md:p-6 shadow-sm"><div className="flex flex-col gap-3 md:gap-4"><div className="h-2 w-1/3 bg-border-strong rounded" /><div className="p-3 bg-white rounded-lg text-[11px] md:text-[12px] text-text-secondary border border-border shadow-sm font-medium">Customer: Where is my order?</div><div className="p-3 bg-brand-50 border border-brand-600/20 rounded-lg text-[11px] md:text-[12px] text-brand-600 font-semibold flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-brand-600 flex-shrink-0" /> <span className="truncate">Drafting response based on tracking ID...</span></div></div></div>
+      </div>
+      <div className="md:row-span-2 bg-white border border-border rounded-2xl p-8 relative group overflow-hidden transition-all shadow-sm hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)]">
+        <div className="w-12 h-12 rounded-xl bg-brand-50 border border-brand-600/20 flex items-center justify-center mb-6 relative z-10"><Ticket className="w-5 h-5 text-brand-600" /></div>
+        <h3 className="text-xl font-bold text-text-primary mb-2 relative z-10">Unified Queue</h3>
+        <p className="text-text-secondary text-[15px] relative z-10 mb-8">Email, chat, social — all in one seamless stream.</p>
+        <div className="flex flex-col gap-3 relative z-10">{[1, 2, 3, 4].map(i => (<div key={i} className="bg-app p-3 rounded-lg border border-border flex items-center justify-between"><div className="w-24 h-2 bg-border-strong rounded" /><div className="w-4 h-4 rounded-full bg-border-strong" /></div>))}</div>
+      </div>
+      <div className="bg-white border border-border rounded-2xl p-8 relative group overflow-hidden transition-all shadow-sm hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)]">
+        <div className="w-12 h-12 rounded-xl bg-brand-50 border border-brand-600/20 flex items-center justify-center mb-6 relative z-10"><Users className="w-5 h-5 text-brand-600" /></div>
+        <h3 className="text-xl font-bold text-text-primary mb-2 relative z-10">Team Collab</h3>
+        <p className="text-text-secondary text-[15px] relative z-10">Private notes & mentions.</p>
+      </div>
+      <div className="bg-white border border-border rounded-2xl p-8 relative group overflow-hidden transition-all shadow-sm hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)]">
+        <div className="w-12 h-12 rounded-xl bg-brand-50 border border-brand-600/20 flex items-center justify-center mb-6 relative z-10"><BookOpen className="w-5 h-5 text-brand-600" /></div>
+        <h3 className="text-xl font-bold text-text-primary mb-2 relative z-10">Knowledge Base</h3>
+        <p className="text-text-secondary text-[15px] relative z-10">Self-serve articles.</p>
+      </div>
+      </div>
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-app flex flex-col font-sans selection:bg-brand-100 selection:text-brand-700">
 
       <main className="flex-grow w-full">
-        
+
         {/* HERO SECTION */}
-        <section className="relative w-full max-w-6xl mx-auto px-6 py-12 md:py-24 flex flex-col items-center text-center animate-in fade-in duration-500">
-          
-          {/* Subtle radial tint */}
+        <section className="relative w-full max-w-6xl mx-auto px-6 py-12 md:py-24 animate-in fade-in duration-500 overflow-hidden md:overflow-visible">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-64 bg-brand-600 opacity-5 blur-[100px] pointer-events-none rounded-full" />
           
-          <div className="relative z-10 flex flex-col items-center">
-            {/* Eyebrow */}
-            <div className="inline-flex items-center bg-brand-50 text-brand-700 text-[12px] font-medium px-3 py-1 rounded-full mb-6">
-              AI-powered support desk
+          <div className="relative z-10 grid lg:grid-cols-[1fr_1.1fr] gap-8 md:gap-12 items-center">
+            {/* Text Details */}
+            <div className="flex flex-col items-start text-left">
+              <div className="inline-flex items-center bg-brand-50 text-brand-700 text-[12px] font-medium px-3 py-1 rounded-full mb-6">
+                AI-powered support desk
+              </div>
+              
+              <h1 className="text-[32px] md:text-[52px] font-semibold text-text-primary tracking-[-0.02em] leading-[1.1] mb-6 max-w-xl">
+                Automate customer support with <span className="text-brand-600">human-like AI</span>
+              </h1>
+              
+              <p className="text-[18px] text-text-secondary mb-10 leading-relaxed max-w-lg">
+                Instantly resolve FAQs, capture high-quality leads, and schedule appointments 24/7. Scale your support without growing your headcount.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-6">
+                <Link to="/register" className="w-full sm:w-auto bg-brand-600 hover:bg-brand-700 text-white px-6 py-3 rounded-lg text-[14px] font-medium transition-colors text-center">
+                  Start for free
+                </Link>
+                <Link to="/inquiry" className="w-full sm:w-auto bg-surface border border-border text-text-primary px-6 py-3 rounded-lg text-[14px] font-medium hover:bg-subtle transition-colors shadow-[0_1px_2px_rgba(16,24,40,0.05)] text-center">
+                  Book a demo
+                </Link>
+              </div>
+              <p className="text-[13px] text-text-muted">
+                No credit card required · Setup in under 5 minutes
+              </p>
             </div>
             
-            {/* H1 */}
-            <h1 className="text-[32px] md:text-[52px] font-semibold text-text-primary tracking-[-0.02em] leading-[1.1] mb-6 max-w-4xl">
-              Automate customer support with <span className="text-brand-600">human-like AI</span>
-            </h1>
-            
-            {/* Sub */}
-            <p className="text-[18px] text-text-secondary max-w-2xl mx-auto mb-10 leading-relaxed">
-              Instantly resolve FAQs, capture high-quality leads, and schedule appointments 24/7. Scale your support without growing your headcount.
-            </p>
-            
-            {/* Buttons */}
-            <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-6">
-              <Link to="/register" className="w-full sm:w-auto bg-brand-600 hover:bg-brand-700 text-white px-6 py-3 rounded-lg text-[14px] font-medium transition-colors">
-                Start for free
-              </Link>
-              <Link to="/inquiry" className="w-full sm:w-auto bg-surface border border-border text-text-primary px-6 py-3 rounded-lg text-[14px] font-medium hover:bg-subtle transition-colors shadow-[0_1px_2px_rgba(16,24,40,0.05)]">
-                Book a demo
-              </Link>
-            </div>
-            
-            {/* Trust line */}
-            <p className="text-[13px] text-text-muted">
-              No credit card required · Setup in under 5 minutes
-            </p>
+            {/* 3D Mockup */}
+            <HeroMockup />
           </div>
         </section>
 
@@ -92,22 +177,8 @@ const LandingPage = () => {
         </section>
 
         {/* FEATURES */}
-        <section className="w-full py-16 md:py-20">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="text-center mb-16 max-w-3xl mx-auto">
-              <h2 className="text-[28px] md:text-[36px] font-semibold text-text-primary mb-4 tracking-[-0.01em]">Everything you need to support customers</h2>
-              <p className="text-[16px] text-text-secondary">A complete suite of tools designed to automate repetitive tasks and delight your users.</p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <FeatureCard icon={MessageSquare} title="AI Chatbot" description="Deploy an intelligent virtual assistant that answers questions accurately using your own data." />
-              <FeatureCard icon={Ticket} title="Ticket Management" description="Centralize and organize all customer inquiries with intuitive tools for human agents." />
-              <FeatureCard icon={Users} title="Lead Capture" description="Automatically gather contact information and qualify prospects while they chat." />
-              <FeatureCard icon={Book} title="Knowledge Base" description="Create self-serve articles that sync directly with your AI to provide instant answers." />
-              <FeatureCard icon={Calendar} title="Appointment Scheduling" description="Let customers book meetings with your team without any back-and-forth emails." />
-              <FeatureCard icon={BarChart3} title="Analytics Dashboard" description="Track ticket volume, resolution times, and AI performance with clear reporting." />
-            </div>
-          </div>
+        <section className="w-full bg-app">
+          <BentoGrid />
         </section>
 
         {/* HOW IT WORKS */}
@@ -121,7 +192,7 @@ const LandingPage = () => {
             <div className="relative">
               {/* Connecting line for desktop */}
               <div className="hidden md:block absolute top-[40px] left-[16%] right-[16%] h-[1px] border-t border-dashed border-border" />
-              
+
               <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative z-10">
                 {[
                   { step: '1', title: 'Connect your data', desc: 'Import your FAQs, website content, or previous tickets to train the AI instantly.' },

@@ -39,7 +39,7 @@ function App() {
               <Route path="/help" element={<PublicKB />} />
               <Route path="/submit-ticket" element={<CustomerTicketForm />} />
               <Route path="/book-demo" element={<BookAppointment />} />
-              
+
               {/* Protected Customer Route */}
               <Route element={<ProtectedRoute allowedRoles={['Customer', 'Admin', 'Support Agent']} />}>
                 <Route path="/my-profile" element={<CustomerDashboard />} />

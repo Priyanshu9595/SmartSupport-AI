@@ -13,26 +13,26 @@
   --color-brand-600: #99582a;
   --color-brand-700: #7f4821;
   --color-brand-50: #f8f2ed;
-  
+
   --color-sidebar-bg: #8b4a22;
   --color-sidebar-border: #6d3919;
   --color-sidebar-text: #f1f5f9;
   --color-sidebar-text-hover: #ffffff;
   --color-sidebar-active-bg: #6d3919;
   --color-sidebar-active-text: #ffffff;
-  
+
   --color-success-bg: #ECFDF3;
   --color-success-text: #027A48;
   --color-success-border: #ABEFC6;
-  
+
   --color-warning-bg: #FFFAEB;
   --color-warning-text: #B54708;
   --color-warning-border: #FEDF89;
-  
+
   --color-danger-bg: #FEF3F2;
   --color-danger-text: #B42318;
   --color-danger-border: #FECDCA;
-  
+
   --color-neutral-bg: #F2F4F7;
   --color-neutral-text: #344054;
   --color-neutral-border: #E4E7EC;
@@ -48,18 +48,22 @@ body {
 }
 
 @layer base {
+
   /* Scrollbar styles */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
   }
+
   ::-webkit-scrollbar-track {
     background: transparent;
   }
+
   ::-webkit-scrollbar-thumb {
     background: var(--color-border-strong);
     border-radius: 999px;
   }
+
   ::-webkit-scrollbar-thumb:hover {
     background: var(--color-text-muted);
   }
@@ -70,7 +74,7 @@ body {
   select {
     @apply bg-surface text-text-primary border border-border-strong placeholder-text-muted rounded-lg h-10 px-3 transition-colors duration-150 outline-none;
   }
-  
+
   input:focus,
   textarea:focus,
   select:focus {
