@@ -23,7 +23,6 @@ const PublicNavbar = () => {
   const navLinks = [
     { name: 'Inquiry', path: '/inquiry' },
     { name: 'Submit Ticket', path: '/submit-ticket' },
-    { name: 'History', path: '/my-profile' },
     { name: 'FAQ', path: '/help' },
     { name: 'Services', path: '/services' },
   ];
