@@ -13,9 +13,7 @@ const Appointments = () => {
   const fetchAppointments = async () => {
     try {
       const { data } = await api.get('/appointments');
-      // Sort by soonest
-      const sorted = data.sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime));
-      setAppointments(sorted);
+      setAppointments(data);
     } catch (error) {
       console.error('Error fetching appointments:', error);
     } finally {

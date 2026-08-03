@@ -86,14 +86,14 @@ const DashboardHome = () => {
   }, [timeRange, rawTickets]);
 
   const StatCard = ({ title, value, icon: Icon, iconColorClass, bgClass }) => (
-    <div className={`p-6 rounded-xl shadow-sm border border-border bg-surface transition-all duration-150 hover:shadow-md hover:border-border-strong`}>
-      <div className="flex items-center justify-between">
+    <div className={`p-4 rounded-xl shadow-sm border border-border bg-surface transition-all duration-150 hover:shadow-md hover:border-border-strong`}>
+      <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-2">
         <div>
-          <p className="text-[13px] text-text-secondary font-medium mb-1">{title}</p>
-          <h3 className="text-[30px] font-semibold text-text-primary leading-tight">{value}</h3>
+          <p className="text-[11px] text-text-secondary font-medium mb-1 whitespace-nowrap">{title}</p>
+          <h3 className="text-[24px] font-semibold text-text-primary leading-tight">{value}</h3>
         </div>
-        <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${bgClass} ${iconColorClass}`}>
-          <Icon size={20} />
+        <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${bgClass} ${iconColorClass}`}>
+          <Icon size={16} />
         </div>
       </div>
     </div>
@@ -112,14 +112,14 @@ const DashboardHome = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      {/* Stats Cards - Static Single Row on Large Screens */}
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3 mb-8">
         <StatCard title="Total Tickets" value={stats.totalTickets} icon={Ticket} iconColorClass="text-brand-600" bgClass="bg-brand-50" />
         <StatCard title="Open Tickets" value={stats.openTickets} icon={Activity} iconColorClass="text-warning-text" bgClass="bg-warning-bg" />
         <StatCard title="Resolved Tickets" value={stats.resolvedTickets} icon={CheckCircle2} iconColorClass="text-success-text" bgClass="bg-success-bg" />
         <StatCard title="Total Leads" value={stats.newLeads} icon={Users} iconColorClass="text-neutral-text" bgClass="bg-neutral-bg" />
         <StatCard title="Total Appointments" value={stats.appointments} icon={Calendar} iconColorClass="text-brand-600" bgClass="bg-brand-50" />
         <StatCard title="Pending Appointments" value={stats.pendingAppointments} icon={Clock} iconColorClass="text-warning-text" bgClass="bg-warning-bg" />
-        <StatCard title="Knowledge Base" value={stats.faqCount} icon={BookOpen} iconColorClass="text-neutral-text" bgClass="bg-neutral-bg" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

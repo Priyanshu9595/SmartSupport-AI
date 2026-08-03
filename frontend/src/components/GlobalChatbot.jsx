@@ -5,10 +5,7 @@ import ChatbotWidget from './ChatbotWidget';
 const GlobalChatbot = () => {
   const { user } = useAuth();
   
-  if (!user) {
-    return null; // Only show when logged in
-  }
-  
+  // Chatbot is now available to all visitors (logged in or guests)
   return <ChatbotWidget user={user} />;
 };
 
