@@ -81,21 +81,22 @@ You are chatting with a user. You MUST ALWAYS return ONLY a valid JSON object.
 Use the Current Date and Time to calculate relative dates (e.g. "tomorrow", "next monday").
 
 CRITICAL RULE: If Name and Email are provided in USER INFO (i.e. they are not "Unknown"), YOU ALREADY HAVE THEM! DO NOT ask the user for their name or email under ANY circumstances.
+CRITICAL RULE 2: NEVER ask for multiple pieces of missing information at once. Always ask for exactly ONE missing detail at a time (e.g., if both Name and Email are missing, ask ONLY for Name first. Never ask "What is your name and email?").
 
 1. BOOKING AN APPOINTMENT: You need EXACTLY 4 details: Name, Email, Date (YYYY-MM-DD), Time (HH:MM).
    - STEP A: ALWAYS check USER INFO. If Name/Email are present, automatically use them. DO NOT ask the user to provide them.
    - STEP B: Read the ENTIRE chat history. If the user ALREADY provided their Name, Email, Date, or Time, REMEMBER IT. DO NOT ASK FOR IT AGAIN!
-   - STEP C: If Date or Time are still missing, return intent: "booking_in_progress" and ask ONLY for the missing date/time.
+   - STEP C: If details are still missing, return intent: "booking_in_progress" and ask for ONLY ONE missing detail at a time.
    - STEP D: If you have ALL 4 details, IMMEDIATELY return intent: "book_appointment" and include "bookingData".
 
 2. CAPTURING A LEAD (Pricing/Sales/Demo): You need EXACTLY 4 details: Name, Email, Phone, Interest.
    - Name and Email MUST be taken from USER INFO if present. DO NOT ASK FOR THEM.
-   - If missing info (like Phone or Interest), return intent: "lead_in_progress" and ask ONLY for the missing info.
+   - If details are missing, return intent: "lead_in_progress" and ask for ONLY ONE missing detail at a time.
    - If you have ALL 4 details, return intent: "capture_lead" and include "leadData".
 
 3. CREATING A SUPPORT TICKET: You need EXACTLY 4 details: Name, Email, Category, Message.
    - Name and Email MUST be taken from USER INFO if present. DO NOT ASK FOR THEM.
-   - If missing info (like Category or Message), return intent: "ticket_in_progress" and ask ONLY for the missing info.
+   - If details are missing, return intent: "ticket_in_progress" and ask for ONLY ONE missing detail at a time.
    - If you have ALL 4 details, return intent: "create_ticket" and include "ticketData".
 
 4. CHECK TICKET STATUS: Ask for Ticket ID. Return intent: "check_ticket_status". If provided, include "ticketId".
@@ -105,6 +106,9 @@ CRITICAL RULE: If Name and Email are provided in USER INFO (i.e. they are not "U
    - Answer from KNOWLEDGE BASE if possible. 
    - STRICT RULE: If the user asks a general question, a programming question (like "what is python"), or anything UNRELATED to SupportFlow, our website, or our services, YOU MUST REFUSE TO ANSWER. Politely explain that you are a customer support bot for SupportFlow and can only answer questions related to our services. Return intent: "support".
    - If it's a specific question related to the website but you don't know the answer, return intent: "unknown_query".
+8. CHECK HISTORY: If the user asks for their history (e.g. "my history", past tickets, appointments, "history"):
+   - If Email is in USER INFO (not "Unknown"), return intent: "check_history".
+   - If Email is NOT in USER INFO ("Unknown"), return intent: "support" and reply EXACTLY: "Please log in to view your history."
 
 CRITICAL: Return ONLY JSON matching these formats:
 {"intent": "booking_in_progress", "reply": "What time would you like to book?"}
@@ -115,6 +119,7 @@ CRITICAL: Return ONLY JSON matching these formats:
 {"intent": "create_ticket", "reply": "Created!", "ticketData": {"name": "Alice", "email": "a@ex.com", "category": "bug", "message": "Login fails"}}
 {"intent": "check_ticket_status", "reply": "What is your Ticket ID?", "ticketId": "TCK-1234"}
 {"intent": "check_appointment", "reply": "What email did you use?", "email": "j@ex.com"}
+{"intent": "check_history", "reply": "Checking your history..."}
 {"intent": "support", "reply": "The answer is..."}
 {"intent": "unknown_query", "reply": "I don't have information about that."}`;
 
@@ -213,6 +218,34 @@ CRITICAL: Return ONLY JSON matching these formats:
             reply = `You have an appointment on ${timeString}. The status is: ${appointment.status}. You can join using this link: ${appointment.meetingLink}`;
           } else {
             reply = `I could not find any appointments booked under the email ${parsed.email}.`;
+          }
+        }
+
+        // Handle checking general history for logged in user
+        if (intent === 'check_history') {
+          if (userEmail && userEmail !== 'Unknown') {
+            const userTickets = await Ticket.find({ customerEmail: userEmail.toLowerCase() }).sort({ createdAt: -1 }).limit(3);
+            const userAppointments = await Appointment.find({ email: userEmail.toLowerCase() }).sort({ dateTime: -1 }).limit(3);
+            
+            let historyReply = "Here is your recent history:\n";
+            let hasHistory = false;
+            
+            if (userTickets.length > 0) {
+              hasHistory = true;
+              historyReply += `\n**Recent Tickets:**\n` + userTickets.map(t => `- ${t.ticketId}: ${t.status} (${t.subject})`).join('\n');
+            }
+            if (userAppointments.length > 0) {
+              hasHistory = true;
+              historyReply += (hasHistory ? `\n\n` : `\n`) + `**Recent Appointments:**\n` + userAppointments.map(a => `- ${new Date(a.dateTime).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' })}: ${a.status}`).join('\n');
+            }
+            
+            if (!hasHistory) {
+              reply = "I couldn't find any recent tickets or appointments associated with your email account.";
+            } else {
+              reply = historyReply;
+            }
+          } else {
+            reply = "Please log in to view your history.";
           }
         }
         

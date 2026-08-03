@@ -18,6 +18,7 @@ const ChatbotWidget = ({ user }) => {
     "Appointment",
     "Support",
     "Contact",
+    ...(user ? ["My History"] : []),
     "Talk to human"
   ];
 
