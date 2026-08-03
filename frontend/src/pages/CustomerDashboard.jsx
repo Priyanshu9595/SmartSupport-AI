@@ -8,6 +8,7 @@ const CustomerDashboard = () => {
   const { user, logout } = useAuth();
   const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [ticketFilter, setTicketFilter] = useState('All');
   
   // New state for viewing a specific ticket's conversation
   const [selectedTicket, setSelectedTicket] = useState(null);
@@ -16,6 +17,7 @@ const CustomerDashboard = () => {
   
   const [appointments, setAppointments] = useState([]);
   const [loadingAppointments, setLoadingAppointments] = useState(true);
+  const [appointmentFilter, setAppointmentFilter] = useState('All');
   
   const [notifications, setNotifications] = useState([]);
   const [showNotifications, setShowNotifications] = useState(false);
@@ -95,6 +97,9 @@ const CustomerDashboard = () => {
 
   const unreadCount = notifications.length;
 
+  const filteredTickets = tickets.filter(t => ticketFilter === 'All' || t.status.toLowerCase() === ticketFilter.toLowerCase());
+  const filteredAppointments = appointments.filter(a => appointmentFilter === 'All' || a.status.toLowerCase() === appointmentFilter.toLowerCase());
+
   return (
     <div className="min-h-screen bg-bg-app font-sans text-text-primary">
       <main className="max-w-5xl mx-auto py-10 px-6">
@@ -157,9 +162,21 @@ const CustomerDashboard = () => {
         </div>
 
         <div className="bg-surface rounded-xl shadow-sm border border-border overflow-hidden">
-          <div className="p-6 border-b border-border flex items-center">
-            <Ticket className="text-brand-600 mr-2" size={20} />
-            <h2 className="text-lg font-bold text-text-primary">My Ticket History</h2>
+          <div className="p-6 border-b border-border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex items-center">
+              <Ticket className="text-brand-600 mr-2" size={20} />
+              <h2 className="text-lg font-bold text-text-primary">My Ticket History</h2>
+            </div>
+            <select
+              value={ticketFilter}
+              onChange={(e) => setTicketFilter(e.target.value)}
+              className="bg-surface border border-border text-text-primary text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block p-2 outline-none shadow-sm cursor-pointer"
+            >
+              <option value="All">All Statuses</option>
+              <option value="Open">Open</option>
+              <option value="Resolved">Resolved</option>
+              <option value="Closed">Closed</option>
+            </select>
           </div>
           
           {loading ? (
@@ -183,7 +200,14 @@ const CustomerDashboard = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border">
-                  {tickets.map(ticket => (
+                  {filteredTickets.length === 0 ? (
+                    <tr>
+                      <td colSpan="4" className="py-8 text-center text-text-secondary text-sm">
+                        No tickets match the selected filter.
+                      </td>
+                    </tr>
+                  ) : (
+                    filteredTickets.map(ticket => (
                     <tr 
                       key={ticket._id} 
                       onClick={() => handleViewTicket(ticket)}
@@ -201,7 +225,8 @@ const CustomerDashboard = () => {
                         </span>
                       </td>
                     </tr>
-                  ))}
+                  ))
+                  )}
                 </tbody>
               </table>
             </div>
@@ -210,9 +235,22 @@ const CustomerDashboard = () => {
 
         {/* Appointments Section */}
         <div className="bg-surface rounded-xl shadow-sm border border-border overflow-hidden mt-8">
-          <div className="p-6 border-b border-border flex items-center">
-            <Calendar className="text-brand-600 mr-2" size={20} />
-            <h2 className="text-lg font-bold text-text-primary">My Appointments</h2>
+          <div className="p-6 border-b border-border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex items-center">
+              <Calendar className="text-brand-600 mr-2" size={20} />
+              <h2 className="text-lg font-bold text-text-primary">My Appointments</h2>
+            </div>
+            <select
+              value={appointmentFilter}
+              onChange={(e) => setAppointmentFilter(e.target.value)}
+              className="bg-surface border border-border text-text-primary text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block p-2 outline-none shadow-sm cursor-pointer"
+            >
+              <option value="All">All Statuses</option>
+              <option value="Pending">Pending</option>
+              <option value="Confirmed">Confirmed</option>
+              <option value="Completed">Completed</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
           </div>
           
           {loadingAppointments ? (
@@ -236,7 +274,14 @@ const CustomerDashboard = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border">
-                  {appointments.map(appt => (
+                  {filteredAppointments.length === 0 ? (
+                    <tr>
+                      <td colSpan="4" className="py-8 text-center text-text-secondary text-sm">
+                        No appointments match the selected filter.
+                      </td>
+                    </tr>
+                  ) : (
+                    filteredAppointments.map(appt => (
                     <tr key={appt._id} className="hover:bg-subtle transition-colors">
                       <td className="py-4 px-6 font-medium text-text-primary text-sm">{appt.serviceType}</td>
                       <td className="py-4 px-6 text-text-secondary text-sm">{new Date(appt.dateTime).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' })}</td>
@@ -256,7 +301,8 @@ const CustomerDashboard = () => {
                         </span>
                       </td>
                     </tr>
-                  ))}
+                  ))
+                  )}
                 </tbody>
               </table>
             </div>
