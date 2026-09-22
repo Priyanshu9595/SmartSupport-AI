@@ -19,15 +19,13 @@ dotenv.config();
 const app = express();
 
 // Middleware
-const allowedOrigins = [
-  'http://localhost:5173', 
-  'https://smart-support-ai-rho.vercel.app',
-  process.env.CLIENT_URL
-];
-
 app.use(cors({ 
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    // Allow any localhost or any vercel.app domain
+    if (origin.startsWith('http://localhost:') || origin.endsWith('vercel.app')) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
